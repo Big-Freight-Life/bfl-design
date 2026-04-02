@@ -111,13 +111,16 @@ export default function PrinciplesSection() {
         <Box
           sx={{
             display: 'flex',
-            gap: spacing[8],
+            gap: { xs: spacing[8], md: spacing[12], lg: spacing[16] },
             alignItems: 'center',
             width: 'max-content',
-            animation: 'marquee 30s linear infinite',
+            animation: { xs: 'marquee 45s linear infinite', md: 'marquee 60s linear infinite' },
             '@keyframes marquee': {
               '0%': { transform: 'translateX(0)' },
               '100%': { transform: 'translateX(-50%)' },
+            },
+            '&:hover': {
+              animationPlayState: 'paused',
             },
           }}
         >

@@ -113,7 +113,7 @@ export default function CaseStudyCarousel() {
           scrollSnapType: { xs: 'none', sm: 'x proximity' },
           pb: 4,
           display: 'flex',
-          gap: { xs: 2, md: 3 },
+          gap: { xs: '12px', sm: 2, md: '24px' },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
           // Align first card with section title using container-matching padding
@@ -139,8 +139,9 @@ export default function CaseStudyCarousel() {
               width: {
                 xs: 'calc(100vw - 48px)',
                 sm: '85vw',
-                md: '85vw',
-                lg: '85vw',
+                md: '70vw',
+                lg: '60vw',
+                xl: 939,
               },
               maxWidth: 939,
               aspectRatio: { xs: 'auto', sm: '16 / 9' },
