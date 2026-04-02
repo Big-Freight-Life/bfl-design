@@ -230,15 +230,16 @@ export default function ClaudeTerminal() {
     <Box
       sx={{
         bgcolor: '#1e1e1e',
-        borderRadius: '12px',
+        borderRadius: 0,
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        height: { xs: 350, md: 420 },
+        width: '100%',
+        height: '100%',
         fontFamily: "'SF Mono', 'Fira Code', 'Monaco', 'Inconsolata', monospace",
         fontSize: '0.8rem',
         lineHeight: 1.6,
-        border: '1px solid rgba(255,255,255,0.1)',
+        border: 'none',
         '@keyframes pulse': {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.4 },

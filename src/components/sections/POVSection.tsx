@@ -11,126 +11,130 @@ export default function POVSection() {
       component="section"
       sx={{
         position: 'relative',
-        py: { xs: 10, md: 16 },
         overflow: 'hidden',
-        bgcolor: colors.gray[900],
-        color: '#fff',
+        // Desktop: fixed height, side-by-side. Mobile: stacked.
+        height: { xs: 'auto', md: 430 },
+        display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
       }}
     >
-      {/* Overlay */}
+      {/* Left half: Text content with gray bg */}
       <Box
         sx={{
-          position: 'absolute',
-          inset: 0,
-          background: `linear-gradient(135deg, ${colors.gray[900]} 50%, rgba(17,118,128,0.15) 100%)`,
+          width: { xs: '100%', md: '50%' },
+          bgcolor: colors.gray[100],
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          zIndex: 1,
+          py: { xs: 8, md: 0 },
+          px: { xs: 3, md: 0 },
         }}
-      />
-
-      <Container maxWidth="lg" sx={{ position: 'relative' }}>
+      >
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: { xs: 'stretch', md: 'center' },
-            gap: { xs: 5, md: 8 },
+            width: '100%',
+            maxWidth: { md: 600 },
+            ml: { md: 'auto' },
+            px: { md: 8 },
+            pr: { md: 10, lg: 12 },
           }}
         >
-          {/* Left: Text content */}
-          <Box sx={{ flex: 1, maxWidth: { md: 600 } }}>
-            <Typography
-              variant="h3"
-              sx={{
-                fontSize: { xs: typography.sizes['2xl'], md: typography.sizes['3xl'] },
-                fontWeight: typography.weights.semibold,
-                color: '#fff',
-                mb: 2,
-                lineHeight: typography.lineHeights.snug,
-              }}
-            >
-              Most companies try to fix things by adding more.
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'rgba(255,255,255,0.7)',
-                mb: 2,
-                fontSize: typography.sizes.lg,
-              }}
-            >
-              More AI. More automation. More layers.
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: 'rgba(255,255,255,0.7)',
-                mb: 4,
-                fontSize: typography.sizes.base,
-                lineHeight: typography.lineHeights.relaxed,
-              }}
-            >
-              But the issue isn&apos;t what&apos;s being added. It&apos;s what was never designed in the
-              first place. That takes a different kind of designer.
-            </Typography>
-
-            <Box
-              component={Link}
-              href="/transformation"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1.5,
-                textDecoration: 'none',
-                borderRadius: '9999px',
-                border: `1px solid rgba(255,255,255,0.15)`,
-                bgcolor: 'rgba(255,255,255,0.06)',
-                px: 2.5,
-                py: 1,
-                transition: 'all 0.2s ease',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.1)',
-                  borderColor: 'rgba(255,255,255,0.25)',
-                },
-              }}
-            >
-              <Chip
-                label="New"
-                size="small"
-                sx={{
-                  bgcolor: colors.primary.main,
-                  color: '#fff',
-                  fontWeight: typography.weights.semibold,
-                  fontSize: typography.sizes.xs,
-                  height: 22,
-                }}
-              />
-              <Typography
-                component="span"
-                sx={{
-                  color: '#fff',
-                  fontSize: typography.sizes.sm,
-                  fontWeight: typography.weights.medium,
-                }}
-              >
-                Applied AI Architect
-              </Typography>
-              <Typography component="span" sx={{ color: 'rgba(255,255,255,0.5)', fontSize: 14 }}>
-                →
-              </Typography>
-            </Box>
-          </Box>
-
-          {/* Right: Animated terminal */}
-          <Box
+          <Typography
+            variant="h3"
             sx={{
-              flex: 1,
-              maxWidth: { md: 520 },
-              display: { xs: 'none', md: 'block' },
+              fontSize: { xs: typography.sizes['2xl'], md: typography.sizes['3xl'] },
+              fontWeight: typography.weights.semibold,
+              color: 'text.primary',
+              mb: 2,
+              lineHeight: typography.lineHeights.snug,
             }}
           >
-            <ClaudeTerminal />
+            Most companies try to fix things by adding more.
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+              fontSize: typography.sizes.lg,
+            }}
+          >
+            More AI. More automation. More layers.
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              mb: 4,
+              fontSize: typography.sizes.base,
+              lineHeight: typography.lineHeights.relaxed,
+            }}
+          >
+            But the issue isn&apos;t what&apos;s being added. It&apos;s what was never designed in the
+            first place. That takes a different kind of designer.
+          </Typography>
+
+          <Box
+            component={Link}
+            href="/transformation"
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 1.5,
+              textDecoration: 'none',
+              borderRadius: '9999px',
+              border: `1px solid rgba(0,0,0,0.12)`,
+              bgcolor: 'rgba(0,0,0,0.04)',
+              px: 2.5,
+              py: 1,
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                bgcolor: 'rgba(0,0,0,0.08)',
+                borderColor: 'rgba(0,0,0,0.2)',
+              },
+            }}
+          >
+            <Chip
+              label="New"
+              size="small"
+              sx={{
+                bgcolor: colors.primary.main,
+                color: '#fff',
+                fontWeight: typography.weights.semibold,
+                fontSize: typography.sizes.xs,
+                height: 22,
+              }}
+            />
+            <Typography
+              component="span"
+              sx={{
+                color: 'text.primary',
+                fontSize: typography.sizes.sm,
+                fontWeight: typography.weights.medium,
+              }}
+            >
+              Applied AI Architect
+            </Typography>
+            <Typography component="span" sx={{ color: 'text.secondary', fontSize: 14 }}>
+              →
+            </Typography>
           </Box>
         </Box>
-      </Container>
+      </Box>
+
+      {/* Right half: Animated terminal (full bleed) */}
+      <Box
+        sx={{
+          width: { xs: '100%', md: '50%' },
+          bgcolor: '#1e1e1e',
+          display: { xs: 'none', md: 'flex' },
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <ClaudeTerminal />
+      </Box>
     </Box>
   );
 }
