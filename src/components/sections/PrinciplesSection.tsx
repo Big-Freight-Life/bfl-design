@@ -5,16 +5,16 @@ import { colors, typography, spacing } from '@/theme/tokens';
 
 // Each industry gets a unique font style — matching WordPress logo-style-1 through 10
 const industries = [
-  { name: 'FINANCE', fontFamily: "'Arial Black', sans-serif", fontWeight: 900, letterSpacing: '0.05em', fontSize: 'clamp(1.8rem, 4.5vw, 3rem)' },
-  { name: 'HEALTHCARE', fontFamily: "Georgia, serif", fontWeight: 400, letterSpacing: '0.2em', fontStyle: 'italic', fontSize: 'clamp(2.4rem, 5.5vw, 4rem)' },
-  { name: 'HUMAN RESOURCES', fontFamily: "'Courier New', monospace", fontWeight: 700, letterSpacing: '0.3em', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)' },
-  { name: 'TECHNOLOGY', fontFamily: "system-ui, sans-serif", fontWeight: 300, letterSpacing: '0.4em', fontSize: 'clamp(1.6rem, 4vw, 2.6rem)' },
-  { name: 'RETAIL', fontFamily: "'Times New Roman', serif", fontWeight: 700, letterSpacing: '0.1em', fontVariant: 'small-caps' as const, fontSize: 'clamp(2.2rem, 5.5vw, 3.8rem)' },
-  { name: 'MANUFACTURING', fontFamily: "'Trebuchet MS', sans-serif", fontWeight: 800, letterSpacing: '0.02em', fontSize: 'clamp(2.4rem, 6vw, 4.2rem)' },
-  { name: 'LOGISTICS', fontFamily: "'Lucida Console', monospace", fontWeight: 400, letterSpacing: '0.25em', textTransform: 'lowercase' as const, fontSize: 'clamp(1.6rem, 4vw, 2.6rem)' },
-  { name: 'EDUCATION', fontFamily: "Impact, sans-serif", fontWeight: 400, letterSpacing: '0.08em', fontSize: 'clamp(2.2rem, 5.5vw, 3.8rem)' },
-  { name: 'GEN AI', fontFamily: "'Palatino Linotype', serif", fontWeight: 600, letterSpacing: '0.15em', fontSize: 'clamp(2rem, 5vw, 3.5rem)' },
-  { name: 'INTEGRATIONS', fontFamily: "'Segoe UI', sans-serif", fontWeight: 200, letterSpacing: '0.35em', fontSize: 'clamp(1.6rem, 4vw, 2.8rem)' },
+  { name: 'FINANCE', fontFamily: "'Arial Black', sans-serif", fontWeight: 900, letterSpacing: '0.05em', fontSize: 'clamp(0.95rem, 1.3vw, 1.2rem)' },
+  { name: 'HEALTHCARE', fontFamily: "Georgia, serif", fontWeight: 400, letterSpacing: '0.2em', fontStyle: 'italic', fontSize: 'clamp(1.1rem, 1.5vw, 1.375rem)' },
+  { name: 'HUMAN RESOURCES', fontFamily: "'Courier New', monospace", fontWeight: 700, letterSpacing: '0.3em', fontSize: 'clamp(0.85rem, 1.1vw, 1rem)' },
+  { name: 'TECHNOLOGY', fontFamily: "system-ui, sans-serif", fontWeight: 300, letterSpacing: '0.4em', fontSize: 'clamp(0.85rem, 1.1vw, 1rem)' },
+  { name: 'RETAIL', fontFamily: "'Times New Roman', serif", fontWeight: 700, letterSpacing: '0.1em', fontVariant: 'small-caps' as const, fontSize: 'clamp(1.05rem, 1.4vw, 1.3rem)' },
+  { name: 'MANUFACTURING', fontFamily: "'Trebuchet MS', sans-serif", fontWeight: 800, letterSpacing: '0.02em', fontSize: 'clamp(1.1rem, 1.5vw, 1.375rem)' },
+  { name: 'LOGISTICS', fontFamily: "'Lucida Console', monospace", fontWeight: 400, letterSpacing: '0.25em', textTransform: 'lowercase' as const, fontSize: 'clamp(0.85rem, 1.1vw, 1rem)' },
+  { name: 'EDUCATION', fontFamily: "Impact, sans-serif", fontWeight: 400, letterSpacing: '0.08em', fontSize: 'clamp(1.05rem, 1.4vw, 1.3rem)' },
+  { name: 'GEN AI', fontFamily: "'Palatino Linotype', serif", fontWeight: 600, letterSpacing: '0.15em', fontSize: 'clamp(1rem, 1.3vw, 1.2rem)' },
+  { name: 'INTEGRATIONS', fontFamily: "'Segoe UI', sans-serif", fontWeight: 200, letterSpacing: '0.35em', fontSize: 'clamp(0.85rem, 1.1vw, 1.05rem)' },
 ];
 
 export default function PrinciplesSection() {
@@ -114,7 +114,7 @@ export default function PrinciplesSection() {
             gap: { xs: spacing[8], md: spacing[12], lg: spacing[16] },
             alignItems: 'center',
             width: 'max-content',
-            animation: { xs: 'marquee 45s linear infinite', md: 'marquee 60s linear infinite' },
+            animation: { xs: 'marquee 35s linear infinite', md: 'marquee 60s linear infinite' },
             '@keyframes marquee': {
               '0%': { transform: 'translateX(0)' },
               '100%': { transform: 'translateX(-50%)' },
