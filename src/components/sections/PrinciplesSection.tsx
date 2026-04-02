@@ -53,8 +53,9 @@ export default function PrinciplesSection() {
               p: 0,
               m: 0,
               mb: 3,
-              textAlign: 'center',
-              display: 'inline-block',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
             {[
