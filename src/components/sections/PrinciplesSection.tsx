@@ -53,7 +53,7 @@ export default function PrinciplesSection() {
               p: 0,
               m: 0,
               mb: 3,
-              textAlign: 'left',
+              textAlign: 'center',
               display: 'inline-block',
             }}
           >
@@ -67,7 +67,8 @@ export default function PrinciplesSection() {
                 component="li"
                 sx={{
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 1.5,
                   mb: 1,
                   color: 'text.secondary',
