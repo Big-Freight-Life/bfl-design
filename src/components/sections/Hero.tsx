@@ -216,6 +216,7 @@ export default function Hero() {
               sx={{
                 textTransform: 'none',
                 bgcolor: colors.button.primary.bg,
+                color: '#fff',
                 '&:hover': { bgcolor: colors.button.primary.hover },
               }}
             >
