@@ -3,17 +3,18 @@
 import { Box, Typography, Container } from '@mui/material';
 import { colors, typography, spacing } from '@/theme/tokens';
 
+// Each industry gets a unique font style — matching WordPress logo-style-1 through 10
 const industries = [
-  'FINANCE',
-  'HEALTHCARE',
-  'HUMAN RESOURCES',
-  'TECHNOLOGY',
-  'RETAIL',
-  'MANUFACTURING',
-  'LOGISTICS',
-  'EDUCATION',
-  'GEN AI',
-  'INTEGRATIONS',
+  { name: 'FINANCE', fontFamily: "'Arial Black', sans-serif", fontWeight: 900, letterSpacing: '0.05em' },
+  { name: 'HEALTHCARE', fontFamily: "Georgia, serif", fontWeight: 400, letterSpacing: '0.2em', fontStyle: 'italic' },
+  { name: 'HUMAN RESOURCES', fontFamily: "'Courier New', monospace", fontWeight: 700, letterSpacing: '0.3em' },
+  { name: 'TECHNOLOGY', fontFamily: "system-ui, sans-serif", fontWeight: 300, letterSpacing: '0.4em' },
+  { name: 'RETAIL', fontFamily: "'Times New Roman', serif", fontWeight: 700, letterSpacing: '0.1em', fontVariant: 'small-caps' as const },
+  { name: 'MANUFACTURING', fontFamily: "'Trebuchet MS', sans-serif", fontWeight: 800, letterSpacing: '0.02em' },
+  { name: 'LOGISTICS', fontFamily: "'Lucida Console', monospace", fontWeight: 400, letterSpacing: '0.25em', textTransform: 'lowercase' as const },
+  { name: 'EDUCATION', fontFamily: "Impact, sans-serif", fontWeight: 400, letterSpacing: '0.08em' },
+  { name: 'GEN AI', fontFamily: "'Palatino Linotype', serif", fontWeight: 600, letterSpacing: '0.15em' },
+  { name: 'INTEGRATIONS', fontFamily: "'Segoe UI', sans-serif", fontWeight: 200, letterSpacing: '0.35em' },
 ];
 
 export default function PrinciplesSection() {
@@ -66,20 +67,7 @@ export default function PrinciplesSection() {
               <Box
                 key={item}
                 component="li"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 1.5,
-                  mb: 1,
-                  color: 'text.secondary',
-                  fontSize: typography.sizes.base,
-                  '&::before': {
-                    content: '"—"',
-                    color: colors.primary.main,
-                    flexShrink: 0,
-                  },
-                }}
+                sx={{ mb: 0.5 }}
               >
                 <Typography variant="body1" color="text.secondary">
                   {item}
@@ -99,18 +87,19 @@ export default function PrinciplesSection() {
           variant="body1"
           sx={{
             textAlign: 'center',
-            fontWeight: typography.weights.medium,
-            fontSize: typography.sizes.lg,
-            color: 'text.secondary',
+            fontWeight: typography.weights.bold,
+            fontSize: typography.sizes.sm,
+            color: 'text.primary',
             mb: 4,
-            letterSpacing: typography.letterSpacing.wide,
+            letterSpacing: typography.letterSpacing.widest,
+            textTransform: 'uppercase',
           }}
         >
           Different domains. Same system problem.
         </Typography>
       </Container>
 
-      {/* Industry Logo Carousel */}
+      {/* Industry Logo Carousel — each in a unique font */}
       <Box
         sx={{
           overflow: 'hidden',
@@ -123,6 +112,7 @@ export default function PrinciplesSection() {
           sx={{
             display: 'flex',
             gap: spacing[8],
+            alignItems: 'center',
             width: 'max-content',
             animation: 'marquee 30s linear infinite',
             '@keyframes marquee': {
@@ -132,24 +122,29 @@ export default function PrinciplesSection() {
           }}
         >
           {/* Duplicate for seamless loop */}
-          {[...industries, ...industries].map((industry, index) => (
+          {[...industries, ...industries].map((item, index) => (
             <Typography
-              key={`${industry}-${index}`}
+              key={`${item.name}-${index}`}
               component="span"
               sx={{
-                fontSize: { xs: typography.sizes.sm, md: typography.sizes.base },
-                fontWeight: typography.weights.semibold,
-                letterSpacing: typography.letterSpacing.widest,
-                color: index % 3 === 0
-                  ? colors.primary.main
-                  : index % 3 === 1
-                  ? 'text.primary'
-                  : 'text.secondary',
+                fontSize: { xs: 'clamp(2rem, 5vw, 3.5rem)', md: 'clamp(2rem, 5vw, 3.5rem)' },
+                fontFamily: item.fontFamily,
+                fontWeight: item.fontWeight,
+                letterSpacing: item.letterSpacing,
+                fontStyle: item.fontStyle || 'normal',
+                fontVariant: item.fontVariant || 'normal',
+                textTransform: item.textTransform || 'uppercase',
+                color: colors.gray[300],
                 whiteSpace: 'nowrap',
                 px: 2,
+                userSelect: 'none',
+                transition: 'color 0.3s ease',
+                '&:hover': {
+                  color: colors.gray[500],
+                },
               }}
             >
-              {industry}
+              {item.name}
             </Typography>
           ))}
         </Box>
