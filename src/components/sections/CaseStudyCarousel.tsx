@@ -215,7 +215,7 @@ export default function CaseStudyCarousel() {
                 mb: { xs: 0, sm: 3, lg: 4 },
               }}
             >
-              {/* Label / eyebrow */}
+              {/* Label / eyebrow — small, uppercase, medium weight, muted */}
               <Typography
                 component="span"
                 sx={{
@@ -224,14 +224,15 @@ export default function CaseStudyCarousel() {
                   fontWeight: typography.weights.medium,
                   letterSpacing: { xs: '0.08em', sm: '0.05em' },
                   textTransform: 'uppercase',
-                  color: { xs: 'text.secondary', sm: '#d4d4d4' },
+                  color: { xs: 'text.secondary', sm: '#d4d4d8' },
+                  opacity: { sm: 0.8 },
                   mb: 1.5,
                 }}
               >
                 {study.label}
               </Typography>
 
-              {/* Title */}
+              {/* Title — large, medium weight, tighter tracking */}
               <Typography
                 variant="h3"
                 sx={{
@@ -243,7 +244,7 @@ export default function CaseStudyCarousel() {
                   lineHeight: 1.35,
                   letterSpacing: '-0.01em',
                   mb: 1.5,
-                  color: { xs: 'text.primary', sm: '#d4d4d4' },
+                  color: { xs: 'text.primary', sm: '#e5e5e5' },
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
@@ -253,11 +254,12 @@ export default function CaseStudyCarousel() {
                 {study.title}
               </Typography>
 
-              {/* Excerpt */}
+              {/* Excerpt — body size, normal weight, relaxed line height */}
               <Typography
-                variant="body2"
+                variant="body1"
                 sx={{
                   color: { xs: 'text.secondary', sm: '#d4d4d4' },
+                  fontWeight: typography.weights.normal,
                   lineHeight: 1.7,
                   mb: { xs: 1, sm: 2 },
                   fontSize: { xs: typography.sizes.lg, sm: typography.sizes.base },
@@ -270,13 +272,14 @@ export default function CaseStudyCarousel() {
                 {study.excerpt}
               </Typography>
 
-              {/* Year / metadata */}
+              {/* Year / metadata — small, lighter color */}
               <Box sx={{ display: 'flex', gap: 2 }}>
                 <Typography
                   variant="caption"
                   sx={{
-                    color: { xs: 'text.tertiary', sm: '#d4d4d4' },
-                    fontSize: typography.sizes.base,
+                    color: { xs: 'text.tertiary', sm: '#a3a3a3' },
+                    fontSize: typography.sizes.sm,
+                    fontWeight: typography.weights.normal,
                   }}
                 >
                   {study.year}
