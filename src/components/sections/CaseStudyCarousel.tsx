@@ -224,7 +224,7 @@ export default function CaseStudyCarousel() {
                   fontWeight: typography.weights.medium,
                   letterSpacing: { xs: '0.08em', sm: '0.05em' },
                   textTransform: 'uppercase',
-                  color: { xs: 'text.secondary', sm: 'rgba(255,255,255,0.8)' },
+                  color: { xs: 'text.secondary', sm: '#d4d4d4' },
                   mb: 1.5,
                 }}
               >
@@ -243,7 +243,7 @@ export default function CaseStudyCarousel() {
                   lineHeight: 1.35,
                   letterSpacing: '-0.01em',
                   mb: 1.5,
-                  color: { xs: 'text.primary', sm: '#fff' },
+                  color: { xs: 'text.primary', sm: '#d4d4d4' },
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
@@ -257,7 +257,7 @@ export default function CaseStudyCarousel() {
               <Typography
                 variant="body2"
                 sx={{
-                  color: { xs: 'text.secondary', sm: 'rgba(255,255,255,0.8)' },
+                  color: { xs: 'text.secondary', sm: '#d4d4d4' },
                   lineHeight: 1.7,
                   mb: { xs: 1, sm: 2 },
                   fontSize: { xs: typography.sizes.lg, sm: typography.sizes.base },
@@ -275,7 +275,7 @@ export default function CaseStudyCarousel() {
                 <Typography
                   variant="caption"
                   sx={{
-                    color: { xs: 'text.tertiary', sm: 'rgba(255,255,255,0.6)' },
+                    color: { xs: 'text.tertiary', sm: '#d4d4d4' },
                     fontSize: typography.sizes.base,
                   }}
                 >
