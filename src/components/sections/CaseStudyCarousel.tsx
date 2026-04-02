@@ -2,7 +2,7 @@
 
 import { Box, Typography, Container, Button } from '@mui/material';
 import Link from 'next/link';
-import { colors, typography, radius, shadows } from '@/theme/tokens';
+import { colors, typography, shadows, motion } from '@/theme/tokens';
 
 interface CaseStudy {
   label: string;
@@ -104,17 +104,28 @@ export default function CaseStudyCarousel() {
       <Box
         role="region"
         aria-label="Case studies carousel"
+        tabIndex={0}
         sx={{
           overflowX: 'auto',
-          overflowY: 'visible',
+          overflowY: 'hidden',
           WebkitOverflowScrolling: 'touch',
-          scrollSnapType: 'x mandatory',
-          pb: 2,
-          px: { xs: 2, md: 4 },
+          scrollBehavior: 'smooth',
+          scrollSnapType: { xs: 'none', sm: 'x proximity' },
+          pb: 4,
           display: 'flex',
-          gap: 3,
+          gap: { xs: 2, md: 3 },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
+          // Align first card with section title using container-matching padding
+          px: {
+            xs: 2,
+            sm: 3,
+            md: `max(calc((100vw - 1200px) / 2 + 32px), 32px)`,
+          },
+          '&:focus-visible': {
+            outline: `2px solid ${colors.primary.main}`,
+            outlineOffset: '4px',
+          },
         }}
       >
         {caseStudies.map((study) => (
@@ -123,97 +134,162 @@ export default function CaseStudyCarousel() {
             component={Link}
             href={study.link}
             sx={{
-              flexShrink: 0,
-              width: { xs: 300, sm: 360, md: 400 },
-              borderRadius: radius.card,
+              flex: '0 0 auto',
+              // Match WordPress: 85vw width, max 939px, responsive
+              width: {
+                xs: 'calc(100vw - 48px)',
+                sm: '85vw',
+                md: '85vw',
+                lg: '85vw',
+              },
+              maxWidth: 939,
+              aspectRatio: { xs: 'auto', sm: '16 / 9' },
+              minHeight: { xs: 300, sm: 'auto' },
+              borderRadius: { xs: 0, sm: '20px', lg: '24px' },
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: { xs: 'flex-start', sm: 'flex-end' },
               textDecoration: 'none',
               color: '#fff',
+              backgroundImage: study.imageUrl
+                ? `url(${study.imageUrl})`
+                : 'none',
               background: study.imageUrl
-                ? `url(${study.imageUrl}) center/cover no-repeat`
+                ? undefined
                 : study.gradient,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
               position: 'relative',
-              minHeight: 420,
-              scrollSnapAlign: 'start',
-              boxShadow: shadows.lg,
-              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              p: { xs: 0, sm: 4, lg: '40px' },
+              scrollSnapAlign: { xs: 'none', sm: 'start' },
+              scrollSnapStop: { xs: 'normal', sm: 'always' },
+              transition: `transform ${motion.duration.fast} ${motion.easing.outExpo}, box-shadow ${motion.duration.fast} ${motion.easing.outExpo}`,
               '&:hover': {
                 transform: 'translateY(-4px)',
                 boxShadow: shadows.xl,
               },
             }}
           >
-            {/* Overlay for readability */}
+            {/* Dark overlay gradient — matches WordPress exactly */}
             <Box
               sx={{
                 position: 'absolute',
                 inset: 0,
                 background:
-                  'linear-gradient(to top, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.2) 100%)',
+                  'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.85) 100%)',
                 borderRadius: 'inherit',
+                zIndex: 0,
+                pointerEvents: 'none',
+                // Hide overlay on mobile (≤480px) where cards have different layout
+                display: { xs: 'none', sm: 'block' },
               }}
             />
+
+            {/* Mobile: separate image card */}
+            {study.imageUrl && (
+              <Box
+                sx={{
+                  display: { xs: 'block', sm: 'none' },
+                  width: '100%',
+                  aspectRatio: '4 / 5',
+                  borderRadius: '16px',
+                  backgroundImage: `url(${study.imageUrl})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  flexShrink: 0,
+                }}
+              />
+            )}
+
             {/* Card content */}
             <Box
               sx={{
+                flexShrink: 0,
+                maxWidth: 600,
                 position: 'relative',
-                mt: 'auto',
-                p: { xs: 3, md: 4 },
+                zIndex: 1,
+                p: { xs: 0, sm: 0 },
+                pt: { xs: 2, sm: 0 },
+                mb: { xs: 0, sm: 3, lg: 4 },
               }}
             >
+              {/* Label / eyebrow */}
               <Typography
                 component="span"
                 sx={{
                   display: 'inline-block',
-                  fontSize: typography.sizes.xs,
-                  fontWeight: typography.weights.semibold,
-                  letterSpacing: typography.letterSpacing.widest,
+                  fontSize: { xs: typography.sizes.sm, sm: typography.sizes.base },
+                  fontWeight: typography.weights.medium,
+                  letterSpacing: { xs: '0.08em', sm: '0.05em' },
                   textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.7)',
-                  mb: 1,
+                  color: { xs: 'text.secondary', sm: 'rgba(255,255,255,0.8)' },
+                  mb: 1.5,
                 }}
               >
                 {study.label}
               </Typography>
+
+              {/* Title */}
               <Typography
                 variant="h3"
                 sx={{
-                  fontSize: { xs: typography.sizes.lg, md: typography.sizes.xl },
-                  fontWeight: typography.weights.semibold,
-                  lineHeight: typography.lineHeights.snug,
+                  fontSize: {
+                    xs: typography.sizes.xl,
+                    sm: typography.sizes['2xl'],
+                  },
+                  fontWeight: typography.weights.medium,
+                  lineHeight: 1.35,
+                  letterSpacing: '-0.01em',
                   mb: 1.5,
-                  color: '#fff',
+                  color: { xs: 'text.primary', sm: '#fff' },
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
                 }}
               >
                 {study.title}
               </Typography>
+
+              {/* Excerpt */}
               <Typography
                 variant="body2"
                 sx={{
-                  color: 'rgba(255,255,255,0.75)',
-                  lineHeight: typography.lineHeights.relaxed,
-                  mb: 2,
-                  fontSize: typography.sizes.sm,
+                  color: { xs: 'text.secondary', sm: 'rgba(255,255,255,0.8)' },
+                  lineHeight: 1.7,
+                  mb: { xs: 1, sm: 2 },
+                  fontSize: { xs: typography.sizes.lg, sm: typography.sizes.base },
+                  display: '-webkit-box',
+                  WebkitLineClamp: { xs: 2, sm: 3 },
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
                 }}
               >
                 {study.excerpt}
               </Typography>
-              <Typography
-                variant="caption"
-                sx={{ color: 'rgba(255,255,255,0.5)', fontSize: typography.sizes.xs }}
-              >
-                {study.year}
-              </Typography>
+
+              {/* Year / metadata */}
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: { xs: 'text.tertiary', sm: 'rgba(255,255,255,0.6)' },
+                    fontSize: typography.sizes.base,
+                  }}
+                >
+                  {study.year}
+                </Typography>
+              </Box>
             </Box>
           </Box>
         ))}
       </Box>
 
-      {/* Mobile CTA */}
+      {/* Mobile CTA — visible only on small screens */}
       <Container maxWidth="lg">
-        <Box sx={{ mt: 4, display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
+        <Box sx={{ mt: 4, display: { xs: 'flex', sm: 'none' }, justifyContent: 'center' }}>
           <Button
             component={Link}
             href="/works"
