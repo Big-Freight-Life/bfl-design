@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
+import { Box } from '@mui/material';
 import ThemeRegistry from '@/theme/ThemeRegistry';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import MobileTabBar from '@/components/layout/MobileTabBar';
+import MobileDrawer from '@/components/layout/MobileDrawer';
+import { layout } from '@/theme/tokens';
 
 export const metadata: Metadata = {
   title: 'BFL Design',
@@ -18,7 +24,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <Header />
+          <Box component="main" sx={{ minHeight: '100vh', pb: { xs: layout.tabBarHeight, lg: 0 } }}>
+            {children}
+          </Box>
+          <Footer />
+          <MobileTabBar />
+          <MobileDrawer />
+        </ThemeRegistry>
       </body>
     </html>
   );
