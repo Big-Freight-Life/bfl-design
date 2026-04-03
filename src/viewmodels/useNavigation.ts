@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import {
   primaryNav, secondaryNav, productsPanels, aboutPanels,
   mobileTabItems, mobileDrawerItems, mobileDrawerUtility,
-  footerNav, isActiveRoute,
+  footerNav, isActiveRoute, isMegamenuActive,
 } from '@/models/navigation';
 
 export function useNavigation() {
@@ -29,6 +29,7 @@ export function useNavigation() {
   }, []);
 
   const isActive = useCallback((href: string) => isActiveRoute(pathname, href), [pathname]);
+  const isParentActive = useCallback((megamenu: 'products' | 'about') => isMegamenuActive(pathname, megamenu), [pathname]);
 
   return {
     pathname,
@@ -49,5 +50,6 @@ export function useNavigation() {
     openMegamenu,
     closeMegamenu,
     isActive,
+    isParentActive,
   };
 }

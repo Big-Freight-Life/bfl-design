@@ -84,5 +84,12 @@ export const footerNav = {
 
 export function isActiveRoute(pathname: string, href: string): boolean {
   if (href === '/') return pathname === '/';
+  if (href === '#') return false;
   return pathname === href || pathname.startsWith(href + '/');
+}
+
+// Check if any submenu item under a megamenu parent is active
+export function isMegamenuActive(pathname: string, megamenu: 'products' | 'about'): boolean {
+  const panels = megamenu === 'products' ? productsPanels : aboutPanels;
+  return panels.some((panel) => isActiveRoute(pathname, panel.href));
 }

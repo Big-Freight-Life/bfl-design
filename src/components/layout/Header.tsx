@@ -12,7 +12,7 @@ export default function Header() {
   const {
     primaryNav, secondaryNav, productsPanels, aboutPanels,
     activeMegamenu, activePanelId, setActivePanelId,
-    openMegamenu, closeMegamenu, isActive,
+    openMegamenu, closeMegamenu, isActive, isParentActive,
   } = useNavigation();
 
   return (
@@ -67,7 +67,9 @@ export default function Header() {
 
         {/* Primary Nav */}
         <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 1, flex: 1 }}>
-          {primaryNav.map((item) => (
+          {primaryNav.map((item) => {
+            const active = item.megamenu ? isParentActive(item.megamenu) : isActive(item.href);
+            return (
             <Button
               key={item.label}
               component={item.megamenu ? 'button' : Link}
@@ -76,15 +78,15 @@ export default function Header() {
                 activeMegamenu === item.megamenu ? closeMegamenu() : openMegamenu(item.megamenu!);
               } : closeMegamenu}
               sx={{
-                color: isActive(item.href) ? 'text.primary' : 'text.primary',
-                fontWeight: isActive(item.href) ? 600 : 500,
+                color: 'text.primary',
+                fontWeight: active ? 600 : 500,
                 textTransform: 'none',
                 fontSize: '0.875rem',
                 px: 2,
                 py: 1.5,
                 borderRadius: 0,
                 position: 'relative',
-                '&::after': isActive(item.href) ? {
+                '&::after': active ? {
                   content: '""',
                   position: 'absolute',
                   bottom: 0,
@@ -112,7 +114,8 @@ export default function Header() {
             >
               {item.label}
             </Button>
-          ))}
+            );
+          })}
         </Box>
 
         {/* Contact Button */}
