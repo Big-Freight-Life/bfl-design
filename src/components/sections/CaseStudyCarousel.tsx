@@ -116,11 +116,17 @@ export default function CaseStudyCarousel() {
           gap: { xs: '12px', sm: 2, md: '24px' },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
-          // Align first card with section title using container-matching padding
-          px: {
+          // Align first card with Container maxWidth="lg" content edge
+          pl: {
             xs: 2,
             sm: 3,
-            md: `max(calc((100vw - 1024px) / 2 + 24px), 24px)`,
+            md: 3,
+            lg: `max(calc((100vw - 1024px) / 2 + 24px), 48px)`,
+          },
+          pr: {
+            xs: 2,
+            sm: 3,
+            md: 3,
           },
           '&:focus-visible': {
             outline: `2px solid ${colors.primary.main}`,
