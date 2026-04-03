@@ -22,7 +22,7 @@ export default function POVSection() {
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },
-          bgcolor: colors.gray[100],
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1a1a1a' : '#e8e8e8',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
@@ -127,7 +127,7 @@ export default function POVSection() {
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },
-          bgcolor: '#1e1e1e',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#0e0e0e' : '#e8e8e8',
           display: { xs: 'none', md: 'flex' },
           position: 'relative',
           zIndex: 1,

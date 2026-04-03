@@ -2,25 +2,64 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Box } from '@mui/material';
+import { useThemeMode } from '@/viewmodels/useThemeMode';
 
-// Syntax color tokens
-const syntaxColors = {
-  keyword: '#c586c0',
-  string: '#ce9178',
-  function: '#dcdcaa',
-  type: '#4ec9b0',
-  comment: '#6a9955',
-  default: '#d4d4d4',
+// Theme-aware color sets matching WordPress
+const themes = {
+  light: {
+    bg: '#e8e8e8',
+    titleBar: '#dcdcdc',
+    titleBarBorder: 'rgba(0,0,0,0.08)',
+    inputBg: '#e0e0e0',
+    inputBorder: 'rgba(0,0,0,0.06)',
+    text: '#383a42',
+    textMuted: '#6b7280',
+    prompt: '#4078f2',
+    cursor: '#383a42',
+    placeholder: '#999',
+    helpText: '#999',
+    keyword: '#a626a4',
+    string: '#50a14f',
+    function: '#4078f2',
+    type: '#c18401',
+    comment: '#6b7280',
+    success: '#50a14f',
+    thinking: '#c18401',
+    actionVerb: '#4078f2',
+  },
+  dark: {
+    bg: '#1e1e1e',
+    titleBar: '#2d2d2d',
+    titleBarBorder: 'rgba(255,255,255,0.06)',
+    inputBg: '#252526',
+    inputBorder: 'rgba(255,255,255,0.06)',
+    text: '#d4d4d4',
+    textMuted: '#888',
+    prompt: '#569cd6',
+    cursor: '#d4d4d4',
+    placeholder: '#555',
+    helpText: '#666',
+    keyword: '#c586c0',
+    string: '#ce9178',
+    function: '#dcdcaa',
+    type: '#4ec9b0',
+    comment: '#6a9955',
+    success: '#4ec9b0',
+    thinking: '#dcdcaa',
+    actionVerb: '#569cd6',
+  },
 };
+
+type ThemeColors = typeof themes.light;
 
 interface CodePart {
   text: string;
-  color: keyof typeof syntaxColors | 'default';
+  color: 'keyword' | 'string' | 'function' | 'type' | 'comment' | 'default';
 }
 
 interface CodeLine {
   text?: string;
-  color?: keyof typeof syntaxColors | 'default';
+  color?: 'keyword' | 'string' | 'function' | 'type' | 'comment' | 'default';
   parts?: CodePart[];
 }
 
@@ -35,7 +74,6 @@ interface SequenceItem {
 const config = {
   humanTypingSpeed: 2,
   humanTypingVariation: 1,
-  agentTypingSpeed: 1,
   linePause: 60,
   blockPause: 120,
   thinkingDuration: 500,
@@ -95,35 +133,90 @@ const sequence: SequenceItem[] = [
   { type: 'agent', text: 'Error handling added. The agent now gracefully handles classification failures.' },
 ];
 
-function renderCodeLine(line: CodeLine): React.ReactNode {
-  if (line.parts) {
-    return line.parts.map((part, i) => (
-      <span key={i} style={{ color: syntaxColors[part.color] || syntaxColors.default }}>
-        {part.text}
-      </span>
-    ));
-  }
-  if (line.text === '') return '\u00A0';
-  return (
-    <span style={{ color: syntaxColors[line.color || 'default'] }}>
-      {line.text}
-    </span>
-  );
-}
-
-interface OutputLine {
+// Store output as data, render with current theme colors
+interface OutputEntry {
   id: number;
   type: string;
-  content: React.ReactNode;
+  data: Record<string, unknown>;
+}
+
+function RenderLine({ entry, t }: { entry: OutputEntry; t: ThemeColors }) {
+  const { type, data } = entry;
+
+  const syntaxColor = (c: string) => {
+    const map: Record<string, string> = {
+      keyword: t.keyword, string: t.string, function: t.function,
+      type: t.type, comment: t.comment, default: t.text,
+    };
+    return map[c] || t.text;
+  };
+
+  switch (type) {
+    case 'user-prompt':
+      return (
+        <>
+          <span style={{ color: t.prompt, marginRight: 8 }}>&gt;</span>
+          <span style={{ color: t.text }}>{data.text as string}</span>
+        </>
+      );
+    case 'thinking':
+      return (
+        <>
+          <span style={{ color: t.thinking, marginRight: 8, animation: 'pulse 1s ease-in-out infinite' }}>●</span>
+          <span style={{ color: t.textMuted }}>{data.text as string}</span>
+        </>
+      );
+    case 'response':
+      return <span style={{ color: t.text }}>{data.text as string}</span>;
+    case 'action':
+      return (
+        <>
+          <span style={{ color: t.actionVerb, fontWeight: 600, marginRight: 8 }}>{data.verb as string}</span>
+          <span style={{ color: t.text }}>{data.file as string}</span>
+        </>
+      );
+    case 'code': {
+      const line = data.line as CodeLine;
+      if (line.parts) {
+        return (
+          <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>
+            {line.parts.map((part, i) => (
+              <span key={i} style={{ color: syntaxColor(part.color) }}>{part.text}</span>
+            ))}
+          </span>
+        );
+      }
+      if (line.text === '') return <>{'\u00A0'}</>;
+      return (
+        <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace", color: syntaxColor(line.color || 'default') }}>
+          {line.text}
+        </span>
+      );
+    }
+    case 'success':
+      return (
+        <>
+          <span style={{ color: t.success, marginRight: 8 }}>✓</span>
+          <span style={{ color: t.success }}>{data.text as string}</span>
+        </>
+      );
+    case 'empty':
+      return <>{'\u00A0'}</>;
+    default:
+      return null;
+  }
 }
 
 export default function ClaudeTerminal() {
-  const [outputLines, setOutputLines] = useState<OutputLine[]>([]);
+  const [entries, setEntries] = useState<OutputEntry[]>([]);
   const [inputText, setInputText] = useState('');
   const [placeholder, setPlaceholder] = useState('Try "design an agent workflow"');
   const outputRef = useRef<HTMLDivElement>(null);
   const lineIdRef = useRef(0);
   const runningRef = useRef(false);
+  const { mode } = useThemeMode();
+
+  const t = themes[mode === 'dark' ? 'dark' : 'light'];
 
   const scrollToBottom = useCallback(() => {
     if (outputRef.current) {
@@ -131,9 +224,9 @@ export default function ClaudeTerminal() {
     }
   }, []);
 
-  const addLine = useCallback((type: string, content: React.ReactNode) => {
+  const addEntry = useCallback((type: string, data: Record<string, unknown>) => {
     const id = lineIdRef.current++;
-    setOutputLines((prev) => [...prev, { id, type, content }]);
+    setEntries((prev) => [...prev, { id, type, data }]);
     setTimeout(scrollToBottom, 10);
   }, [scrollToBottom]);
 
@@ -148,13 +241,8 @@ export default function ClaudeTerminal() {
     await delay(150);
     setInputText('');
     setPlaceholder('Try "design an agent workflow"');
-    addLine('user-prompt', (
-      <>
-        <span style={{ color: '#569cd6', marginRight: 8 }}>&gt;</span>
-        <span>{text}</span>
-      </>
-    ));
-  }, [addLine]);
+    addEntry('user-prompt', { text });
+  }, [addEntry]);
 
   const runSequence = useCallback(async () => {
     for (const item of sequence) {
@@ -164,49 +252,34 @@ export default function ClaudeTerminal() {
           await delay(config.responseDelay);
           break;
         case 'thinking':
-          addLine('thinking', (
-            <>
-              <span style={{ color: '#dcdcaa', marginRight: 8, animation: 'pulse 1s ease-in-out infinite' }}>●</span>
-              <span style={{ color: '#888' }}>{item.text}</span>
-            </>
-          ));
+          addEntry('thinking', { text: item.text });
           await delay(config.thinkingDuration);
           break;
         case 'agent':
-          addLine('response', <span style={{ color: '#d4d4d4' }}>{item.text}</span>);
+          addEntry('response', { text: item.text });
           await delay(config.responseDelay);
           break;
         case 'action':
-          addLine('action', (
-            <>
-              <span style={{ color: '#569cd6', fontWeight: 600, marginRight: 8 }}>{item.verb}</span>
-              <span style={{ color: '#d4d4d4' }}>{item.file}</span>
-            </>
-          ));
+          addEntry('action', { verb: item.verb, file: item.file });
           await delay(300);
           break;
         case 'code':
           for (const line of item.lines!) {
-            addLine('code', <span style={{ fontFamily: "'SF Mono', 'Monaco', monospace" }}>{renderCodeLine(line)}</span>);
+            addEntry('code', { line });
             await delay(config.codeLineDelay);
           }
           break;
         case 'success':
-          addLine('success', (
-            <>
-              <span style={{ color: '#4ec9b0', marginRight: 8 }}>✓</span>
-              <span style={{ color: '#4ec9b0' }}>{item.text}</span>
-            </>
-          ));
+          addEntry('success', { text: item.text });
           await delay(config.blockPause);
           break;
         case 'empty':
-          addLine('empty', '\u00A0');
+          addEntry('empty', {});
           await delay(150);
           break;
       }
     }
-  }, [addLine, typeText]);
+  }, [addEntry, typeText]);
 
   useEffect(() => {
     if (runningRef.current) return;
@@ -217,7 +290,7 @@ export default function ClaudeTerminal() {
       while (runningRef.current) {
         await runSequence();
         await delay(config.loopDelay);
-        setOutputLines([]);
+        setEntries([]);
         lineIdRef.current = 0;
       }
     };
@@ -229,7 +302,7 @@ export default function ClaudeTerminal() {
   return (
     <Box
       sx={{
-        bgcolor: '#1e1e1e',
+        bgcolor: t.bg,
         borderRadius: 0,
         overflow: 'hidden',
         display: 'flex',
@@ -240,6 +313,7 @@ export default function ClaudeTerminal() {
         fontSize: '0.8rem',
         lineHeight: 1.6,
         border: 'none',
+        transition: 'background-color 0.3s ease',
         '@keyframes pulse': {
           '0%, 100%': { opacity: 1 },
           '50%': { opacity: 0.4 },
@@ -258,8 +332,8 @@ export default function ClaudeTerminal() {
           gap: '6px',
           px: 1.5,
           py: 1,
-          bgcolor: '#2d2d2d',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          bgcolor: t.titleBar,
+          borderBottom: `1px solid ${t.titleBarBorder}`,
         }}
       >
         <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#ff5f57' }} />
@@ -279,10 +353,10 @@ export default function ClaudeTerminal() {
           '&::-webkit-scrollbar': { display: 'none' },
         }}
       >
-        <Box sx={{ color: '#666', mb: 1 }}>? for shortcuts</Box>
-        {outputLines.map((line) => (
-          <Box key={line.id} sx={{ minHeight: line.type === 'empty' ? '0.5em' : 'auto', py: '1px' }}>
-            {line.content}
+        <Box sx={{ color: t.helpText, mb: 1 }}>? for shortcuts</Box>
+        {entries.map((entry) => (
+          <Box key={entry.id} sx={{ minHeight: entry.type === 'empty' ? '0.5em' : 'auto', py: '1px' }}>
+            <RenderLine entry={entry} t={t} />
           </Box>
         ))}
       </Box>
@@ -294,20 +368,14 @@ export default function ClaudeTerminal() {
           alignItems: 'center',
           px: 2,
           py: 1,
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-          bgcolor: '#252526',
+          borderTop: `1px solid ${t.inputBorder}`,
+          bgcolor: t.inputBg,
         }}
       >
-        <Box component="span" sx={{ color: '#569cd6', mr: 1 }}>&gt;</Box>
-        <Box
-          sx={{
-            flex: 1,
-            color: '#d4d4d4',
-            position: 'relative',
-          }}
-        >
+        <Box component="span" sx={{ color: t.prompt, mr: 1 }}>&gt;</Box>
+        <Box sx={{ flex: 1, color: t.text, position: 'relative' }}>
           {inputText || (
-            <span style={{ color: '#555' }}>{placeholder}</span>
+            <span style={{ color: t.placeholder }}>{placeholder}</span>
           )}
           {inputText && (
             <Box
@@ -316,7 +384,7 @@ export default function ClaudeTerminal() {
                 display: 'inline-block',
                 width: '2px',
                 height: '1em',
-                bgcolor: '#d4d4d4',
+                bgcolor: t.cursor,
                 ml: '1px',
                 verticalAlign: 'text-bottom',
                 animation: 'blink 1s step-end infinite',
