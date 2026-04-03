@@ -47,8 +47,8 @@ export default function Header() {
           <Image
             src="/images/logo-teal.png"
             alt="Big Freight Life"
-            width={32}
-            height={32}
+            width={24}
+            height={24}
             style={{ display: 'block' }}
           />
           <Typography
