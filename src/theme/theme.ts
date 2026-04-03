@@ -27,7 +27,7 @@ export const lightTheme = createTheme({
   ...baseTheme,
   palette: {
     mode: 'light',
-    primary: { main: colors.primary.main, dark: colors.primary.dark, light: colors.primary.light },
+    primary: { main: colors.primary.main, dark: colors.primary.dark, light: colors.primary.light, contrastText: '#ffffff' },
     secondary: { main: colors.accent.purple },
     error: { main: colors.semantic.error },
     warning: { main: colors.semantic.warning },
@@ -35,6 +35,16 @@ export const lightTheme = createTheme({
     background: { default: '#ffffff', paper: '#ffffff' },
     text: { primary: colors.gray[900], secondary: colors.gray[700] },
     divider: colors.gray[200],
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          color: '#ffffff',
+          '&:hover': { color: '#ffffff' },
+        },
+      },
+    },
   },
 });
 
