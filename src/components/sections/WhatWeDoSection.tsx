@@ -2,7 +2,7 @@
 
 import { Box, Typography, Container, Grid } from '@mui/material';
 import Link from 'next/link';
-import { colors, typography, radius, shadows } from '@/theme/tokens';
+import { colors, typography, radius } from '@/theme/tokens';
 
 const pillars = [
   {
