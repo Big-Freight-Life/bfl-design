@@ -191,6 +191,90 @@ const CheckIcon = () => (
   </svg>
 );
 
+/* Reusable pricing card component */
+function PricingCard({
+  activeTier,
+  setActiveTier,
+  currentTier,
+}: {
+  activeTier: string;
+  setActiveTier: (id: string) => void;
+  currentTier: (typeof tiers)[number];
+}) {
+  return (
+    <Paper
+      elevation={0}
+      sx={{
+        p: 3,
+        borderRadius: '1rem',
+        border: '1px solid rgba(255,255,255,0.1)',
+        bgcolor: 'rgba(255,255,255,0.05)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      {/* Tier selector */}
+      <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
+        {tiers.map((tier) => (
+          <Button
+            key={tier.id}
+            variant={activeTier === tier.id ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setActiveTier(tier.id)}
+            sx={{
+              flex: 1,
+              fontSize: '0.75rem',
+              ...(activeTier === tier.id
+                ? { bgcolor: '#117680', color: '#fff', '&:hover': { bgcolor: '#0e5f67' } }
+                : { borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300' }),
+            }}
+          >
+            {tier.label}
+          </Button>
+        ))}
+      </Box>
+
+      {/* Pricing */}
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="h2" sx={{ color: '#fff', fontSize: '2rem', fontWeight: 700, lineHeight: 1 }}>
+          {currentTier.price}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'grey.400' }}>
+          {currentTier.priceNote}
+        </Typography>
+      </Box>
+
+      <Typography variant="h3" sx={{ color: '#fff', fontSize: '1rem', fontWeight: 600, mb: 1 }}>
+        {currentTier.title}
+      </Typography>
+      <Typography variant="body2" sx={{ color: 'grey.400', mb: 2, lineHeight: 1.625 }}>
+        {currentTier.desc}
+      </Typography>
+
+      <List disablePadding sx={{ mb: 3 }}>
+        {currentTier.features.map((f) => (
+          <ListItem key={f} disablePadding sx={{ py: 0.5, gap: 1, alignItems: 'flex-start' }}>
+            <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
+              <CheckIcon />
+            </Box>
+            <Typography variant="body2" sx={{ color: 'grey.300' }}>
+              {f}
+            </Typography>
+          </ListItem>
+        ))}
+      </List>
+
+      <Button
+        fullWidth
+        variant="contained"
+        size="large"
+        sx={{ bgcolor: '#117680', color: '#fff', '&:hover': { bgcolor: '#0e5f67' } }}
+      >
+        Get Started
+      </Button>
+    </Paper>
+  );
+}
+
 export default function WorkshopPage() {
   const [activeTier, setActiveTier] = useState<string>('team');
   const currentTier = tiers.find((t) => t.id === activeTier) ?? tiers[1];
@@ -198,7 +282,7 @@ export default function WorkshopPage() {
   return (
     <Box component="main">
 
-      {/* Hero */}
+      {/* Hero — full width, no pricing card */}
       <Box
         component="header"
         sx={{
@@ -207,392 +291,359 @@ export default function WorkshopPage() {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="flex-end">
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: { xs: '2rem', md: 'clamp(2.25rem, 5vw, 3.5rem)' },
-                  fontWeight: 700,
-                  color: '#fff',
-                  lineHeight: 1.1,
-                  mb: 4,
-                }}
-              >
-                Design For The Rest Of Us
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-                <Box
-                  component="img"
-                  src="/images/ray-butler-profile.png"
-                  alt="Ray Butler"
-                  sx={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover' }}
-                />
-                <Box>
-                  <Typography variant="body1" sx={{ color: '#fff', fontWeight: 600 }}>
-                    Ray Butler
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                    Designer and Founder, Big Freight Life
-                  </Typography>
-                </Box>
-              </Box>
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-                <Button
-                  variant="outlined"
-                  sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
-                >
-                  View Syllabus
-                </Button>
-                <Button
-                  variant="outlined"
-                  sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
-                >
-                  Check Availability
-                </Button>
-              </Box>
-            </Grid>
-
-            {/* Pricing sidebar card in hero on desktop */}
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Paper
-                elevation={0}
-                sx={{
-                  p: 3,
-                  borderRadius: '1rem',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                {/* Tier selector */}
-                <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
-                  {tiers.map((tier) => (
-                    <Button
-                      key={tier.id}
-                      variant={activeTier === tier.id ? 'contained' : 'outlined'}
-                      size="small"
-                      onClick={() => setActiveTier(tier.id)}
-                      sx={{
-                        flex: 1,
-                        fontSize: '0.75rem',
-                        ...(activeTier === tier.id
-                          ? { bgcolor: '#117680', color: '#fff', '&:hover': { bgcolor: '#0e5f67' } }
-                          : { borderColor: 'rgba(255,255,255,0.2)', color: 'grey.300' }),
-                      }}
-                    >
-                      {tier.label}
-                    </Button>
-                  ))}
-                </Box>
-
-                {/* Pricing */}
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="h2" sx={{ color: '#fff', fontSize: '2rem', fontWeight: 700, lineHeight: 1 }}>
-                    {currentTier.price}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                    {currentTier.priceNote}
-                  </Typography>
-                </Box>
-
-                <Typography variant="h3" sx={{ color: '#fff', fontSize: '1rem', fontWeight: 600, mb: 1 }}>
-                  {currentTier.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'grey.400', mb: 2, lineHeight: 1.625 }}>
-                  {currentTier.desc}
-                </Typography>
-
-                <List disablePadding sx={{ mb: 3 }}>
-                  {currentTier.features.map((f) => (
-                    <ListItem key={f} disablePadding sx={{ py: 0.5, gap: 1, alignItems: 'flex-start' }}>
-                      <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
-                        <CheckIcon />
-                      </Box>
-                      <Typography variant="body2" sx={{ color: 'grey.300' }}>
-                        {f}
-                      </Typography>
-                    </ListItem>
-                  ))}
-                </List>
-
-                <Button
-                  fullWidth
-                  variant="contained"
-                  size="large"
-                  sx={{ bgcolor: '#117680', color: '#fff', '&:hover': { bgcolor: '#0e5f67' } }}
-                >
-                  Get Started
-                </Button>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Overview */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '52rem' }}>
+          <Box sx={{ maxWidth: '48rem' }}>
             <Typography
-              variant="h2"
+              variant="h1"
               sx={{
-                fontSize: { xs: '1.375rem', md: '1.5rem' },
-                fontWeight: 600,
-                color: 'text.primary',
-                mb: 3,
+                fontSize: { xs: '2rem', md: 'clamp(2.25rem, 5vw, 3.5rem)' },
+                fontWeight: 700,
+                color: '#fff',
+                lineHeight: 1.1,
+                mb: 4,
               }}
             >
-              Learn actionable systems-thinking skills to gain a competitive edge
+              Design For The Rest Of Us
             </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 2 }}>
-              The people who consistently do great work aren&#39;t smarter, they think more clearly. They
-              have systems for navigating ambiguity, making decisions under pressure, and communicating
-              with precision.
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 6 }}>
-              In this intensive course you will build your own systems. Each week will be packed with
-              practical frameworks, hands-on exercises, and 1:1 feedback to give you the instincts that
-              make great work repeatable.
-            </Typography>
-
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {checklistItems.map((item) => (
-                <Box key={item.title} sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                  <Box
-                    sx={{
-                      flexShrink: 0,
-                      width: 36,
-                      height: 36,
-                      borderRadius: '50%',
-                      bgcolor: 'rgba(20,184,166,0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#14B8A6',
-                      mt: 0.25,
-                    }}
-                  >
-                    <CheckIcon />
-                  </Box>
-                  <Box>
-                    <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5 }}>
-                      {item.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
-                      {item.body}
-                    </Typography>
-                  </Box>
-                </Box>
-              ))}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
+              <Box
+                component="img"
+                src="/images/ray-butler-profile.png"
+                alt="Ray Butler"
+                sx={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover' }}
+              />
+              <Box>
+                <Typography variant="body1" sx={{ color: '#fff', fontWeight: 600 }}>
+                  Ray Butler
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'grey.400' }}>
+                  Designer and Founder, Big Freight Life
+                </Typography>
+              </Box>
+            </Box>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
+              >
+                View Syllabus
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
+              >
+                Check Availability
+              </Button>
             </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* Curriculum */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200' }}>
+      {/* Mobile-only pricing card — shown inline after hero */}
+      <Box
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+          px: 2,
+          pb: 6,
+        }}
+      >
         <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 4 }}>
-            What we&#39;ll cover
-          </Typography>
-          <Box sx={{ maxWidth: '52rem' }}>
-            {curriculumModules.map((mod) => (
-              <Accordion
-                key={mod.title}
-                elevation={0}
-                disableGutters
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'grey.200',
-                  borderRadius: '0.5rem !important',
-                  mb: 1.5,
-                  '&::before': { display: 'none' },
-                  '&.Mui-expanded': { borderColor: '#14B8A6' },
-                }}
-              >
-                <AccordionSummary
-                  expandIcon={<AddIcon sx={{ color: 'text.secondary' }} />}
-                  sx={{ px: 3, py: 1 }}
-                >
-                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                    {mod.title}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
-                  <List disablePadding>
-                    {mod.items.map((item) => (
-                      <ListItem
-                        key={item}
-                        disablePadding
-                        sx={{
-                          py: 0.75,
-                          pl: 2,
-                          position: 'relative',
-                          '&::before': {
-                            content: '"\\2013"',
-                            position: 'absolute',
-                            left: 0,
-                            color: 'text.disabled',
-                          },
-                        }}
-                      >
-                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                          {item}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </Box>
+          <PricingCard activeTier={activeTier} setActiveTier={setActiveTier} currentTier={currentTier} />
         </Container>
       </Box>
 
-      {/* Instructor */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
-            Meet Your Instructor
-          </Typography>
-          <Grid container spacing={4} alignItems="flex-start">
-            <Grid size={{ xs: 12, sm: 'auto' }}>
-              <Box
-                component="img"
-                src="/images/ray-butler-profile.png"
-                alt="Ray Butler"
-                sx={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', display: 'block' }}
-              />
-              <Button
-                component="a"
-                href="https://www.linkedin.com/in/raybutler"
-                target="_blank"
-                rel="noopener noreferrer"
-                size="small"
-                sx={{ mt: 1.5, color: '#117680', p: 0, minWidth: 0, fontSize: '0.8125rem' }}
-              >
-                LinkedIn →
-              </Button>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 9 }}>
-              <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
-                Ray Butler
-              </Typography>
-              <Typography variant="body2" sx={{ color: '#117680', fontWeight: 500, mb: 2 }}>
-                Designer and Founder, Big Freight Life
-              </Typography>
-              <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
-                Ray sits at the intersection of design, engineering, and product strategy. His background
-                spans from, human centered design (HCD), including design research, conversation design,
-                systems thinking, and hands-on product development.
-              </Typography>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
+      {/* Two-column layout: content left, sticky sidebar right */}
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 4,
+            alignItems: 'flex-start',
+            position: 'relative',
+          }}
+        >
+          {/* Left column — all content sections */}
+          <Box sx={{ flex: 1, minWidth: 0 }}>
 
-      {/* Who This Is For */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200' }}>
-        <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
-            Built for people who build
-          </Typography>
-          <Grid container spacing={3}>
-            {audienceItems.map((item) => (
-              <Grid size={{ xs: 12, md: 4 }} key={item.title}>
-                <Paper
-                  elevation={0}
+            {/* Overview */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
+              <Box sx={{ maxWidth: '52rem' }}>
+                <Typography
+                  variant="h2"
                   sx={{
-                    p: 3,
-                    height: '100%',
-                    border: '1px solid',
-                    borderColor: 'grey.200',
-                    borderRadius: '1rem',
+                    fontSize: { xs: '1.375rem', md: '1.5rem' },
+                    fontWeight: 600,
+                    color: 'text.primary',
+                    mb: 3,
                   }}
                 >
-                  <Typography variant="h3" sx={{ fontSize: '1.0625rem', fontWeight: 600, mb: 1 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
-                    {item.body}
-                  </Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+                  Learn actionable systems-thinking skills to gain a competitive edge
+                </Typography>
+                <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 2 }}>
+                  The people who consistently do great work aren&#39;t smarter, they think more clearly. They
+                  have systems for navigating ambiguity, making decisions under pressure, and communicating
+                  with precision.
+                </Typography>
+                <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 6 }}>
+                  In this intensive course you will build your own systems. Each week will be packed with
+                  practical frameworks, hands-on exercises, and 1:1 feedback to give you the instincts that
+                  make great work repeatable.
+                </Typography>
 
-      {/* What's Included */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
-            Everything you need to level up
-          </Typography>
-          <Grid container spacing={3} sx={{ maxWidth: '52rem' }}>
-            {includedItems.map((item) => (
-              <Grid size={{ xs: 12, sm: 6 }} key={item.title}>
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                  <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
-                    <CheckIcon />
-                  </Box>
-                  <Box>
-                    <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5 }}>
-                      {item.title}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
-                      {item.body}
-                    </Typography>
-                  </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+                  {checklistItems.map((item) => (
+                    <Box key={item.title} sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <Box
+                        sx={{
+                          flexShrink: 0,
+                          width: 36,
+                          height: 36,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(20,184,166,0.1)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#14B8A6',
+                          mt: 0.25,
+                        }}
+                      >
+                        <CheckIcon />
+                      </Box>
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                          {item.title}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
+                          {item.body}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  ))}
                 </Box>
+              </Box>
+            </Box>
+
+            {/* Curriculum */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+              <Typography variant="h2" sx={{ fontWeight: 600, mb: 4 }}>
+                What we&#39;ll cover
+              </Typography>
+              <Box sx={{ maxWidth: '52rem' }}>
+                {curriculumModules.map((mod) => (
+                  <Accordion
+                    key={mod.title}
+                    elevation={0}
+                    disableGutters
+                    sx={{
+                      border: '1px solid',
+                      borderColor: 'grey.200',
+                      borderRadius: '0.5rem !important',
+                      mb: 1.5,
+                      '&::before': { display: 'none' },
+                      '&.Mui-expanded': { borderColor: '#14B8A6' },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<AddIcon sx={{ color: 'text.secondary' }} />}
+                      sx={{ px: 3, py: 1 }}
+                    >
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        {mod.title}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                      <List disablePadding>
+                        {mod.items.map((item) => (
+                          <ListItem
+                            key={item}
+                            disablePadding
+                            sx={{
+                              py: 0.75,
+                              pl: 2,
+                              position: 'relative',
+                              '&::before': {
+                                content: '"\\2013"',
+                                position: 'absolute',
+                                left: 0,
+                                color: 'text.disabled',
+                              },
+                            }}
+                          >
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                              {item}
+                            </Typography>
+                          </ListItem>
+                        ))}
+                      </List>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </Box>
+            </Box>
+
+            {/* Instructor */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
+              <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
+                Meet Your Instructor
+              </Typography>
+              <Grid container spacing={4} alignItems="flex-start">
+                <Grid size={{ xs: 12, sm: 'auto' }}>
+                  <Box
+                    component="img"
+                    src="/images/ray-butler-profile.png"
+                    alt="Ray Butler"
+                    sx={{ width: 120, height: 120, borderRadius: '50%', objectFit: 'cover', display: 'block' }}
+                  />
+                  <Button
+                    component="a"
+                    href="https://www.linkedin.com/in/raybutler"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    sx={{ mt: 1.5, color: '#117680', p: 0, minWidth: 0, fontSize: '0.8125rem' }}
+                  >
+                    LinkedIn →
+                  </Button>
+                </Grid>
+                <Grid size={{ xs: 12, sm: 9 }}>
+                  <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
+                    Ray Butler
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#117680', fontWeight: 500, mb: 2 }}>
+                    Designer and Founder, Big Freight Life
+                  </Typography>
+                  <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
+                    Ray sits at the intersection of design, engineering, and product strategy. His background
+                    spans from, human centered design (HCD), including design research, conversation design,
+                    systems thinking, and hands-on product development.
+                  </Typography>
+                </Grid>
               </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+            </Box>
 
-      {/* FAQ */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200' }}>
-        <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
-            Common questions
-          </Typography>
-          <Box sx={{ maxWidth: '52rem' }}>
-            {faqs.map((faq) => (
-              <Accordion
-                key={faq.q}
-                elevation={0}
-                disableGutters
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'grey.200',
-                  borderRadius: '0.5rem !important',
-                  mb: 1.5,
-                  '&::before': { display: 'none' },
-                  '&.Mui-expanded': { borderColor: '#14B8A6' },
-                }}
-              >
-                <AccordionSummary
-                  expandIcon={<AddIcon sx={{ color: 'text.secondary' }} />}
-                  sx={{ px: 3, py: 1 }}
-                >
-                  <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                    {faq.q}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
-                  <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                    {faq.a}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))}
+            {/* Who This Is For */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+              <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
+                Built for people who build
+              </Typography>
+              <Grid container spacing={3}>
+                {audienceItems.map((item) => (
+                  <Grid size={{ xs: 12, md: 4 }} key={item.title}>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        p: 3,
+                        height: '100%',
+                        border: '1px solid',
+                        borderColor: 'grey.200',
+                        borderRadius: '1rem',
+                      }}
+                    >
+                      <Typography variant="h3" sx={{ fontSize: '1.0625rem', fontWeight: 600, mb: 1 }}>
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
+                        {item.body}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
+            {/* What's Included */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
+              <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
+                Everything you need to level up
+              </Typography>
+              <Grid container spacing={3} sx={{ maxWidth: '52rem' }}>
+                {includedItems.map((item) => (
+                  <Grid size={{ xs: 12, sm: 6 }} key={item.title}>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
+                        <CheckIcon />
+                      </Box>
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                          {item.title}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
+                          {item.body}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
+            {/* FAQ */}
+            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+              <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
+                Common questions
+              </Typography>
+              <Box sx={{ maxWidth: '52rem' }}>
+                {faqs.map((faq) => (
+                  <Accordion
+                    key={faq.q}
+                    elevation={0}
+                    disableGutters
+                    sx={{
+                      border: '1px solid',
+                      borderColor: 'grey.200',
+                      borderRadius: '0.5rem !important',
+                      mb: 1.5,
+                      '&::before': { display: 'none' },
+                      '&.Mui-expanded': { borderColor: '#14B8A6' },
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={<AddIcon sx={{ color: 'text.secondary' }} />}
+                      sx={{ px: 3, py: 1 }}
+                    >
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        {faq.q}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                      <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
+                        {faq.a}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </Box>
+            </Box>
+
           </Box>
-        </Container>
-      </Box>
 
-      {/* Bottom CTA */}
+          {/* Right column — sticky pricing sidebar (desktop only) */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'block' },
+              width: 340,
+              flexShrink: 0,
+              position: 'sticky',
+              top: 100,
+              alignSelf: 'flex-start',
+              py: { md: 12 },
+            }}
+          >
+            <Box
+              sx={{
+                background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+                borderRadius: '1rem',
+                p: 0.5,
+              }}
+            >
+              <PricingCard activeTier={activeTier} setActiveTier={setActiveTier} currentTier={currentTier} />
+            </Box>
+          </Box>
+
+        </Box>
+      </Container>
+
+      {/* Bottom CTA — full width */}
       <Box
         component="section"
         sx={{
