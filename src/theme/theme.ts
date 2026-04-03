@@ -7,15 +7,6 @@ const baseTheme = {
   breakpoints: {
     values: { xs: breakpoints.xs, sm: breakpoints.sm, md: breakpoints.md, lg: breakpoints.lg, xl: breakpoints.xl },
   },
-  components: {
-    MuiContainer: {
-      styleOverrides: {
-        maxWidthLg: {
-          maxWidth: '1400px !important',
-        },
-      },
-    },
-  },
   typography: {
     fontFamily: typography.fontFamily,
     h1: { fontSize: typography.sizes['4xl'], fontWeight: typography.weights.bold, lineHeight: typography.lineHeights.tight, letterSpacing: typography.letterSpacing.tight },

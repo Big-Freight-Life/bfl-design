@@ -63,19 +63,8 @@ export default function CaseStudyCarousel() {
       component="section"
       sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 16 } }}
     >
-      {/* Section header — same inset as carousel */}
-      <Box
-        sx={{
-          maxWidth: layout.containerMaxWidth,
-          mx: 'auto',
-          px: {
-            xs: 2,
-            sm: 3,
-            md: 3,
-            lg: 4,
-          },
-        }}
-      >
+      {/* Section header */}
+      <Container maxWidth="lg">
         <Box
           sx={{
             display: 'flex',
@@ -109,7 +98,7 @@ export default function CaseStudyCarousel() {
             View All Work →
           </Button>
         </Box>
-      </Box>
+      </Container>
 
       {/* Carousel scroll container (like WordPress .case-carousel) */}
       <Box
@@ -137,12 +126,12 @@ export default function CaseStudyCarousel() {
             scrollSnapType: { xs: 'none', sm: 'x proximity' },
             pt: 2,
             pb: 4,
-            // Match WordPress: --carousel-inset = max(container-padding, calc((100vw - container-max-width) / 2 + container-padding))
+            // Align first card with Container maxWidth="lg" (1024px) content edge
             pl: {
-              xs: `max(16px, calc((100vw - 1400px) / 2 + 16px))`,
-              sm: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
-              md: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
-              lg: `max(32px, calc((100vw - 1400px) / 2 + 32px))`,
+              xs: `max(16px, calc((100vw - 1024px) / 2 + 16px))`,
+              sm: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+              md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+              lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
             },
             pr: 2,
             width: 'max-content',
