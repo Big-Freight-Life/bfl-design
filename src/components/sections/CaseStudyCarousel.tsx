@@ -120,7 +120,7 @@ export default function CaseStudyCarousel() {
           px: {
             xs: 2,
             sm: 3,
-            md: `max(calc((100vw - 1200px) / 2 + 24px), 24px)`,
+            md: `max(calc((100vw - 1024px) / 2 + 24px), 24px)`,
           },
           '&:focus-visible': {
             outline: `2px solid ${colors.primary.main}`,
