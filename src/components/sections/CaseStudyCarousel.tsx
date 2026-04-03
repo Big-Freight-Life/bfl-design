@@ -111,7 +111,7 @@ export default function CaseStudyCarousel() {
         </Box>
       </Box>
 
-      {/* Carousel track */}
+      {/* Carousel scroll container (like WordPress .case-carousel) */}
       <Box
         role="region"
         aria-label="Case studies carousel"
@@ -121,29 +121,33 @@ export default function CaseStudyCarousel() {
           overflowY: 'hidden',
           WebkitOverflowScrolling: 'touch',
           scrollBehavior: 'smooth',
-          scrollSnapType: { xs: 'none', sm: 'x proximity' },
-          pb: 4,
-          display: 'flex',
-          gap: { xs: '12px', sm: 2, md: '24px' },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
-          // Match WordPress: --carousel-inset = max(container-padding, calc((100vw - container-max-width) / 2 + container-padding))
-          pl: {
-            xs: `max(16px, calc((100vw - 1400px) / 2 + 16px))`,
-            sm: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
-            md: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
-            lg: `max(32px, calc((100vw - 1400px) / 2 + 32px))`,
-          },
-          pr: {
-            xs: 2,
-            sm: 2,
-          },
           '&:focus-visible': {
             outline: `2px solid ${colors.primary.main}`,
             outlineOffset: '4px',
           },
         }}
       >
+        {/* Carousel track (like WordPress .case-carousel-track) — padding lives here */}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: { xs: '12px', sm: 2, md: '24px' },
+            scrollSnapType: { xs: 'none', sm: 'x proximity' },
+            pt: 2,
+            pb: 4,
+            // Match WordPress: --carousel-inset = max(container-padding, calc((100vw - container-max-width) / 2 + container-padding))
+            pl: {
+              xs: `max(16px, calc((100vw - 1400px) / 2 + 16px))`,
+              sm: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
+              md: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
+              lg: `max(32px, calc((100vw - 1400px) / 2 + 32px))`,
+            },
+            pr: 2,
+            width: 'max-content',
+          }}
+        >
         {caseStudies.map((study) => (
           <Box
             key={study.title}
@@ -305,6 +309,7 @@ export default function CaseStudyCarousel() {
             </Box>
           </Box>
         ))}
+        </Box>
       </Box>
 
       {/* Mobile CTA — visible only on small screens */}
