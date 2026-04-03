@@ -177,7 +177,7 @@ export default function CaseStudyCarousel() {
               scrollSnapStop: { xs: 'normal', sm: 'always' },
               transition: `transform ${motion.duration.fast} ${motion.easing.outExpo}, box-shadow ${motion.duration.fast} ${motion.easing.outExpo}`,
               '&:hover': {
-                transform: 'translateY(-4px)',
+                transform: 'scale(1.02)',
                 boxShadow: shadows.xl,
               },
             }}
