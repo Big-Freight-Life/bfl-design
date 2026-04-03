@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import MegaMenu from '@/components/common/MegaMenu';
 import { useNavigation } from '@/viewmodels/useNavigation';
 import { layout, colors, motion } from '@/theme/tokens';
@@ -184,8 +185,25 @@ export default function Header() {
           })}
         </Box>
 
-        {/* Contact Button */}
-        <Box sx={{ display: { xs: 'none', lg: 'flex' } }}>
+        {/* Right side buttons */}
+        <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 1.5, alignItems: 'center' }}>
+          <Button
+            component="a"
+            href="https://bfl-raybot.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            endIcon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
+            sx={{
+              textTransform: 'none',
+              color: colors.primary.main,
+              fontSize: '0.8125rem',
+              fontWeight: 500,
+              '&:hover': { bgcolor: 'rgba(20,184,166,0.06)' },
+            }}
+          >
+            Try Raybot
+          </Button>
           {secondaryNav.map((item) => (
             <Button
               key={item.label}
