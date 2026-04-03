@@ -55,7 +55,7 @@ export default function Header() {
             variant="h6"
             sx={{
               fontWeight: 700,
-              fontSize: '1.1rem',
+              fontSize: '0.875rem',
               color: 'text.primary',
               display: { xs: 'none', sm: 'block' },
               whiteSpace: 'nowrap',
@@ -66,7 +66,7 @@ export default function Header() {
         </Box>
 
         {/* Primary Nav */}
-        <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: { lg: 1, xl: 2 }, flex: 1, justifyContent: 'center' }}>
+        <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 1, flex: 1 }}>
           {primaryNav.map((item) => (
             <Button
               key={item.label}
@@ -77,9 +77,9 @@ export default function Header() {
               } : closeMegamenu}
               sx={{
                 color: isActive(item.href) ? 'text.primary' : 'text.primary',
-                fontWeight: isActive(item.href) ? 600 : 400,
+                fontWeight: isActive(item.href) ? 600 : 500,
                 textTransform: 'none',
-                fontSize: '1rem',
+                fontSize: '0.875rem',
                 px: 2,
                 py: 1.5,
                 borderRadius: 0,
@@ -116,26 +116,15 @@ export default function Header() {
         </Box>
 
         {/* Contact Button */}
-        <Box sx={{ display: { xs: 'none', lg: 'flex' }, flexShrink: 0 }}>
+        <Box sx={{ display: { xs: 'none', lg: 'flex' } }}>
           {secondaryNav.map((item) => (
             <Button
               key={item.label}
               component={Link}
               href={item.href}
               variant="outlined"
-              size="medium"
-              sx={{
-                textTransform: 'none',
-                borderColor: colors.button.primary.bg,
-                color: colors.button.primary.bg,
-                fontWeight: 500,
-                px: 3,
-                borderRadius: '8px',
-                '&:hover': {
-                  borderColor: colors.button.primary.hover,
-                  bgcolor: 'rgba(17,118,128,0.04)',
-                },
-              }}
+              size="small"
+              sx={{ textTransform: 'none' }}
             >
               {item.label}
             </Button>
