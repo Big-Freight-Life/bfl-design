@@ -2,7 +2,7 @@
 
 import { Box, Typography, Container, Button } from '@mui/material';
 import Link from 'next/link';
-import { colors, typography, shadows, motion } from '@/theme/tokens';
+import { colors, typography, shadows, motion, layout } from '@/theme/tokens';
 
 interface CaseStudy {
   label: string;
@@ -64,7 +64,13 @@ export default function CaseStudyCarousel() {
       sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 16 } }}
     >
       {/* Section header */}
-      <Container maxWidth="lg">
+      <Box
+        sx={{
+          maxWidth: layout.containerMaxWidth,
+          mx: 'auto',
+          px: { xs: 2, sm: 3, md: 4 },
+        }}
+      >
         <Box
           sx={{
             display: 'flex',
@@ -98,7 +104,7 @@ export default function CaseStudyCarousel() {
             View All Work →
           </Button>
         </Box>
-      </Container>
+      </Box>
 
       {/* Carousel track */}
       <Box
@@ -116,17 +122,18 @@ export default function CaseStudyCarousel() {
           gap: { xs: '12px', sm: 2, md: '24px' },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
-          // Align first card with Container maxWidth="lg" content edge
+          // Align first card with page container content
           pl: {
             xs: 2,
             sm: 3,
-            md: 3,
-            lg: `max(calc((100vw - 1024px) / 2 + 24px), 48px)`,
+            md: 4,
+            lg: `max(calc((100vw - 1400px) / 2 + 32px), 48px)`,
+            xl: `calc((100vw - 1400px) / 2 + 32px)`,
           },
           pr: {
             xs: 2,
             sm: 3,
-            md: 3,
+            md: 4,
           },
           '&:focus-visible': {
             outline: `2px solid ${colors.primary.main}`,
