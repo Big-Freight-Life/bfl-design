@@ -163,41 +163,93 @@ export default function TransformationPage() {
         </Container>
       </Box>
 
-      {/* Introduction */}
+      {/* Introduction with Video */}
       <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
         <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '52rem', mx: 'auto' }}>
-            <Typography
-              variant="body1"
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: { xs: 4, md: 8 },
+              alignItems: 'center',
+            }}
+          >
+            {/* Video placeholder */}
+            <Box
               sx={{
-                fontSize: { xs: '1.25rem', md: '1.5rem' },
-                fontWeight: 500,
-                color: 'text.primary',
-                lineHeight: 1.5,
-                mb: 2,
+                flex: { md: 1 },
+                width: '100%',
+                position: 'relative',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                aspectRatio: '16 / 10',
+                bgcolor: 'grey.200',
               }}
             >
-              Transformation doesn&#39;t fail because of AI.
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                fontSize: { xs: '1.25rem', md: '1.375rem' },
-                color: '#117680',
-                fontWeight: 500,
-                lineHeight: 1.5,
-                mb: 4,
-              }}
-            >
-              It fails because the system underneath never changed.
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ color: 'text.secondary', lineHeight: 1.625, fontSize: '1.0625rem' }}
-            >
-              Most organizations don&#39;t have a technology problem. They have a structure problem. Decisions
-              live in one place. Data lives in another. Ownership is unclear. Processes are undocumented.
-            </Typography>
+              <Box
+                component="img"
+                src="/images/transformation-dancer.jpg"
+                alt="Transformation video preview"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+              {/* Play button overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  '&:hover svg circle': { fill: 'rgba(0,0,0,0.5)' },
+                }}
+              >
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="39" stroke="white" strokeWidth="2" fill="rgba(0,0,0,0.3)" />
+                  <path d="M32 24L56 40L32 56V24Z" fill="white" />
+                </svg>
+              </Box>
+            </Box>
+
+            {/* Text content */}
+            <Box sx={{ flex: { md: 1 } }}>
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: { xs: '1.25rem', md: '1.5rem' },
+                  fontWeight: 500,
+                  color: 'text.primary',
+                  lineHeight: 1.5,
+                  mb: 2,
+                }}
+              >
+                Transformation doesn&#39;t fail because of AI.
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: { xs: '1.25rem', md: '1.375rem' },
+                  color: '#117680',
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                  mb: 4,
+                }}
+              >
+                It fails because the system underneath never changed.
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ color: 'text.secondary', lineHeight: 1.625, fontSize: '1.0625rem' }}
+              >
+                Most organizations don&#39;t have a technology problem. They have a structure problem. Decisions
+                live in one place. Data lives in another. Ownership is unclear. Processes are undocumented.
+              </Typography>
+            </Box>
           </Box>
         </Container>
       </Box>
