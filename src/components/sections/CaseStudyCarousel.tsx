@@ -63,12 +63,17 @@ export default function CaseStudyCarousel() {
       component="section"
       sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 8, md: 16 } }}
     >
-      {/* Section header */}
+      {/* Section header — same inset as carousel */}
       <Box
         sx={{
           maxWidth: layout.containerMaxWidth,
           mx: 'auto',
-          px: { xs: 2, sm: 3, md: 4 },
+          px: {
+            xs: 2,
+            sm: 3,
+            md: 3,
+            lg: 4,
+          },
         }}
       >
         <Box
@@ -122,18 +127,16 @@ export default function CaseStudyCarousel() {
           gap: { xs: '12px', sm: 2, md: '24px' },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
-          // Align first card with page container content
+          // Match WordPress: --carousel-inset = max(container-padding, calc((100vw - container-max-width) / 2 + container-padding))
           pl: {
-            xs: 2,
-            sm: 3,
-            md: 4,
-            lg: `max(calc((100vw - 1400px) / 2 + 32px), 48px)`,
-            xl: `calc((100vw - 1400px) / 2 + 32px)`,
+            xs: `max(16px, calc((100vw - 1400px) / 2 + 16px))`,
+            sm: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
+            md: `max(24px, calc((100vw - 1400px) / 2 + 24px))`,
+            lg: `max(32px, calc((100vw - 1400px) / 2 + 32px))`,
           },
           pr: {
             xs: 2,
-            sm: 3,
-            md: 4,
+            sm: 2,
           },
           '&:focus-visible': {
             outline: `2px solid ${colors.primary.main}`,
