@@ -1,12 +1,13 @@
 'use client';
 
+import { useRef, useEffect, useCallback } from 'react';
 import { AppBar, Toolbar, Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MegaMenu from '@/components/common/MegaMenu';
 import { useNavigation } from '@/viewmodels/useNavigation';
-import { layout, colors } from '@/theme/tokens';
+import { layout, colors, motion } from '@/theme/tokens';
 
 export default function Header() {
   const {
@@ -14,6 +15,58 @@ export default function Header() {
     activeMegamenu, activePanelId, setActivePanelId,
     openMegamenu, closeMegamenu, isActive, isParentActive,
   } = useNavigation();
+
+  const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearTimers = useCallback(() => {
+    if (openTimerRef.current) clearTimeout(openTimerRef.current);
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
+
+  const scheduleClose = useCallback((delay: number) => {
+    closeTimerRef.current = setTimeout(() => {
+      closeMegamenu();
+    }, delay);
+  }, [closeMegamenu]);
+
+  const handleTriggerEnter = useCallback((menu: 'products' | 'about') => {
+    clearTimers();
+    if (activeMegamenu && activeMegamenu !== menu) {
+      // Switching between menus — open immediately
+      openMegamenu(menu);
+    } else if (!activeMegamenu) {
+      // Opening fresh — short hover-intent delay
+      openTimerRef.current = setTimeout(() => {
+        openMegamenu(menu);
+      }, 100);
+    }
+  }, [activeMegamenu, clearTimers, openMegamenu]);
+
+  const handleTriggerLeave = useCallback(() => {
+    clearTimers();
+    scheduleClose(300);
+  }, [clearTimers, scheduleClose]);
+
+  const handleMenuEnter = useCallback(() => {
+    clearTimers();
+  }, [clearTimers]);
+
+  const handleMenuLeave = useCallback(() => {
+    clearTimers();
+    scheduleClose(200);
+  }, [clearTimers, scheduleClose]);
+
+  // ESC key to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeMegamenu) {
+        closeMegamenu();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [activeMegamenu, closeMegamenu]);
 
   return (
     <AppBar
@@ -69,24 +122,27 @@ export default function Header() {
         <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 1, flex: 1 }}>
           {primaryNav.map((item) => {
             const active = item.megamenu ? isParentActive(item.megamenu) : isActive(item.href);
+            const isOpen = activeMegamenu === item.megamenu;
             return (
             <Button
               key={item.label}
               component={item.megamenu ? 'button' : Link}
               href={item.megamenu ? undefined : item.href}
               onClick={item.megamenu ? () => {
-                activeMegamenu === item.megamenu ? closeMegamenu() : openMegamenu(item.megamenu!);
+                isOpen ? closeMegamenu() : openMegamenu(item.megamenu!);
               } : closeMegamenu}
+              onMouseEnter={item.megamenu ? () => handleTriggerEnter(item.megamenu!) : undefined}
+              onMouseLeave={item.megamenu ? handleTriggerLeave : undefined}
               sx={{
                 color: 'text.primary',
-                fontWeight: active ? 600 : 500,
+                fontWeight: active || isOpen ? 600 : 500,
                 textTransform: 'none',
                 fontSize: '0.875rem',
                 px: 2,
                 py: 1.5,
                 borderRadius: 0,
                 position: 'relative',
-                '&::after': active ? {
+                '&::after': (active || isOpen) ? {
                   content: '""',
                   position: 'absolute',
                   bottom: 0,
@@ -98,19 +154,29 @@ export default function Header() {
                 } : {},
                 '&:hover': {
                   bgcolor: 'transparent',
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '15%',
-                    right: '15%',
-                    height: 3,
-                    bgcolor: colors.gray[300],
-                    borderRadius: '3px 3px 0 0',
-                  },
+                  ...(!active && !isOpen ? {
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '15%',
+                      right: '15%',
+                      height: 3,
+                      bgcolor: colors.gray[300],
+                      borderRadius: '3px 3px 0 0',
+                    },
+                  } : {}),
                 },
               }}
-              endIcon={item.megamenu ? <KeyboardArrowDownIcon sx={{ fontSize: '1.2rem !important' }} /> : undefined}
+              endIcon={item.megamenu ? (
+                <KeyboardArrowDownIcon
+                  sx={{
+                    fontSize: '1.2rem !important',
+                    transition: `transform ${motion.duration.smooth} ${motion.easing.outExpo}`,
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
+                  }}
+                />
+              ) : undefined}
             >
               {item.label}
             </Button>
@@ -135,10 +201,10 @@ export default function Header() {
         </Box>
       </Toolbar>
       {activeMegamenu === 'products' && (
-        <MegaMenu title="Products" panels={productsPanels} activePanelId={activePanelId} onPanelHover={setActivePanelId} onClose={closeMegamenu} />
+        <MegaMenu title="Products" panels={productsPanels} activePanelId={activePanelId} onPanelHover={setActivePanelId} onClose={closeMegamenu} onMouseEnter={handleMenuEnter} onMouseLeave={handleMenuLeave} />
       )}
       {activeMegamenu === 'about' && (
-        <MegaMenu title="About" panels={aboutPanels} activePanelId={activePanelId} onPanelHover={setActivePanelId} onClose={closeMegamenu} />
+        <MegaMenu title="About" panels={aboutPanels} activePanelId={activePanelId} onPanelHover={setActivePanelId} onClose={closeMegamenu} onMouseEnter={handleMenuEnter} onMouseLeave={handleMenuLeave} />
       )}
     </AppBar>
   );
