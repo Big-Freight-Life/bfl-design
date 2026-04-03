@@ -1,6 +1,9 @@
 'use client';
 
-import { Box, Typography, Container, Button } from '@mui/material';
+import { useRef, useCallback } from 'react';
+import { Box, Typography, Container, Button, IconButton } from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Link from 'next/link';
 import { colors, typography, shadows, motion, layout } from '@/theme/tokens';
 
@@ -58,6 +61,20 @@ const caseStudies: CaseStudy[] = [
 ];
 
 export default function CaseStudyCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = useCallback((direction: 'prev' | 'next') => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const card = container.querySelector('[data-card]') as HTMLElement;
+    if (!card) return;
+    const scrollAmount = card.offsetWidth + 24; // card width + gap
+    container.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <Box
       component="section"
@@ -102,6 +119,7 @@ export default function CaseStudyCarousel() {
 
       {/* Carousel scroll container (like WordPress .case-carousel) */}
       <Box
+        ref={scrollRef}
         role="region"
         aria-label="Case studies carousel"
         tabIndex={0}
@@ -140,6 +158,7 @@ export default function CaseStudyCarousel() {
         {caseStudies.map((study) => (
           <Box
             key={study.title}
+            data-card
             component={Link}
             href={study.link}
             sx={{
@@ -299,6 +318,43 @@ export default function CaseStudyCarousel() {
           </Box>
         ))}
         </Box>
+      </Box>
+
+      {/* Nav arrows */}
+      <Box
+        sx={{
+          display: { xs: 'none', sm: 'flex' },
+          justifyContent: 'center',
+          gap: 1,
+          mt: 2,
+        }}
+      >
+        <IconButton
+          onClick={() => scroll('prev')}
+          aria-label="Previous case study"
+          sx={{
+            border: `1px solid`,
+            borderColor: 'divider',
+            width: 40,
+            height: 40,
+            '&:hover': { borderColor: 'text.secondary' },
+          }}
+        >
+          <ChevronLeftIcon sx={{ fontSize: 20 }} />
+        </IconButton>
+        <IconButton
+          onClick={() => scroll('next')}
+          aria-label="Next case study"
+          sx={{
+            border: `1px solid`,
+            borderColor: 'divider',
+            width: 40,
+            height: 40,
+            '&:hover': { borderColor: 'text.secondary' },
+          }}
+        >
+          <ChevronRightIcon sx={{ fontSize: 20 }} />
+        </IconButton>
       </Box>
 
       {/* Mobile CTA — visible only on small screens */}
