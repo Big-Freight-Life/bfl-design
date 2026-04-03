@@ -192,17 +192,7 @@ export default function CaseStudyCarousel() {
               },
               // Whirlpool animation on the background image
               '&:hover .card-bg-image': {
-                transform: 'scale(1.15) rotate(3deg)',
-                filter: 'hue-rotate(15deg) saturate(1.3)',
-              },
-              '@keyframes vortexPulse': {
-                '0%': { boxShadow: 'inset 0 0 30px rgba(20,184,166,0)' },
-                '50%': { boxShadow: 'inset 0 0 60px rgba(20,184,166,0.15)' },
-                '100%': { boxShadow: 'inset 0 0 30px rgba(20,184,166,0)' },
-              },
-              '&:hover .card-overlay': {
-                background: 'radial-gradient(ellipse at center, rgba(20,184,166,0.12) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.85) 100%)',
-                animation: 'vortexPulse 2s ease-in-out infinite',
+                transform: 'scale(1.1)',
               },
             }}
           >
@@ -217,7 +207,7 @@ export default function CaseStudyCarousel() {
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
-                  transition: 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
+                  transition: 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
                   zIndex: 0,
                   display: { xs: 'none', sm: 'block' },
                 }}
@@ -235,7 +225,6 @@ export default function CaseStudyCarousel() {
                 borderRadius: 'inherit',
                 zIndex: 1,
                 pointerEvents: 'none',
-                transition: 'background 0.6s ease, box-shadow 0.6s ease',
                 display: { xs: 'none', sm: 'block' },
               }}
             />
