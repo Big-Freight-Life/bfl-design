@@ -89,14 +89,6 @@ const usageTabs = [
   },
 ];
 
-const chartBars = [
-  { name: 'Code Review', pct: 40 },
-  { name: 'Content Writing', pct: 30 },
-  { name: 'Visual Design', pct: 15 },
-  { name: 'User Research', pct: 10 },
-  { name: 'Strategic Decisions', pct: 5 },
-];
-
 const pledgeItems = [
   'We will always disclose AI involvement in our products and content.',
   'We will never use your personal data to train AI models.',
@@ -238,42 +230,6 @@ export default function AIEthicsPage() {
               ))}
             </Box>
           </Paper>
-        </Container>
-      </Box>
-
-      {/* AI Involvement Chart */}
-      <Box component="section" sx={{ py: { xs: 6, md: 10 }, borderTop: '1px solid', borderColor: 'divider' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 5 }}>
-            <Typography variant="h2" sx={{ mb: 1 }}>AI Involvement Across Our Work</Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 620, mx: 'auto' }}>
-              A transparent look at how much AI contributes to different areas of our business. Human judgment leads every category.
-            </Typography>
-          </Box>
-
-          <Box sx={{ maxWidth: 700, mx: 'auto', display: 'flex', flexDirection: 'column', gap: 3 }}>
-            {chartBars.map((bar) => (
-              <Box key={bar.name}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 500 }}>{bar.name}</Typography>
-                  <Typography variant="body2" color="text.secondary">{bar.pct}%</Typography>
-                </Box>
-                <Box sx={{ height: 8, bgcolor: 'grey.200', borderRadius: '9999px', overflow: 'hidden' }}>
-                  <Box
-                    sx={{
-                      height: '100%',
-                      width: `${bar.pct}%`,
-                      bgcolor: 'primary.main',
-                      borderRadius: '9999px',
-                    }}
-                  />
-                </Box>
-              </Box>
-            ))}
-          </Box>
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 3 }}>
-            Percentages represent estimated AI involvement. All work is ultimately reviewed and approved by humans.
-          </Typography>
         </Container>
       </Box>
 
