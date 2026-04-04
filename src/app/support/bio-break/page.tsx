@@ -11,8 +11,6 @@ import {
   Tabs,
   Tab,
 } from '@mui/material';
-import Link from 'next/link';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const quickHelpCards = [
@@ -139,23 +137,6 @@ export default function BioBreakSupportPage() {
       >
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
-            <Box
-              component={Link}
-              href="/support"
-              sx={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                mb: 4,
-                color: 'text.secondary',
-                textDecoration: 'none',
-                fontSize: '0.875rem',
-                '&:hover': { color: 'text.primary' },
-              }}
-            >
-              <ArrowBackIcon sx={{ fontSize: 16 }} />
-              Support
-            </Box>
             <Typography
               variant="caption"
               sx={{
