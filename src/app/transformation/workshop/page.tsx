@@ -652,12 +652,12 @@ export default function WorkshopPage() {
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, color: '#fff', mb: 2 }}>
+          <Typography variant="h2" sx={{ fontWeight: 600, color: 'text.primary', mb: 2 }}>
             Ready to transform how you work?
           </Typography>
           <Typography
             variant="body1"
-            sx={{ color: 'grey.400', maxWidth: '36rem', mx: 'auto', mb: 4, lineHeight: 1.625 }}
+            sx={{ color: 'text.primary', maxWidth: '36rem', mx: 'auto', mb: 4, lineHeight: 1.625 }}
           >
             Join the next cohort and build a system for doing your best work, every time.
           </Typography>
