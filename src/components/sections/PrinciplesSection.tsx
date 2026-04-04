@@ -45,7 +45,7 @@ export default function PrinciplesSection() {
             color="text.secondary"
             sx={{ mb: 2, fontSize: typography.sizes.lg }}
           >
-            Teams don&apos;t struggle because they lack tools. They struggle because:
+            Teams don&apos;t struggle because they lack tools, it&apos;s because:
           </Typography>
           <Box
             component="ul"

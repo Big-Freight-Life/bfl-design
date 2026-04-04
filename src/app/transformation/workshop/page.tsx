@@ -424,7 +424,7 @@ export default function WorkshopPage() {
             </Box>
 
             {/* Curriculum */}
-            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
               <Typography variant="h2" sx={{ fontWeight: 600, mb: 4 }}>
                 What we&#39;ll cover
               </Typography>
@@ -522,7 +522,7 @@ export default function WorkshopPage() {
             </Box>
 
             {/* Who This Is For */}
-            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
               <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
                 Built for people who build
               </Typography>
@@ -578,7 +578,7 @@ export default function WorkshopPage() {
             </Box>
 
             {/* FAQ */}
-            <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200', mx: { md: -4 }, px: { md: 4 } }}>
+            <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
               <Typography variant="h2" sx={{ fontWeight: 600, mb: 5 }}>
                 Common questions
               </Typography>
@@ -649,7 +649,6 @@ export default function WorkshopPage() {
         sx={{
           py: { xs: 10, md: 14 },
           textAlign: 'center',
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
         }}
       >
         <Container maxWidth="lg">
