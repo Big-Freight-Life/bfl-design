@@ -61,7 +61,9 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.relaxed,
             }}
           >
-            The issue isn&apos;t what&apos;s being added. It&apos;s what was never designed.
+            The issue isn&apos;t what&apos;s being added.
+            <br />
+            It&apos;s what was never designed.
           </Typography>
           <Typography
             variant="body1"

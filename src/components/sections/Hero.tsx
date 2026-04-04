@@ -105,6 +105,7 @@ export default function Hero() {
         minHeight: { xs: 600, md: '100vh' },
         display: 'flex',
         alignItems: 'center',
+        pb: { xs: 12, md: 16 },
         overflow: 'hidden',
       }}
     >
@@ -247,7 +248,7 @@ export default function Hero() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: spacing[10],
+          bottom: spacing[6],
           left: '50%',
           display: 'flex',
           flexDirection: 'column',
