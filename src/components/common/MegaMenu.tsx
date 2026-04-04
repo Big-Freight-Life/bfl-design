@@ -4,7 +4,7 @@ import { Box, Typography, Button, Paper } from '@mui/material';
 import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { MegamenuPanel } from '@/models/navigation';
-import { motion } from '@/theme/tokens';
+import { motion, colors, darkColors } from '@/theme/tokens';
 
 interface MegaMenuProps {
   title: string;
@@ -83,7 +83,9 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
                 py: 1.5,
                 borderRadius: 1,
                 textDecoration: 'none',
-                color: activePanelId === panel.id ? 'primary.main' : 'text.primary',
+                color: (theme: { palette: { mode: string } }) => activePanelId === panel.id
+                  ? (theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg)
+                  : 'text.primary',
                 bgcolor: activePanelId === panel.id ? 'action.hover' : 'transparent',
                 transition: `background-color ${motion.duration.micro} ease, color ${motion.duration.micro} ease`,
                 '&:hover': { bgcolor: 'action.hover' },
@@ -124,7 +126,19 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 480 }}>
             {activePanel.description}
           </Typography>
-          <Button component={Link} href={activePanel.href} onClick={onClose} variant="text" color="primary" sx={{ alignSelf: 'flex-start' }}>
+          <Button
+            component={Link}
+            href={activePanel.href}
+            onClick={onClose}
+            variant="text"
+            sx={(theme) => ({
+              alignSelf: 'flex-start',
+              color: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
+              '&:hover': {
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(26,154,166,0.08)' : 'rgba(17,118,128,0.06)',
+              },
+            })}
+          >
             Learn more →
           </Button>
         </Box>
