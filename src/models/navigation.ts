@@ -16,7 +16,7 @@ export interface MegamenuPanel {
 
 export const primaryNav: NavItem[] = [
   { label: 'Our Work', href: '/works' },
-  { label: 'Transformation', href: '/transformation' },
+  { label: 'What We Do', href: '/transformation' },
   { label: 'Products', href: '#', megamenu: 'products' },
   { label: 'About', href: '/about', megamenu: 'about' },
 ];
@@ -56,7 +56,7 @@ export const mobileDrawerItems: NavItem[] = [
     { label: 'Who We Serve', href: '/clients' },
   ]},
   { label: 'Support', href: '/support' },
-  { label: 'Transformation', href: '/transformation' },
+  { label: 'What We Do', href: '/transformation' },
 ];
 
 export const mobileDrawerUtility: NavItem[] = [
