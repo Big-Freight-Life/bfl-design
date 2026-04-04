@@ -3,7 +3,8 @@
 import { Box, Typography, Button, Paper } from '@mui/material';
 import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { MegamenuPanel } from '@/models/navigation';
+import { MegamenuPanel, isActiveRoute } from '@/models/navigation';
+import { usePathname } from 'next/navigation';
 import { motion, colors, darkColors } from '@/theme/tokens';
 
 interface MegaMenuProps {
@@ -17,6 +18,7 @@ interface MegaMenuProps {
 }
 
 export default function MegaMenu({ title, panels, activePanelId, onPanelHover, onClose, onMouseEnter, onMouseLeave }: MegaMenuProps) {
+  const pathname = usePathname();
   const activePanel = panels.find((p) => p.id === activePanelId) ?? panels[0];
 
   return (
@@ -68,40 +70,45 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           <Typography variant="overline" sx={{ px: 2, mb: 2, display: 'block', color: 'text.secondary' }}>
             {title}
           </Typography>
-          {panels.map((panel) => (
-            <Box
-              key={panel.id}
-              component={Link}
-              href={panel.href}
-              onClick={onClose}
-              onMouseEnter={() => onPanelHover(panel.id)}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                px: 2,
-                py: 1.5,
-                borderRadius: 1,
-                textDecoration: 'none',
-                color: (theme: { palette: { mode: string } }) => activePanelId === panel.id
-                  ? (theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg)
-                  : 'text.primary',
-                bgcolor: activePanelId === panel.id ? 'action.hover' : 'transparent',
-                transition: `background-color ${motion.duration.micro} ease, color ${motion.duration.micro} ease`,
-                '&:hover': { bgcolor: 'action.hover' },
-              }}
-            >
-              <Typography variant="body2" fontWeight={500}>{panel.label}</Typography>
-              <ArrowForwardIcon
-                sx={{
-                  fontSize: 16,
-                  opacity: activePanelId === panel.id ? 0.8 : 0,
-                  transform: activePanelId === panel.id ? 'translateX(0)' : 'translateX(-4px)',
-                  transition: `opacity ${motion.duration.fast} ${motion.easing.outExpo}, transform ${motion.duration.fast} ${motion.easing.outExpo}`,
-                }}
-              />
-            </Box>
-          ))}
+          {panels.map((panel) => {
+            const isCurrent = isActiveRoute(pathname, panel.href);
+            const isHovered = activePanelId === panel.id;
+            return (
+              <Box
+                key={panel.id}
+                component={Link}
+                href={panel.href}
+                onClick={onClose}
+                onMouseEnter={() => onPanelHover(panel.id)}
+                sx={(theme) => ({
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  px: 2,
+                  py: 1.5,
+                  borderRadius: 1,
+                  textDecoration: 'none',
+                  borderLeft: isCurrent ? `3px solid ${theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg}` : '3px solid transparent',
+                  color: (isHovered || isCurrent)
+                    ? (theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg)
+                    : 'text.primary',
+                  bgcolor: isHovered ? 'action.hover' : 'transparent',
+                  transition: `background-color ${motion.duration.micro} ease, color ${motion.duration.micro} ease`,
+                  '&:hover': { bgcolor: 'action.hover' },
+                })}
+              >
+                <Typography variant="body2" fontWeight={isCurrent ? 600 : 500}>{panel.label}</Typography>
+                <ArrowForwardIcon
+                  sx={{
+                    fontSize: 16,
+                    opacity: isHovered ? 0.8 : 0,
+                    transform: isHovered ? 'translateX(0)' : 'translateX(-4px)',
+                    transition: `opacity ${motion.duration.fast} ${motion.easing.outExpo}, transform ${motion.duration.fast} ${motion.easing.outExpo}`,
+                  }}
+                />
+              </Box>
+            );
+          })}
         </Box>
 
         {/* Right panel - contextual content */}
