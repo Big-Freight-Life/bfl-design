@@ -57,32 +57,11 @@ export default function POVSection() {
             sx={{
               color: 'text.secondary',
               mb: 2,
-              fontSize: typography.sizes.lg,
-            }}
-          >
-            More AI. More automation. More layers.
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              mb: 2,
               fontSize: typography.sizes.base,
               lineHeight: typography.lineHeights.relaxed,
             }}
           >
-            But the issue isn&apos;t what&apos;s being added.
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              mb: 2,
-              fontSize: typography.sizes.base,
-              lineHeight: typography.lineHeights.relaxed,
-            }}
-          >
-            It&apos;s what was never designed.
+            The issue isn&apos;t what&apos;s being added. It&apos;s what was never designed.
           </Typography>
           <Typography
             variant="body1"
