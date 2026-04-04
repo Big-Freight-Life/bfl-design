@@ -39,7 +39,6 @@ export const aboutPanels: MegamenuPanel[] = [
   { id: 'process', label: 'Process', href: '/process', description: 'How we approach system design and transformation.' },
   { id: 'ai-ethics', label: 'AI Ethics', href: '/ai-ethics', description: 'Our principles for responsible AI design.' },
   { id: 'newsletter', label: 'Our Newsletter', href: '/newsletter', description: 'Stay updated with our latest thinking.' },
-  { id: 'online-design-course', label: 'Online Design Course', href: '/transformation/workshop', description: 'Learn system design principles.' },
 ];
 
 export const mobileTabItems: NavItem[] = [
