@@ -50,7 +50,7 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.snug,
             }}
           >
-            You need a designer.
+            You don&apos;t need more tools.
           </Typography>
           <Typography
             variant="body1"
@@ -66,13 +66,25 @@ export default function POVSection() {
             variant="body1"
             sx={{
               color: 'text.secondary',
-              mb: 4,
+              mb: 2,
               fontSize: typography.sizes.base,
               lineHeight: typography.lineHeights.relaxed,
             }}
           >
-            But the issue isn&apos;t what&apos;s being added. It&apos;s what was never designed in the
-            first place. That takes a different kind of designer.
+            The issue isn&apos;t what&apos;s being added.{' '}
+            It&apos;s what was never designed.
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              mb: 4,
+              fontSize: typography.sizes.base,
+              lineHeight: typography.lineHeights.relaxed,
+              fontWeight: typography.weights.medium,
+            }}
+          >
+            That&apos;s where we work.
           </Typography>
 
           <Box
@@ -96,7 +108,7 @@ export default function POVSection() {
             }}
           >
             <Chip
-              label="New"
+              label="Meet"
               size="small"
               sx={{
                 bgcolor: colors.primary.main,
