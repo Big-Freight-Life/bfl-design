@@ -1,61 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Container, Typography, Button, Paper, TextField } from '@mui/material';
-
-const valueCards = [
-  {
-    title: 'Product Updates',
-    description: 'Be the first to know about new features and app releases across Low Ox Life, Bio Break, and more.',
-  },
-  {
-    title: 'Design Insights',
-    description: 'Behind-the-scenes looks at our design process, decisions, and the thinking behind every pixel.',
-  },
-  {
-    title: 'Health Tech Trends',
-    description: 'Curated insights on health tracking, wellness technology, and the future of personal health data.',
-  },
-  {
-    title: 'Exclusive Content',
-    description: 'Early access to articles, guides, and resources before they go public on the blog.',
-  },
-];
-
-const topics = [
-  { tag: 'UX Design', date: 'Mar 2026', title: "How We Designed Low Ox Life's Search Experience" },
-  { tag: 'Best Practices', date: 'Feb 2026', title: '5 Principles of Health App UX' },
-  { tag: 'Accessibility', date: 'Feb 2026', title: 'Building Accessible iOS Apps: Our Approach' },
-  { tag: 'Industry', date: 'Jan 2026', title: 'The Future of Personal Health Data' },
-  { tag: 'Case Study', date: 'Jan 2026', title: "From Idea to App Store: Bio Break's Journey" },
-  { tag: 'Privacy', date: 'Dec 2025', title: 'Privacy-First Design in Health Tech' },
-];
-
-const stats = [
-  { label: 'Published', value: 'Bi-weekly' },
-  { label: 'Avg. read time', value: '4 min' },
-  { label: 'Topics covered', value: '50+' },
-  { label: 'Open rate', value: '68%' },
-];
-
-const testimonials = [
-  {
-    text: 'The perfect blend of design thinking and practical health tech insights. Every issue teaches me something new.',
-    author: 'App Developer',
-  },
-  {
-    text: 'I look forward to every issue. Concise, actionable, and beautifully designed.',
-    author: 'Product Designer',
-  },
-  {
-    text: 'Finally a newsletter that respects my inbox and my time. Quality over quantity, every single issue.',
-    author: 'Health Tech Founder',
-  },
-];
+import { Box, Container, Typography, Button, TextField, useTheme } from '@mui/material';
+import { colors, darkColors } from '@/theme/tokens';
 
 function SignupForm({ id }: { id: string }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const btnColors = isDark ? darkColors.button.primary : colors.button.primary;
 
   return (
     <Box
@@ -82,18 +36,37 @@ function SignupForm({ id }: { id: string }) {
               fullWidth
               sx={{ flex: 1 }}
             />
-            <Button type="submit" variant="contained" size="large" sx={{ whiteSpace: 'nowrap' }}>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{
+                whiteSpace: 'nowrap',
+                bgcolor: btnColors.bg,
+                color: btnColors.text,
+                '&:hover': { bgcolor: btnColors.hover },
+              }}
+            >
               Subscribe
             </Button>
           </Box>
-          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1.5 }}>
-            Join 500+ readers. No spam. Unsubscribe anytime.
-          </Typography>
         </>
       )}
     </Box>
   );
 }
+
+const whatYoullGet = [
+  'How systems actually break',
+  'Where AI creates friction instead of value',
+  'What changes when decisions, ownership, and workflows align',
+];
+
+const whoItsFor = [
+  'Teams dealing with complexity.',
+  'Leaders responsible for outcomes.',
+  'People trying to make AI actually work inside real systems.',
+];
 
 export default function NewsletterPage() {
   return (
@@ -118,21 +91,29 @@ export default function NewsletterPage() {
               alignItems: 'center',
             }}
           >
-            {/* Content */}
             <Box sx={{ flex: 1 }}>
               <Typography variant="overline" color="primary" sx={{ display: 'block', mb: 1 }}>
                 Newsletter
               </Typography>
               <Typography variant="h1" sx={{ mb: 2, fontSize: { xs: '2rem', md: '2.75rem' } }}>
-                Design, Health Tech &amp; Product Updates
+                Not everything gets published.
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 520 }}>
-                Get behind-the-scenes insights on building iOS apps, health tech product design, and curated industry trends — delivered straight to your inbox.
-              </Typography>
+              <Box sx={{ mb: 4, maxWidth: 520 }}>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                  Some of the most important work doesn&apos;t make it to the site.
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                  It happens earlier.
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  While systems are being mapped.{' '}
+                  While decisions are being challenged.{' '}
+                  While things are still unclear.
+                </Typography>
+              </Box>
               <SignupForm id="nl-email-hero" />
             </Box>
 
-            {/* Illustration */}
             <Box
               sx={{
                 width: { xs: 200, md: 280 },
@@ -162,138 +143,61 @@ export default function NewsletterPage() {
       {/* What You'll Get */}
       <Box component="section" sx={{ py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h2" sx={{ mb: 1 }}>What You&apos;ll Get</Typography>
-            <Typography variant="body1" color="text.secondary">
-              Every issue is packed with actionable insights you can use right away.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(4, 1fr)' },
-              gap: 3,
-            }}
-          >
-            {valueCards.map((card) => (
-              <Paper key={card.title} sx={{ p: 4, borderRadius: 3, border: '1px solid', borderColor: 'divider' }}>
-                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1.5 }}>{card.title}</Typography>
-                <Typography variant="body2" color="text.secondary">{card.description}</Typography>
-              </Paper>
+          <Box sx={{ maxWidth: 600 }}>
+            <Typography variant="h2" sx={{ mb: 4 }}>What you&apos;ll get</Typography>
+            {whatYoullGet.map((item) => (
+              <Typography key={item} variant="body1" color="text.secondary" sx={{ mb: 1.5 }}>
+                {item}
+              </Typography>
             ))}
+            <Box sx={{ mt: 4 }}>
+              <Typography variant="body1" color="text.secondary">
+                Not trends.
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                Not recycled takes.
+              </Typography>
+              <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                The thinking behind the work.
+              </Typography>
+            </Box>
           </Box>
         </Container>
       </Box>
 
-      {/* Topics */}
+      {/* Who This Is For */}
       <Box
         component="section"
-        sx={{ py: { xs: 6, md: 10 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'divider' }}
+        sx={{ py: { xs: 6, md: 10 }, borderTop: '1px solid', borderColor: 'divider', bgcolor: 'grey.50' }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h2" sx={{ mb: 1 }}>Topics We Cover</Typography>
-            <Typography variant="body1" color="text.secondary">
-              A look at recent newsletter topics to give you a taste of what&apos;s inside.
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' },
-              gap: 3,
-            }}
-          >
-            {topics.map((topic) => (
-              <Paper key={topic.title} sx={{ p: 3, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
-                <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 1.5 }}>
-                  <Typography
-                    variant="caption"
-                    color="primary"
-                    sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}
-                  >
-                    {topic.tag}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">{topic.date}</Typography>
-                </Box>
-                <Typography variant="body1" sx={{ fontWeight: 500 }}>{topic.title}</Typography>
-              </Paper>
+          <Box sx={{ maxWidth: 600 }}>
+            <Typography variant="h2" sx={{ mb: 4 }}>Who this is for</Typography>
+            {whoItsFor.map((line) => (
+              <Typography key={line} variant="body1" color="text.secondary" sx={{ mb: 1.5 }}>
+                {line}
+              </Typography>
             ))}
           </Box>
         </Container>
       </Box>
 
-      {/* Stats */}
-      <Box component="section" sx={{ py: { xs: 6, md: 10 }, borderTop: '1px solid', borderColor: 'divider' }}>
-        <Container maxWidth="lg">
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' },
-              gap: 4,
-            }}
-          >
-            {stats.map((stat) => (
-              <Box key={stat.label} sx={{ textAlign: 'center' }}>
-                <Typography variant="h3" color="primary" sx={{ fontWeight: 700, mb: 0.5 }}>{stat.value}</Typography>
-                <Typography variant="body2" color="text.secondary">{stat.label}</Typography>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Testimonials */}
-      <Box
-        component="section"
-        sx={{ py: { xs: 6, md: 10 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'divider' }}
-      >
-        <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ textAlign: 'center', mb: 6 }}>What Readers Say</Typography>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-              gap: 3,
-            }}
-          >
-            {testimonials.map((t) => (
-              <Paper
-                key={t.author}
-                component="blockquote"
-                sx={{ p: 4, borderRadius: 3, border: '1px solid', borderColor: 'divider', m: 0 }}
-              >
-                <Typography variant="body1" sx={{ mb: 2, fontStyle: 'italic' }}>
-                  &ldquo;{t.text}&rdquo;
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
-                  — {t.author}
-                </Typography>
-              </Paper>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Final CTA */}
+      {/* Join CTA */}
       <Box
         component="section"
         sx={{
           py: { xs: 8, md: 14 },
           borderTop: '1px solid',
           borderColor: 'divider',
-          background: 'linear-gradient(160deg, #f0fdfa 0%, #f9fafb 100%)',
         }}
       >
         <Container maxWidth="md">
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h2" sx={{ mb: 2 }}>Don&apos;t Miss the Next Issue</Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 5, maxWidth: 500, mx: 'auto' }}>
-              Join a growing community of designers, developers, and health tech enthusiasts.
+          <Box sx={{ maxWidth: 480 }}>
+            <Typography variant="h2" sx={{ mb: 2 }}>Join</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              Get it before it&apos;s obvious.
             </Typography>
-            <Box sx={{ maxWidth: 480, mx: 'auto' }}>
-              <SignupForm id="nl-email-cta" />
-            </Box>
+            <SignupForm id="nl-email-cta" />
           </Box>
         </Container>
       </Box>
