@@ -19,14 +19,16 @@ export default function TransformationPage() {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle grid texture */}
+        {/* Dot matrix texture with edge fade */}
         <Box
           sx={{
             position: 'absolute',
             inset: 0,
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-            backgroundSize: '64px 64px',
+              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+            maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
@@ -310,13 +312,16 @@ export default function TransformationPage() {
           overflow: 'hidden',
         }}
       >
+        {/* Dot matrix texture with edge fade */}
         <Box
           sx={{
             position: 'absolute',
             inset: 0,
             backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-            backgroundSize: '64px 64px',
+              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+            maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
             pointerEvents: 'none',
           }}
         />
