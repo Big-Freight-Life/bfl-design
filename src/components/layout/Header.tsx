@@ -8,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import MegaMenu from '@/components/common/MegaMenu';
 import { useNavigation } from '@/viewmodels/useNavigation';
-import { layout, colors, motion } from '@/theme/tokens';
+import { layout, colors, darkColors, motion } from '@/theme/tokens';
 
 export default function Header() {
   const {
@@ -194,13 +194,15 @@ export default function Header() {
             rel="noopener noreferrer"
             size="small"
             endIcon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
-            sx={{
+            sx={(theme) => ({
               textTransform: 'none',
-              color: colors.primary.main,
+              color: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
               fontSize: '0.8125rem',
               fontWeight: 500,
-              '&:hover': { bgcolor: 'rgba(20,184,166,0.06)' },
-            }}
+              '&:hover': {
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(26,154,166,0.08)' : 'rgba(17,118,128,0.06)',
+              },
+            })}
           >
             Try Raybot
           </Button>
@@ -211,7 +213,15 @@ export default function Header() {
               href={item.href}
               variant="outlined"
               size="small"
-              sx={{ textTransform: 'none' }}
+              sx={(theme) => ({
+                textTransform: 'none',
+                borderColor: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
+                color: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
+                '&:hover': {
+                  borderColor: theme.palette.mode === 'dark' ? darkColors.button.primary.hover : colors.button.primary.hover,
+                  bgcolor: theme.palette.mode === 'dark' ? 'rgba(26,154,166,0.08)' : 'rgba(17,118,128,0.06)',
+                },
+              })}
             >
               {item.label}
             </Button>
