@@ -50,7 +50,7 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.snug,
             }}
           >
-            Most companies try to fix things by adding more.
+            Let's design a system that works.
           </Typography>
           <Typography
             variant="body1"
