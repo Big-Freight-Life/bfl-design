@@ -71,7 +71,17 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.relaxed,
             }}
           >
-            The issue isn&apos;t what&apos;s being added.{' '}
+            But the issue isn&apos;t what&apos;s being added.
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              mb: 2,
+              fontSize: typography.sizes.base,
+              lineHeight: typography.lineHeights.relaxed,
+            }}
+          >
             It&apos;s what was never designed.
           </Typography>
           <Typography
@@ -84,7 +94,7 @@ export default function POVSection() {
               fontWeight: typography.weights.medium,
             }}
           >
-            That&apos;s where we work.
+            We fix that.
           </Typography>
 
           <Box
