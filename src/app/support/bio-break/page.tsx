@@ -5,7 +5,6 @@ import {
   Box,
   Container,
   Typography,
-  Paper,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -78,7 +77,7 @@ const faqTabs = [
       },
       {
         q: "My data isn't syncing between devices",
-        a: 'Make sure you have a Pro subscription and iCloud sync is enabled in Settings > Sync. Verify iCloud is enabled on your device: iPhone Settings > [Your Name] > iCloud > Apps Using iCloud. Try pulling down to refresh.',
+        a: "Make sure you have a Pro subscription and iCloud sync is enabled in Settings > Sync. Verify iCloud is enabled on your device: iPhone Settings > [Your Name] > iCloud > Apps Using iCloud. Try pulling down to refresh.",
       },
       {
         q: 'How do I export my data?',
@@ -112,7 +111,7 @@ const faqTabs = [
     faqs: [
       {
         q: 'How does the Apple Watch app work?',
-        a: 'The Apple Watch companion app lets you log breaks directly from your wrist. You can log BB1 and BB2, view time since last break, see today\'s count, and check your 7-day average. It includes 4 complication families for your watch face.',
+        a: "The Apple Watch companion app lets you log breaks directly from your wrist. You can log BB1 and BB2, view time since last break, see today's count, and check your 7-day average. It includes 4 complication families for your watch face.",
       },
       {
         q: 'Is the Apple Watch app included in the free tier?',
@@ -132,67 +131,66 @@ export default function BioBreakSupportPage() {
       <Box
         component="section"
         sx={{
-          position: 'relative',
-          py: { xs: 8, md: 12 },
+          py: { xs: 10, md: 16 },
           background: 'linear-gradient(160deg, #f0f4ff 0%, #e8f5e9 100%)',
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}
       >
         <Container maxWidth="lg">
-          <Box
-            component={Link}
-            href="/support"
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 1,
-              mb: 3,
-              color: 'text.secondary',
-              textDecoration: 'none',
-              fontSize: '0.875rem',
-              '&:hover': { color: 'primary.main' },
-            }}
-          >
-            <ArrowBackIcon sx={{ fontSize: 16 }} />
-            All Apps
+          <Box sx={{ maxWidth: '44rem' }}>
+            <Box
+              component={Link}
+              href="/support"
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 4,
+                color: 'text.secondary',
+                textDecoration: 'none',
+                fontSize: '0.875rem',
+                '&:hover': { color: 'text.primary' },
+              }}
+            >
+              <ArrowBackIcon sx={{ fontSize: 16 }} />
+              Support
+            </Box>
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'block',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                color: '#4CAF50',
+                mb: 1.5,
+              }}
+            >
+              iOS App
+            </Typography>
+            <Typography
+              variant="h1"
+              sx={{ mb: 2, fontSize: { xs: '2rem', md: '2.75rem' } }}
+            >
+              Bio Break Support
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ fontSize: { xs: '1rem', md: '1.125rem' } }}>
+              Find answers, manage your account, or get in touch with our team.
+            </Typography>
           </Box>
-
-          <Box
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 1,
-              px: 2,
-              py: 0.75,
-              bgcolor: 'rgba(20,184,166,0.1)',
-              color: 'primary.main',
-              borderRadius: '9999px',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              mb: 3,
-            }}
-          >
-            iOS App
-          </Box>
-
-          <Typography variant="h1" sx={{ mb: 2 }}>Bio Break Support</Typography>
-          <Typography variant="body1" color="text.secondary">
-            Find answers, manage your account, or get in touch with our team.
-          </Typography>
         </Container>
       </Box>
 
       {/* Quick Help */}
       <Box component="section" sx={{ py: { xs: 6, md: 10 } }}>
         <Container maxWidth="lg">
-          <Typography variant="overline" color="primary" sx={{ display: 'block', mb: 1 }}>
-            Quick Help
-          </Typography>
-          <Typography variant="h2" sx={{ mb: 1 }}>Common actions at a glance</Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 5 }}>
-            The most frequently needed steps, right here.
-          </Typography>
+          <Box sx={{ maxWidth: '44rem' }}>
+            <Typography variant="h2" sx={{ mb: 1 }}>Quick Help</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 5 }}>
+              Common actions at a glance.
+            </Typography>
+          </Box>
           <Box
             sx={{
               display: 'grid',
@@ -201,49 +199,75 @@ export default function BioBreakSupportPage() {
             }}
           >
             {quickHelpCards.map((card) => (
-              <Paper key={card.title} sx={{ p: 3, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+              <Box
+                key={card.title}
+                sx={{
+                  p: 3,
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                }}
+              >
                 <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>{card.title}</Typography>
                 <Typography variant="body2" color="text.secondary">{card.description}</Typography>
-              </Paper>
+              </Box>
             ))}
           </Box>
         </Container>
       </Box>
 
       {/* FAQs */}
-      <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'divider' }}>
-        <Container maxWidth="md">
-          <Typography variant="overline" color="primary" sx={{ display: 'block', mb: 1 }}>
-            FAQ
-          </Typography>
-          <Typography variant="h2" sx={{ mb: 1 }}>Frequently Asked Questions</Typography>
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-            Browse by category to find what you need.
-          </Typography>
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 6, md: 10 },
+          bgcolor: 'grey.50',
+          borderTop: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box sx={{ maxWidth: '44rem' }}>
+            <Typography variant="h2" sx={{ mb: 1 }}>Frequently Asked Questions</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              Browse by category to find what you need.
+            </Typography>
 
-          <Tabs
-            value={activeTab}
-            onChange={(_, v) => setActiveTab(v)}
-            variant="scrollable"
-            scrollButtons="auto"
-            sx={{ mb: 3, borderBottom: '1px solid', borderColor: 'divider' }}
-          >
-            {faqTabs.map((tab) => (
-              <Tab key={tab.label} label={tab.label} />
-            ))}
-          </Tabs>
+            <Tabs
+              value={activeTab}
+              onChange={(_, v) => setActiveTab(v)}
+              variant="scrollable"
+              scrollButtons="auto"
+              sx={{ mb: 3, borderBottom: '1px solid', borderColor: 'divider' }}
+            >
+              {faqTabs.map((tab) => (
+                <Tab key={tab.label} label={tab.label} />
+              ))}
+            </Tabs>
 
-          <Box>
-            {faqTabs[activeTab].faqs.map((faq) => (
-              <Accordion key={faq.q} disableGutters elevation={0} sx={{ border: '1px solid', borderColor: 'divider', mb: 1, borderRadius: '8px !important', '&:before': { display: 'none' } }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="body1" sx={{ fontWeight: 500 }}>{faq.q}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography variant="body2" color="text.secondary">{faq.a}</Typography>
-                </AccordionDetails>
-              </Accordion>
-            ))}
+            <Box>
+              {faqTabs[activeTab].faqs.map((faq) => (
+                <Accordion
+                  key={faq.q}
+                  disableGutters
+                  elevation={0}
+                  sx={{
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    mb: 1,
+                    borderRadius: '8px !important',
+                    '&:before': { display: 'none' },
+                  }}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography variant="body1" sx={{ fontWeight: 500 }}>{faq.q}</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography variant="body2" color="text.secondary">{faq.a}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              ))}
+            </Box>
           </Box>
         </Container>
       </Box>
@@ -252,78 +276,63 @@ export default function BioBreakSupportPage() {
       <Box
         component="section"
         sx={{
-          py: { xs: 8, md: 12 },
-          bgcolor: 'grey.900',
-          color: 'common.white',
+          py: { xs: 6, md: 10 },
           borderTop: '1px solid',
           borderColor: 'divider',
         }}
       >
-        <Container maxWidth="md">
-          <Typography variant="overline" sx={{ color: 'primary.light', display: 'block', mb: 1 }}>
-            Contact
-          </Typography>
-          <Typography variant="h2" sx={{ color: 'common.white', mb: 1 }}>Need more help?</Typography>
-          <Typography sx={{ color: 'grey.400', mb: 5 }}>
-            Reach out directly and we&apos;ll get back to you.
-          </Typography>
-
-          {/* Email card */}
-          <Paper
-            sx={{
-              p: 4,
-              borderRadius: 3,
-              textAlign: 'center',
-              mb: 4,
-              bgcolor: 'grey.800',
-              border: '1px solid',
-              borderColor: 'grey.700',
-            }}
-          >
-            <Typography variant="h6" sx={{ color: 'common.white', mb: 2 }}>Email Us Directly</Typography>
+        <Container maxWidth="lg">
+          <Box sx={{ maxWidth: '44rem' }}>
+            <Typography variant="h2" sx={{ mb: 2 }}>Need more help?</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+              Reach out directly and we&apos;ll get back to you.
+            </Typography>
             <Box
               component="a"
               href="mailto:appsupport@bigfreightlife.com?subject=Bio%20Break%20Support"
               sx={{
-                color: 'primary.light',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
+                display: 'inline-block',
+                color: '#4CAF50',
                 fontWeight: 500,
-                fontSize: '1rem',
+                fontSize: '1.125rem',
                 textDecoration: 'none',
                 '&:hover': { textDecoration: 'underline' },
               }}
             >
               appsupport@bigfreightlife.com
             </Box>
-            <Typography variant="body2" sx={{ color: 'grey.400', mt: 1 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 5 }}>
               We typically respond within 24-48 hours.
             </Typography>
-          </Paper>
 
-          {/* Info cards */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
-            <Paper sx={{ p: 3, borderRadius: 2, bgcolor: 'grey.800', border: '1px solid', borderColor: 'grey.700' }}>
-              <Typography variant="h6" sx={{ color: 'common.white', mb: 1 }}>Submit Feedback</Typography>
-              <Typography variant="body2" sx={{ color: 'grey.400', mb: 2 }}>
-                Have an idea to improve Bio Break? Found a bug? Email us with your feedback. Please include:
-              </Typography>
-              <Box component="ul" sx={{ pl: 2, m: 0, color: 'grey.400' }}>
-                <li><Typography variant="body2">A clear description of the feature or issue</Typography></li>
-                <li><Typography variant="body2">Why it would be helpful</Typography></li>
-                <li><Typography variant="body2">Any screenshots or examples</Typography></li>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                gap: 3,
+              }}
+            >
+              <Box sx={{ p: 3, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>Submit Feedback</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  Have an idea to improve Bio Break? Found a bug? Email us with your feedback. Please include:
+                </Typography>
+                <Box component="ul" sx={{ pl: 2, m: 0 }}>
+                  <li><Typography variant="body2" color="text.secondary">A clear description of the feature or issue</Typography></li>
+                  <li><Typography variant="body2" color="text.secondary">Why it would be helpful</Typography></li>
+                  <li><Typography variant="body2" color="text.secondary">Any screenshots or examples</Typography></li>
+                </Box>
               </Box>
-            </Paper>
-            <Paper sx={{ p: 3, borderRadius: 2, bgcolor: 'grey.800', border: '1px solid', borderColor: 'grey.700' }}>
-              <Typography variant="h6" sx={{ color: 'common.white', mb: 1 }}>Beta Testing</Typography>
-              <Typography variant="body2" sx={{ color: 'grey.400', mb: 2 }}>
-                Want early access to new features? Join our TestFlight beta program to test upcoming releases before they&apos;re public.
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'grey.400' }}>
-                Email us with &quot;Beta Request&quot; in the subject to request access.
-              </Typography>
-            </Paper>
+              <Box sx={{ p: 3, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>Beta Testing</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  Want early access to new features? Join our TestFlight beta program to test upcoming releases before they&apos;re public.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Email us with &quot;Beta Request&quot; in the subject to request access.
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         </Container>
       </Box>

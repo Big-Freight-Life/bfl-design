@@ -31,6 +31,7 @@ export const productsPanels: MegamenuPanel[] = [
   { id: '24h-urine', label: '24-Hour Urine Analysis', href: '/products/24-hour-urine-analysis', description: 'Comprehensive urine analysis tracking.' },
   { id: 'product-releases', label: 'Product Releases', href: '/products/releases', description: 'Latest updates and release notes.' },
   { id: 'legal', label: 'Legal', href: '/legal', description: 'Privacy policies and terms of service.' },
+  { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products.' },
 ];
 
 export const aboutPanels: MegamenuPanel[] = [
@@ -39,7 +40,6 @@ export const aboutPanels: MegamenuPanel[] = [
   { id: 'ai-ethics', label: 'AI Ethics', href: '/ai-ethics', description: 'Our principles for responsible AI design.' },
   { id: 'newsletter', label: 'Our Newsletter', href: '/newsletter', description: 'Stay updated with our latest thinking.' },
   { id: 'online-design-course', label: 'Online Design Course', href: '/transformation/workshop', description: 'Learn system design principles.' },
-  { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products.' },
 ];
 
 export const mobileTabItems: NavItem[] = [
