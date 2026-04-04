@@ -2,402 +2,368 @@
 
 import { Box, Container, Typography, Button } from '@mui/material';
 import Link from 'next/link';
-
-const narrativeBlocks: { text: string[]; accent?: boolean; list?: boolean; closing?: boolean; coda?: boolean }[] = [
-  {
-    text: [
-      "Then AI gets introduced, and everything breaks in new ways.",
-      "Not because the technology is wrong. Because the system was never designed to support it.",
-    ],
-  },
-  {
-    accent: true,
-    text: ["AI is not the product. It's the output."],
-  },
-  {
-    text: ["What matters is everything that comes before it:"],
-  },
-  {
-    list: true,
-    text: [
-      "how decisions are made",
-      "how information flows",
-      "who owns what",
-      "what happens when something goes wrong",
-    ],
-  },
-  {
-    text: [
-      "Without that, AI doesn't scale. It fragments.",
-      "Another tool. Another dashboard. Another system no one fully trusts.",
-    ],
-  },
-  {
-    text: [
-      "Most companies try to solve this by adding more. More tools. More automation. More layers.",
-      "But complexity doesn't fix misalignment. It amplifies it.",
-    ],
-  },
-  {
-    accent: true,
-    text: ["The result isn't transformation. It's acceleration without direction."],
-  },
-  {
-    text: [
-      "Real transformation is quieter than that.",
-      "It starts by making the system visible. Where decisions actually happen. Where breakdowns occur. Where ownership is missing.",
-      "Not in theory. In practice.",
-    ],
-  },
-  {
-    text: ["Because until the system is understood, nothing built on top of it will hold."],
-  },
-  {
-    accent: true,
-    text: ["This is where most teams get stuck."],
-  },
-  {
-    text: [
-      "Not because they lack effort, but because they're inside the system they're trying to fix.",
-      "They can feel the friction. They can see the symptoms. But they can't always see the structure causing it.",
-    ],
-  },
-  {
-    text: [
-      "Change requires distance.",
-      "A way to step outside the system without losing the context inside it.",
-    ],
-  },
-  {
-    text: [
-      "To map what's actually happening. To redefine ownership. To reconnect decisions, data, and execution.",
-      "Not as an abstract exercise, but alongside the people responsible for making it work.",
-    ],
-  },
-  {
-    text: [
-      "From there, structure emerges. Clear ownership. Defined processes. Connected systems.",
-      "Not as documentation for its own sake, but as a foundation for how the team operates.",
-    ],
-  },
-  {
-    text: ["So when AI is introduced, it has something to attach to. Something to reinforce. Something to scale."],
-  },
-  {
-    accent: true,
-    text: ["The shift isn't just technical. It's organizational."],
-  },
-  {
-    list: true,
-    text: ["How teams think.", "How they decide.", "How they move."],
-  },
-  {
-    text: ["Because a system is only as strong as the people responsible for it."],
-  },
-  {
-    text: [
-      "The companies that move forward aren't the ones adopting the fastest. They're the ones who understand: AI doesn't create capability. It exposes it.",
-    ],
-  },
-  {
-    text: [
-      "If the system is strong, AI accelerates it.",
-      "If the system is weak, AI reveals it.",
-    ],
-  },
-  {
-    text: [
-      "Transformation, then, isn't about deploying tools. It's about reshaping how a team operates so the system they depend on actually works.",
-      "The processes. The ownership. The integration between them.",
-    ],
-  },
-  {
-    text: ["Because that's where decisions are made. That's where trust is built. That's where scale becomes possible."],
-  },
-  {
-    closing: true,
-    text: ["AI is the output.", "The system is the product."],
-  },
-  {
-    coda: true,
-    text: ["This is where our work begins."],
-  },
-];
+import { colors, typography as typographyTokens } from '@/theme/tokens';
 
 export default function TransformationPage() {
   return (
     <Box component="main">
 
-      {/* Hero */}
+      {/* ── Hero ── */}
       <Box
         component="header"
         sx={{
-          py: { xs: 10, md: 16 },
+          pt: { xs: 16, md: 24 },
+          pb: { xs: 10, md: 16 },
           background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '52rem' }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: '2rem', md: 'clamp(2.25rem, 5vw, 3.5rem)' },
-                fontWeight: 700,
-                color: '#fff',
-                lineHeight: 1.1,
-                mb: 3,
-              }}
-            >
-              The System Was Never{' '}
-              <Box component="span" sx={{ color: '#14B8A6', display: 'block' }}>
-                Designed for AI
-              </Box>
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{ fontSize: { xs: '1rem', md: '1.125rem' }, color: 'grey.400', lineHeight: 1.625 }}
-            >
-              Most teams don&#39;t fail at AI. They fail at the structure that&#39;s supposed to support it.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Introduction with Video */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Box
+        {/* Subtle grid texture */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+            pointerEvents: 'none',
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+          <Typography
+            variant="h1"
             sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-              gap: { xs: 4, md: 8 },
-              alignItems: 'center',
+              fontSize: { xs: '3.5rem', sm: '5rem', md: '7rem', lg: '8.5rem' },
+              fontWeight: 700,
+              color: '#fff',
+              lineHeight: 0.95,
+              letterSpacing: typographyTokens.letterSpacing.tighter,
+              mb: { xs: 5, md: 6 },
             }}
           >
-            {/* Video placeholder */}
+            Fix the
+            <br />
             <Box
+              component="span"
               sx={{
-                flex: { md: 1 },
-                width: '100%',
-                position: 'relative',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                aspectRatio: '16 / 10',
-                bgcolor: 'grey.200',
+                color: colors.primary.main,
+                display: 'inline-block',
               }}
             >
-              <Box
-                component="img"
-                src="/images/transformation-dancer.jpg"
-                alt="Transformation video preview"
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-              />
-              {/* Play button overlay */}
-              <Box
-                sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  '&:hover svg circle': { fill: 'rgba(0,0,0,0.5)' },
-                }}
-              >
-                <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-                  <circle cx="40" cy="40" r="39" stroke="white" strokeWidth="2" fill="rgba(0,0,0,0.3)" />
-                  <path d="M32 24L56 40L32 56V24Z" fill="white" />
-                </svg>
-              </Box>
+              system.
             </Box>
-
-            {/* Text content */}
-            <Box sx={{ flex: { md: 1 } }}>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: { xs: '1.25rem', md: '1.5rem' },
-                  fontWeight: 500,
-                  color: 'text.primary',
-                  lineHeight: 1.5,
-                  mb: 2,
-                }}
-              >
-                Transformation doesn&#39;t fail because of AI.
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: { xs: '1.25rem', md: '1.375rem' },
-                  color: '#117680',
-                  fontWeight: 500,
-                  lineHeight: 1.5,
-                  mb: 4,
-                }}
-              >
-                It fails because the system underneath never changed.
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{ color: 'text.secondary', lineHeight: 1.625, fontSize: '1.0625rem' }}
-              >
-                Most organizations don&#39;t have a technology problem. They have a structure problem. Decisions
-                live in one place. Data lives in another. Ownership is unclear. Processes are undocumented.
-              </Typography>
-            </Box>
-          </Box>
+          </Typography>
         </Container>
       </Box>
 
-      {/* Narrative Prose */}
-      <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: 'grey.50', borderTop: '1px solid', borderColor: 'grey.200' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '44rem', mx: 'auto' }}>
-            {narrativeBlocks.map((block, idx) => {
-              if (block.closing) {
-                return (
-                  <Box
-                    key={idx}
-                    sx={{
-                      my: 6,
-                      py: 4,
-                      borderTop: '2px solid',
-                      borderBottom: '2px solid',
-                      borderColor: '#14B8A6',
-                    }}
-                  >
-                    <Typography
-                      variant="body1"
-                      sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 1 }}
-                    >
-                      {block.text[0]}
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        fontSize: '1.25rem',
-                        fontWeight: 600,
-                        color: 'text.primary',
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {block.text[1]}
-                    </Typography>
-                  </Box>
-                );
-              }
-
-              if (block.coda) {
-                return (
-                  <Typography
-                    key={idx}
-                    variant="body1"
-                    sx={{
-                      color: '#117680',
-                      fontWeight: 500,
-                      fontSize: '1.0625rem',
-                      lineHeight: 1.625,
-                      mt: 4,
-                    }}
-                  >
-                    {block.text[0]}
-                  </Typography>
-                );
-              }
-
-              if (block.accent) {
-                return (
-                  <Box key={idx} sx={{ my: 5 }}>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        fontSize: { xs: '1.125rem', md: '1.25rem' },
-                        fontWeight: 600,
-                        color: 'text.primary',
-                        lineHeight: 1.5,
-                        pl: 3,
-                        borderLeft: '3px solid #14B8A6',
-                      }}
-                    >
-                      {block.text[0]}
-                    </Typography>
-                  </Box>
-                );
-              }
-
-              if (block.list) {
-                return (
-                  <Box key={idx} sx={{ my: 3, pl: 3 }}>
-                    {block.text.map((line) => (
-                      <Typography
-                        key={line}
-                        variant="body1"
-                        sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 0.5 }}
-                      >
-                        {line}
-                      </Typography>
-                    ))}
-                  </Box>
-                );
-              }
-
-              return (
-                <Box key={idx} sx={{ my: 3 }}>
-                  {block.text.map((line) => (
-                    <Typography
-                      key={line}
-                      variant="body1"
-                      sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 1 }}
-                    >
-                      {line}
-                    </Typography>
-                  ))}
-                </Box>
-              );
-            })}
-          </Box>
-        </Container>
-      </Box>
-
-      {/* CTA */}
+      {/* ── Opening lines ── */}
       <Box
         component="section"
         sx={{
-          py: { xs: 10, md: 14 },
-          textAlign: 'center',
+          py: { xs: 10, md: 16 },
           bgcolor: 'background.default',
-          borderTop: '1px solid',
-          borderColor: 'grey.200',
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="h2" sx={{ fontWeight: 600, mb: 2 }}>
-            Ready to look at the system?
-          </Typography>
+          <Box sx={{ maxWidth: '48rem' }}>
+            <Typography
+              sx={{
+                fontSize: { xs: '1.5rem', md: '2rem' },
+                fontWeight: 500,
+                color: 'text.primary',
+                lineHeight: 1.4,
+                mb: 5,
+              }}
+            >
+              Most teams don&apos;t have a tooling problem.
+            </Typography>
+
+            {/* Staccato lines */}
+            <Box sx={{ mb: 5 }}>
+              {[
+                'Work moves.',
+                'But decisions don\u2019t always connect.',
+                'Ownership isn\u2019t always clear.',
+              ].map((line) => (
+                <Typography
+                  key={line}
+                  sx={{
+                    fontSize: { xs: '1.125rem', md: '1.375rem' },
+                    color: 'text.secondary',
+                    lineHeight: 1.6,
+                    mb: 0.75,
+                  }}
+                >
+                  {line}
+                </Typography>
+              ))}
+            </Box>
+
+            <Typography
+              sx={{
+                fontSize: { xs: '1.25rem', md: '1.625rem' },
+                fontWeight: 600,
+                color: 'text.primary',
+                lineHeight: 1.4,
+              }}
+            >
+              That&apos;s where things break.
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* ── Divider ── */}
+      <Box sx={{ mx: 'auto', maxWidth: '1024px', px: 3 }}>
+        <Box sx={{ height: '1px', bgcolor: 'grey.200' }} />
+      </Box>
+
+      {/* ── What we do ── */}
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 10, md: 16 },
+          bgcolor: 'background.default',
+        }}
+      >
+        <Container maxWidth="lg">
           <Typography
-            variant="body1"
-            sx={{ color: 'text.secondary', maxWidth: '36rem', mx: 'auto', mb: 4, lineHeight: 1.625 }}
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
+              fontWeight: 700,
+              color: 'text.primary',
+              lineHeight: 1,
+              letterSpacing: typographyTokens.letterSpacing.tight,
+              mb: { xs: 6, md: 8 },
+            }}
           >
-            Whether you&#39;re rethinking how your team works or figuring out where AI actually fits, we
-            can help.
+            What we do
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+
+          <Box sx={{ maxWidth: '44rem' }}>
+            <Typography
+              sx={{
+                fontSize: { xs: '1.25rem', md: '1.5rem' },
+                fontWeight: 500,
+                color: 'text.primary',
+                lineHeight: 1.5,
+                mb: 5,
+              }}
+            >
+              We step into how the system actually works.
+            </Typography>
+
+            <Box sx={{ mb: 5, pl: { xs: 2, md: 4 }, borderLeft: `3px solid ${colors.primary.main}` }}>
+              {[
+                'Not the roadmap.',
+                'Not the documentation.',
+              ].map((line) => (
+                <Typography
+                  key={line}
+                  sx={{
+                    fontSize: { xs: '1.0625rem', md: '1.25rem' },
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                    fontStyle: 'italic',
+                  }}
+                >
+                  {line}
+                </Typography>
+              ))}
+            </Box>
+
+            <Box sx={{ mb: 5 }}>
+              {[
+                'The real flow of work.',
+                'Where decisions happen.',
+                'Where things slow down.',
+              ].map((line) => (
+                <Typography
+                  key={line}
+                  sx={{
+                    fontSize: { xs: '1.125rem', md: '1.375rem' },
+                    color: 'text.secondary',
+                    lineHeight: 1.6,
+                    mb: 0.5,
+                  }}
+                >
+                  {line}
+                </Typography>
+              ))}
+            </Box>
+
+            <Typography
+              sx={{
+                fontSize: { xs: '1.375rem', md: '1.75rem' },
+                fontWeight: 600,
+                color: 'text.primary',
+                lineHeight: 1.4,
+                mb: 6,
+              }}
+            >
+              Then we fix it.
+            </Typography>
+
+            {/* Bullet list — styled as cards */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {[
+                'We make work visible',
+                'We align decisions and ownership',
+                'We structure the system \u2014 so AI supports it, not fights it',
+              ].map((item, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      bgcolor: colors.primary.main,
+                      mt: '10px',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '1.0625rem', md: '1.25rem' },
+                      color: 'text.primary',
+                      fontWeight: 500,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* ── Divider ── */}
+      <Box sx={{ mx: 'auto', maxWidth: '1024px', px: 3 }}>
+        <Box sx={{ height: '1px', bgcolor: 'grey.200' }} />
+      </Box>
+
+      {/* ── What changes ── */}
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 10, md: 16 },
+          bgcolor: 'background.default',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
+              fontWeight: 700,
+              color: 'text.primary',
+              lineHeight: 1,
+              letterSpacing: typographyTokens.letterSpacing.tight,
+              mb: { xs: 6, md: 8 },
+            }}
+          >
+            What changes
+          </Typography>
+
+          <Box sx={{ maxWidth: '44rem' }}>
+            {[
+              'Work moves without getting stuck.',
+              'Decisions are made with clarity.',
+              'Ownership stays clear as things scale.',
+              'AI fits into the system \u2014 instead of exposing its gaps.',
+            ].map((line, idx) => (
+              <Typography
+                key={idx}
+                sx={{
+                  fontSize: { xs: '1.125rem', md: '1.375rem' },
+                  color: idx === 3 ? 'text.primary' : 'text.secondary',
+                  fontWeight: idx === 3 ? 600 : 400,
+                  lineHeight: 1.6,
+                  mb: 1.5,
+                }}
+              >
+                {line}
+              </Typography>
+            ))}
+          </Box>
+        </Container>
+      </Box>
+
+      {/* ── Closing statement ── */}
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 12, md: 20 },
+          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+            pointerEvents: 'none',
+          }}
+        />
+        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+          <Typography
+            sx={{
+              fontSize: { xs: '1.25rem', md: '1.625rem' },
+              color: 'grey.400',
+              lineHeight: 1.5,
+              maxWidth: '36rem',
+              mb: 4,
+            }}
+          >
+            When the system works, everything else follows.
+          </Typography>
+
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', md: '5rem', lg: '6rem' },
+              fontWeight: 700,
+              color: '#fff',
+              lineHeight: 1,
+              letterSpacing: typographyTokens.letterSpacing.tighter,
+              mb: { xs: 5, md: 6 },
+            }}
+          >
+            Make the system
+            <br />
+            <Box component="span" sx={{ color: colors.primary.main }}>
+              visible.
+            </Box>
+          </Typography>
+
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
             <Button
               component="a"
               href="/contact"
               variant="contained"
               size="large"
               sx={{
-                bgcolor: '#117680',
+                bgcolor: colors.button.primary.bg,
                 color: '#fff',
-                px: 4,
-                py: 1.5,
-                '&:hover': { bgcolor: '#0e5f67' },
+                px: 5,
+                py: 1.75,
+                fontSize: '1.0625rem',
+                '&:hover': { bgcolor: colors.button.primary.hover },
               }}
             >
               Get Started
@@ -408,14 +374,18 @@ export default function TransformationPage() {
               variant="outlined"
               size="large"
               sx={{
-                borderColor: '#117680',
-                color: '#117680',
-                px: 4,
-                py: 1.5,
-                '&:hover': { borderColor: '#0e5f67', bgcolor: 'rgba(17,118,128,0.04)' },
+                borderColor: 'rgba(255,255,255,0.25)',
+                color: '#fff',
+                px: 5,
+                py: 1.75,
+                fontSize: '1.0625rem',
+                '&:hover': {
+                  borderColor: 'rgba(255,255,255,0.5)',
+                  bgcolor: 'rgba(255,255,255,0.05)',
+                },
               }}
             >
-              View Workshop Details →
+              View Workshop Details
             </Button>
           </Box>
         </Container>
