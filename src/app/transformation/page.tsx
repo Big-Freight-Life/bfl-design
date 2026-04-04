@@ -356,43 +356,22 @@ export default function TransformationPage() {
             </Box>
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            <Button
-              component="a"
-              href="/contact"
-              variant="contained"
-              size="large"
-              sx={{
-                bgcolor: colors.button.primary.bg,
-                color: '#fff',
-                px: 5,
-                py: 1.75,
-                fontSize: '1.0625rem',
-                '&:hover': { bgcolor: colors.button.primary.hover },
-              }}
-            >
-              Get Started
-            </Button>
-            <Button
-              component={Link}
-              href="/transformation/workshop"
-              variant="outlined"
-              size="large"
-              sx={{
-                borderColor: 'rgba(255,255,255,0.25)',
-                color: '#fff',
-                px: 5,
-                py: 1.75,
-                fontSize: '1.0625rem',
-                '&:hover': {
-                  borderColor: 'rgba(255,255,255,0.5)',
-                  bgcolor: 'rgba(255,255,255,0.05)',
-                },
-              }}
-            >
-              View Workshop Details
-            </Button>
-          </Box>
+          <Button
+            component={Link}
+            href="/transformation/workshop"
+            variant="contained"
+            size="large"
+            sx={{
+              bgcolor: colors.button.primary.bg,
+              color: '#fff',
+              px: 5,
+              py: 1.75,
+              fontSize: '1.0625rem',
+              '&:hover': { bgcolor: colors.button.primary.hover },
+            }}
+          >
+            View Workshop Details
+          </Button>
         </Container>
       </Box>
 
