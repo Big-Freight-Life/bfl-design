@@ -57,8 +57,8 @@ export default function ProductFeatureGridAnimated({
       const gr = gridEl.getBoundingClientRect();
       // Start when grid top hits 90% from top (near bottom of viewport)
       const startAt = vh * 0.9;
-      // End when grid top hits 30% from top — 60% vh of scroll distance
-      const endAt = vh * 0.3;
+      // End when grid top hits 10% from top — 80% vh of scroll distance
+      const endAt = vh * 0.1;
       const gRaw = 1 - (gr.top - endAt) / (startAt - endAt);
       setGridProgress(Math.min(1, Math.max(0, gRaw)));
     }
