@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
 import { Container, Typography, Box } from '@mui/material';
 import SectionHeader from '@/components/common/SectionHeader';
 import { getAllPosts } from '@/models/blog';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Blog | BFL Design',
+  description: 'Thoughts on systems, design, and AI from Big Freight Life. Short essays, case notes, and frameworks for teams building in complex environments.',
+};
 
 export default function BlogPage() {
   const posts = getAllPosts();

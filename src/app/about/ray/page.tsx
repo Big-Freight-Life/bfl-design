@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import { Box, Container, Typography, Grid, Paper, Button } from '@mui/material';
+import Image from 'next/image';
+import { gradients } from '@/theme/tokens';
+import DarkHeroSection from '@/components/common/DarkHeroSection';
+
+export const metadata: Metadata = {
+  title: 'Ray Butler | BFL Design',
+  description: 'Ray Butler is a design technologist and founder of Big Freight Life, specializing in GenAI experience design, system architecture, and applied AI for complex operational environments.',
+};
 
 const chapters = [
   {
@@ -64,33 +73,35 @@ const pullQuotes = [
 
 export default function RayPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
-      <Box
+      <DarkHeroSection
         component="section"
-        sx={{
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)',
-          py: { xs: 10, md: 16 },
-          overflow: 'hidden',
-        }}
+        gradient={gradients.darkHero135Ray}
+        sx={{ py: { xs: 10, md: 16 } }}
+        dotMatrix={false}
       >
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 5 }}>
-              <Box
-                component="img"
-                src="/images/ray-butler-profile.png"
-                alt="Ray Butler"
-                sx={{
-                  width: '100%',
-                  maxWidth: 380,
-                  borderRadius: '1.5rem',
-                  display: 'block',
-                  mx: 'auto',
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-                }}
-              />
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  src="/images/ray-butler-profile.png"
+                  alt="Ray Butler"
+                  width={380}
+                  height={380}
+                  priority
+                  style={{
+                    width: '100%',
+                    maxWidth: 380,
+                    height: 'auto',
+                    borderRadius: '1.5rem',
+                    display: 'block',
+                    boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+                  }}
+                />
+              </Box>
             </Grid>
             <Grid size={{ xs: 12, md: 7 }}>
               <Typography
@@ -147,7 +158,7 @@ export default function RayPage() {
             </Grid>
           </Grid>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
       {/* Narrative Chapters */}
       {chapters.map((chapter, idx) => (

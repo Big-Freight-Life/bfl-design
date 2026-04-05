@@ -7,7 +7,7 @@ Next.js portfolio and agency site for Big Freight Life (Ray Butler) at `bfl.desi
 ## Stack
 
 - **Framework:** Next.js 16 (App Router), TypeScript
-- **UI:** MUI 6 (Material UI) with custom theme
+- **UI:** MUI 7 (Material UI) with custom theme
 - **Architecture:** MVVM — Models (`src/models/`), ViewModels (`src/viewmodels/`), Views (`src/components/`)
 - **Blog:** MDX files in `content/blog/`
 - **Hosting:** Vercel (Hobby plan), domain `bfl.design`

@@ -21,7 +21,7 @@ const moreWork = [
 
 export default function WorksPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box

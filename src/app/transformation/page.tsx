@@ -2,37 +2,19 @@
 
 import { Box, Container, Typography, Button } from '@mui/material';
 import Link from 'next/link';
-import { colors, typography as typographyTokens } from '@/theme/tokens';
+import { colors, typography as typographyTokens, gradients } from '@/theme/tokens';
+import DarkHeroSection from '@/components/common/DarkHeroSection';
 
 export default function TransformationPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* ── Hero ── */}
-      <Box
+      <DarkHeroSection
         component="header"
-        sx={{
-          pt: { xs: 16, md: 24 },
-          pb: { xs: 10, md: 16 },
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        sx={{ pt: { xs: 16, md: 24 }, pb: { xs: 10, md: 16 } }}
       >
-        {/* Dot matrix texture with edge fade */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-            maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+        <Container maxWidth="lg">
           <Typography
             variant="h1"
             sx={{
@@ -57,7 +39,7 @@ export default function TransformationPage() {
             </Box>
           </Typography>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
       {/* ── Opening lines ── */}
       <Box
@@ -303,29 +285,12 @@ export default function TransformationPage() {
       </Box>
 
       {/* ── Closing statement ── */}
-      <Box
+      <DarkHeroSection
         component="section"
-        sx={{
-          py: { xs: 12, md: 20 },
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        gradient={gradients.darkHero}
+        sx={{ py: { xs: 12, md: 20 } }}
       >
-        {/* Dot matrix texture with edge fade */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-            maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+        <Container maxWidth="lg">
           <Typography
             sx={{
               fontSize: { xs: '1.25rem', md: '1.625rem' },
@@ -373,7 +338,7 @@ export default function TransformationPage() {
             View Workshop Details
           </Button>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
     </Box>
   );

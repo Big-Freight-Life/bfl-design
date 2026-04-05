@@ -52,7 +52,7 @@ const principles = [
 
 export default function MethodologyPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Page header */}
       <Box sx={{ py: { xs: 6, md: 10 }, borderBottom: '1px solid', borderColor: 'divider' }}>

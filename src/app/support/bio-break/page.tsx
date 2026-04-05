@@ -123,7 +123,7 @@ export default function BioBreakSupportPage() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box

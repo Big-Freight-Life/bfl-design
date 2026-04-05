@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Box, Container, Typography, Button, TextField, Tab, Tabs, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { colors, darkColors } from '@/theme/tokens';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ShareIcon from '@mui/icons-material/Share';
@@ -126,7 +127,7 @@ export default function NewsletterPage() {
   const currentTab = resourceTabs[activeTab];
 
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box
@@ -182,13 +183,13 @@ export default function NewsletterPage() {
               <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%">
                 <rect x="10" y="40" width="180" height="110" rx="12" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth="2" />
                 <path d="M10 52 L100 110 L190 52" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                <rect x="35" y="10" width="130" height="80" rx="8" fill="#14B8A6" opacity="0.15" stroke="#14B8A6" strokeWidth="1.5" />
-                <line x1="55" y1="35" x2="145" y2="35" stroke="#14B8A6" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
-                <line x1="55" y1="50" x2="125" y2="50" stroke="#14B8A6" strokeWidth="2" strokeLinecap="round" opacity="0.35" />
-                <line x1="55" y1="65" x2="110" y2="65" stroke="#14B8A6" strokeWidth="2" strokeLinecap="round" opacity="0.2" />
-                <circle cx="30" cy="25" r="4" fill="#06B6D4" opacity="0.6" />
-                <circle cx="170" cy="20" r="3" fill="#F87171" opacity="0.5" />
-                <circle cx="160" cy="130" r="5" fill="#A855F7" opacity="0.4" />
+                <rect x="35" y="10" width="130" height="80" rx="8" fill={colors.primary.main} opacity="0.15" stroke={colors.primary.main} strokeWidth="1.5" />
+                <line x1="55" y1="35" x2="145" y2="35" stroke={colors.primary.main} strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+                <line x1="55" y1="50" x2="125" y2="50" stroke={colors.primary.main} strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+                <line x1="55" y1="65" x2="110" y2="65" stroke={colors.primary.main} strokeWidth="2" strokeLinecap="round" opacity="0.2" />
+                <circle cx="30" cy="25" r="4" fill={colors.accent.cyan} opacity="0.6" />
+                <circle cx="170" cy="20" r="3" fill={colors.accent.coral} opacity="0.5" />
+                <circle cx="160" cy="130" r="5" fill={colors.accent.purple} opacity="0.4" />
               </svg>
             </Box>
           </Box>
@@ -249,7 +250,7 @@ export default function NewsletterPage() {
                         justifyContent: 'center',
                         overflow: 'hidden',
                         transition: 'opacity 0.2s',
-                        backgroundImage: 'radial-gradient(circle at 30% 40%, rgba(20,184,166,0.12) 0%, transparent 60%)',
+                        backgroundImage: `radial-gradient(circle at 30% 40%, ${alpha(colors.primary.main, 0.12)} 0%, transparent 60%)`,
                       }}
                     >
                       <Box

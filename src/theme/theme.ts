@@ -1,5 +1,3 @@
-'use client';
-
 import { createTheme } from '@mui/material/styles';
 import { colors, darkColors, typography, breakpoints, radius } from './tokens';
 
@@ -27,7 +25,7 @@ export const lightTheme = createTheme({
   ...baseTheme,
   palette: {
     mode: 'light',
-    primary: { main: colors.primary.main, dark: colors.primary.dark, light: colors.primary.light, contrastText: '#ffffff' },
+    primary: { main: colors.primary.main, dark: colors.primary.dark, light: colors.primary.light, contrastText: colors.button.primary.text },
     secondary: { main: colors.accent.purple },
     error: { main: colors.semantic.error },
     warning: { main: colors.semantic.warning },
@@ -40,8 +38,8 @@ export const lightTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          color: '#ffffff',
-          '&:hover': { color: '#ffffff' },
+          color: colors.button.primary.text,
+          '&:hover': { color: colors.button.primary.text },
         },
       },
     },
@@ -57,9 +55,9 @@ export const darkTheme = createTheme({
     error: { main: colors.semantic.error },
     warning: { main: colors.semantic.warning },
     success: { main: colors.semantic.success },
-    background: { default: '#121212', paper: '#1a1a1a' },
-    text: { primary: '#d4d4d4', secondary: '#a3a3a3' },
-    divider: '#303030',
+    background: { default: darkColors.bg.default, paper: darkColors.bg.paper },
+    text: { primary: darkColors.bg.text, secondary: darkColors.bg.textSecondary },
+    divider: darkColors.bg.divider,
     grey: {
       50: '#1e1e1e',
       100: '#252525',
@@ -77,8 +75,8 @@ export const darkTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          color: '#ffffff',
-          '&:hover': { color: '#ffffff' },
+          color: colors.button.primary.text,
+          '&:hover': { color: colors.button.primary.text },
         },
       },
     },

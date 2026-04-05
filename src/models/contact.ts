@@ -36,15 +36,3 @@ export function hasErrors(errors: ContactFormErrors): boolean {
   return Object.keys(errors).length > 0;
 }
 
-export async function submitContact(data: ContactFormData): Promise<{ success: boolean; error?: string }> {
-  const response = await fetch('/api/contact', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    const body = await response.json().catch(() => ({}));
-    return { success: false, error: body.error ?? 'Failed to send message' };
-  }
-  return { success: true };
-}

@@ -1,5 +1,6 @@
 import { Box, Typography, Chip } from '@mui/material';
 import { ReactNode } from 'react';
+import { colors } from '@/theme/tokens';
 
 interface FeatureCardProps {
   title: string;
@@ -11,10 +12,10 @@ interface FeatureCardProps {
 }
 
 const tierColors: Record<string, string> = {
-  Free: '#10b981',
-  Starter: '#3b82f6',
-  Pro: '#8b5cf6',
-  Elite: '#f59e0b',
+  Free: colors.tier.free,
+  Starter: colors.tier.starter,
+  Pro: colors.tier.pro,
+  Elite: colors.tier.elite,
 };
 
 export default function FeatureCard({
@@ -74,8 +75,8 @@ export default function FeatureCard({
         size="small"
         sx={{
           alignSelf: 'flex-start',
-          bgcolor: `${tierColors[tier] || '#6b7280'}18`,
-          color: tierColors[tier] || '#6b7280',
+          bgcolor: `${tierColors[tier] || colors.tier.default}18`,
+          color: tierColors[tier] || colors.tier.default,
           fontWeight: 600,
           fontSize: '0.7rem',
         }}

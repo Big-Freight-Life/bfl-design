@@ -63,7 +63,7 @@ export default function LegalPage() {
   }, [search]);
 
   return (
-    <Box component="main">
+    <Box>
       {/* Header */}
       <Box component="header" sx={{ pt: { xs: 6, md: 8 }, pb: { xs: 2, md: 3 } }}>
         <Container maxWidth="lg">
@@ -216,7 +216,7 @@ export default function LegalPage() {
                       component="a"
                       href={APPLE_EULA}
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                       size="small"
                       startIcon={<OpenInNewIcon sx={{ fontSize: 16 }} />}
                       sx={{

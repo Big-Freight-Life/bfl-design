@@ -10,13 +10,11 @@ import MegaMenu from '@/components/common/MegaMenu';
 import { useNavigation } from '@/viewmodels/useNavigation';
 import { layout, colors, darkColors, motion } from '@/theme/tokens';
 
-export default function Header() {
-  const {
-    primaryNav, secondaryNav, productsPanels, aboutPanels,
-    activeMegamenu, activePanelId, setActivePanelId,
-    openMegamenu, closeMegamenu, isActive, isParentActive,
-  } = useNavigation();
-
+function useMegamenuHover(
+  activeMegamenu: string | null,
+  openMegamenu: (menu: 'products' | 'about') => void,
+  closeMegamenu: () => void,
+) {
   const openTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -57,6 +55,19 @@ export default function Header() {
     clearTimers();
     scheduleClose(200);
   }, [clearTimers, scheduleClose]);
+
+  return { handleTriggerEnter, handleTriggerLeave, handleMenuEnter, handleMenuLeave };
+}
+
+export default function Header() {
+  const {
+    primaryNav, secondaryNav, productsPanels, aboutPanels,
+    activeMegamenu, activePanelId, setActivePanelId,
+    openMegamenu, closeMegamenu, isActive, isParentActive,
+  } = useNavigation();
+
+  const { handleTriggerEnter, handleTriggerLeave, handleMenuEnter, handleMenuLeave } =
+    useMegamenuHover(activeMegamenu, openMegamenu, closeMegamenu);
 
   // ESC key to close
   useEffect(() => {

@@ -38,6 +38,7 @@ export function getAllPosts(): BlogPost[] {
 
 export function getPostBySlug(slug: string): BlogPost | null {
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
+  if (!filePath.startsWith(BLOG_DIR + path.sep) && filePath !== BLOG_DIR) return null;
   if (!fs.existsSync(filePath)) return null;
 
   const fileContent = fs.readFileSync(filePath, 'utf-8');

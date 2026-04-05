@@ -1,14 +1,16 @@
 'use client';
 
 import { Box, Container, Typography, Paper, Button, Chip } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import Link from 'next/link';
+import { colors } from '@/theme/tokens';
 
 const releases = [
   {
     product: 'Low Ox Life',
     version: 'v4.2',
     date: 'March 2026',
-    color: '#24A89C',
+    color: colors.product.lowOxLife.primary,
     href: '/products/low-ox-life',
     changes: [
       'New meal planner with AI-powered low-oxalate recipe suggestions',
@@ -22,7 +24,7 @@ const releases = [
     product: 'Bio Break',
     version: 'v2.1',
     date: 'March 2026',
-    color: '#06B6D4',
+    color: colors.accent.cyan,
     href: '/products/bio-break',
     changes: [
       'Added Bristol Stool Scale visual reference guide',
@@ -36,7 +38,7 @@ const releases = [
     product: '24H Urine Analysis',
     version: 'v1.2',
     date: 'March 2026',
-    color: '#A855F7',
+    color: colors.accent.purple,
     href: '/products/24-hour-urine-analysis',
     changes: [
       'Side-by-side comparison view for multiple test results',
@@ -50,7 +52,7 @@ const releases = [
 
 export default function ProductReleasesPage() {
   return (
-    <Box component="main">
+    <Box>
       {/* Hero */}
       <Box
         component="section"
@@ -86,7 +88,7 @@ export default function ProductReleasesPage() {
               alignItems: 'center',
               px: 2,
               py: 0.75,
-              bgcolor: 'rgba(20,184,166,0.1)',
+              bgcolor: alpha(colors.primary.main, 0.1),
               color: 'primary.main',
               borderRadius: '9999px',
               fontSize: '0.75rem',

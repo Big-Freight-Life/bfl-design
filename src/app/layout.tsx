@@ -8,8 +8,8 @@ import MobileDrawer from '@/components/layout/MobileDrawer';
 import { layout } from '@/theme/tokens';
 
 export const metadata: Metadata = {
-  title: 'BFL Design',
-  description: 'Big Freight Life — We help teams build systems that work.',
+  title: 'BFL Design | Applied AI Architecture & Design',
+  description: 'Big Freight Life helps organizations design systems that actually work — applied AI architecture, workflow design, and operational clarity for complex environments.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

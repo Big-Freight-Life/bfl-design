@@ -55,7 +55,7 @@ const profiles = [
 
 export default function ClientsPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box

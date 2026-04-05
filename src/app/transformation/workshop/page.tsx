@@ -15,6 +15,7 @@ import {
   ListItem,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { gradients } from '@/theme/tokens';
 
 const tiers = [
   {
@@ -280,13 +281,13 @@ export default function WorkshopPage() {
   const currentTier = tiers.find((t) => t.id === activeTier) ?? tiers[1];
 
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero — full width, no pricing card */}
       <Box
         component="header"
         sx={{
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+          background: gradients.darkHero,
           py: { xs: 10, md: 16 },
         }}
       >
@@ -342,7 +343,7 @@ export default function WorkshopPage() {
       <Box
         sx={{
           display: { xs: 'block', md: 'none' },
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+          background: gradients.darkHero,
           px: 2,
           pb: 6,
         }}
@@ -631,7 +632,7 @@ export default function WorkshopPage() {
           >
             <Box
               sx={{
-                background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+                background: gradients.darkHero,
                 borderRadius: '1rem',
                 p: 0.5,
               }}

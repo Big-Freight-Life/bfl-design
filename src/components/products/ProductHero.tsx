@@ -97,7 +97,7 @@ export default function ProductHero({
             <Button
               component={ctaExternal ? 'a' : Link}
               href={ctaUrl}
-              {...(ctaExternal ? { target: '_blank', rel: 'noopener' } : {})}
+              {...(ctaExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               variant="contained"
               size="large"
               sx={{
@@ -117,7 +117,7 @@ export default function ProductHero({
                 component="a"
                 href={secondaryUrl}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 variant="outlined"
                 size="large"
                 sx={{

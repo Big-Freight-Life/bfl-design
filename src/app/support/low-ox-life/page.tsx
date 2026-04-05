@@ -124,7 +124,7 @@ export default function LowOxLifeSupportPage() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box

@@ -1,5 +1,5 @@
-'use client';
-
+import type { Metadata } from 'next';
+import type React from 'react';
 import { Box, Container, Typography, Grid, Stack } from '@mui/material';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -13,6 +13,11 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import VerifiedShieldIcon from '@mui/icons-material/VerifiedUser';
 import PricingTier from '@/components/products/PricingTier';
 import FaqAccordion from '@/components/products/FaqAccordion';
+
+export const metadata: Metadata = {
+  title: '24-Hour Urine Analysis | BFL Design',
+  description: 'AI-powered iOS app that turns complex 24-hour urine test results into clear, actionable health insights. Scan your lab report and understand your results in minutes.',
+};
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -157,7 +162,7 @@ const faqs = [
 
 export default function UrineAnalysisPage() {
   return (
-    <Box component="main" sx={{ '--product-accent': ACCENT } as React.CSSProperties}>
+    <Box sx={{ '--product-accent': ACCENT } as React.CSSProperties}>
 
       {/* 1. Hero */}
       <Box
@@ -209,7 +214,7 @@ export default function UrineAnalysisPage() {
                   component="a"
                   href="#"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   sx={{ display: 'block' }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -537,7 +542,7 @@ export default function UrineAnalysisPage() {
             component="a"
             href="#"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             sx={{ display: 'inline-block', mb: 4 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

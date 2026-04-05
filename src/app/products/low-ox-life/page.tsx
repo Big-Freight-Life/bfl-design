@@ -1,4 +1,10 @@
-import { Box, Container, Typography, Grid } from '@mui/material';
+import type { Metadata } from 'next';
+import { Box, Container, Typography } from '@mui/material';
+
+export const metadata: Metadata = {
+  title: 'Low Ox Life | BFL Design',
+  description: 'Low Ox Life is the only iOS app built on the Harvard 2023 Oxalate Table. Browse 400+ foods free, track daily oxalate intake, and sync across devices.',
+};
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -8,10 +14,11 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ProductHero from '@/components/products/ProductHero';
-import FeatureCard from '@/components/products/FeatureCard';
-import PricingTier from '@/components/products/PricingTier';
-import FaqAccordion from '@/components/products/FaqAccordion';
 import ProductCta from '@/components/products/ProductCta';
+import ProductSpotlightSection from '@/components/products/ProductSpotlightSection';
+import ProductFeatureGrid from '@/components/products/ProductFeatureGrid';
+import ProductPricingSection from '@/components/products/ProductPricingSection';
+import ProductFaqSection from '@/components/products/ProductFaqSection';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -37,7 +44,7 @@ const spotlights = [
     title: 'Food Journal',
     headline: 'Log Meals. Track Intake.',
     desc: 'Add foods to your daily journal with one tap. Track your total oxalate intake over time with date navigation and daily summaries.',
-    bg: '#0B3733',
+    bg: DARK,
     dark: true,
   },
   {
@@ -120,7 +127,7 @@ const faqs = [
 
 export default function LowOxLifePage() {
   return (
-    <Box component="main">
+    <Box>
       {/* Hero */}
       <ProductHero
         category="iOS App"
@@ -153,151 +160,17 @@ export default function LowOxLifePage() {
         </Container>
       </Box>
 
-      {/* Feature Spotlights */}
-      {spotlights.map((s) => (
-        <Box
-          key={s.title}
-          component="section"
-          sx={{
-            py: { xs: 8, md: 12 },
-            bgcolor: s.bg,
-            color: s.dark ? '#fff' : 'inherit',
-          }}
-        >
-          <Container maxWidth="lg">
-            <Grid container spacing={6} alignItems="center">
-              <Grid size={{ xs: 12, md: 6 }}>
-                <Typography
-                  variant="overline"
-                  sx={{
-                    color: s.dark ? 'rgba(255,255,255,0.6)' : ACCENT,
-                    letterSpacing: '0.1em',
-                    mb: 1,
-                    display: 'block',
-                  }}
-                >
-                  {s.title}
-                </Typography>
-                <Typography
-                  variant="h2"
-                  fontWeight={700}
-                  sx={{
-                    color: s.dark ? '#fff' : 'text.primary',
-                    fontSize: { xs: '1.75rem', md: '2.25rem' },
-                    mb: 2,
-                  }}
-                >
-                  {s.headline}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: s.dark ? 'rgba(255,255,255,0.75)' : 'text.secondary',
-                    lineHeight: 1.7,
-                    fontSize: '1.05rem',
-                  }}
-                >
-                  {s.desc}
-                </Typography>
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <Box
-                  sx={{
-                    bgcolor: s.dark ? 'rgba(255,255,255,0.08)' : 'grey.100',
-                    borderRadius: '1.5rem',
-                    height: 320,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography variant="caption" color={s.dark ? 'rgba(255,255,255,0.3)' : 'text.disabled'}>
-                    App screenshot
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-      ))}
+      <ProductSpotlightSection spotlights={spotlights} accentColor={ACCENT} />
 
-      {/* Feature Grid */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            fontWeight={700}
-            textAlign="center"
-            sx={{ mb: 2, fontSize: { xs: '1.75rem', md: '2.25rem' } }}
-          >
-            Everything You Need
-          </Typography>
-          <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ mb: 6 }}>
-            A complete suite of tools for managing your oxalate intake.
-          </Typography>
-          <Grid container spacing={3}>
-            {features.map((f) => (
-              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={f.title}>
-                <FeatureCard
-                  title={f.title}
-                  desc={f.desc}
-                  tier={f.tier}
-                  icon={f.icon}
-                  accentColor={ACCENT}
-                  comingSoon={f.comingSoon}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      <ProductFeatureGrid
+        features={features}
+        accentColor={ACCENT}
+        subheadline="A complete suite of tools for managing your oxalate intake."
+      />
 
-      {/* Pricing */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            fontWeight={700}
-            textAlign="center"
-            sx={{ mb: 1, fontSize: { xs: '1.75rem', md: '2.25rem' } }}
-          >
-            Simple Pricing
-          </Typography>
-          <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ mb: 6 }}>
-            Start free. Upgrade when you&#39;re ready.
-          </Typography>
-          <Grid container spacing={3} alignItems="stretch">
-            {pricingTiers.map((tier) => (
-              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={tier.name}>
-                <PricingTier
-                  name={tier.name}
-                  price={tier.price}
-                  period={tier.period}
-                  features={tier.features}
-                  highlighted={tier.highlighted}
-                  badge={tier.badge}
-                  accentColor={ACCENT}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      <ProductPricingSection tiers={pricingTiers} accentColor={ACCENT} />
 
-      {/* FAQ */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            fontWeight={700}
-            textAlign="center"
-            sx={{ mb: 6, fontSize: { xs: '1.75rem', md: '2.25rem' } }}
-          >
-            Frequently Asked Questions
-          </Typography>
-          <FaqAccordion faqs={faqs} accentColor={ACCENT} />
-        </Container>
-      </Box>
+      <ProductFaqSection faqs={faqs} accentColor={ACCENT} />
 
       {/* Final CTA */}
       <ProductCta

@@ -31,6 +31,27 @@ export const colors = {
   product: {
     lowOxLife: { primary: '#24A89C', dark: '#0B3733', purple: '#35066B' },
   },
+  surface: {
+    videoBg: '#0a0a0a',
+    darkCard: '#2a2a2a',
+    lightCard: '#f3f4f6',
+    darkCardHover: '#333333',
+    lightCardHover: '#e5e7eb',
+    diamondPlate: {
+      dark: '#0e0e0e',
+      light: '#e8e8e8',
+    },
+  },
+  badge: {
+    meet: '#e67e22',
+  },
+  tier: {
+    free: '#10b981',
+    starter: '#3b82f6',
+    pro: '#8b5cf6',
+    elite: '#f59e0b',
+    default: '#6b7280',
+  },
 } as const;
 
 export const darkColors = {
@@ -40,6 +61,20 @@ export const darkColors = {
     tertiary: { bg: 'rgba(255,255,255,0.08)', hover: 'rgba(255,255,255,0.15)', text: '#1a9aa6' },
   },
   primary: { main: '#2DD4BF', dark: '#14B8A6', light: '#5EEAD4' },
+  bg: {
+    default: '#121212',
+    paper: '#1a1a1a',
+    text: '#d4d4d4',
+    textSecondary: '#a3a3a3',
+    divider: '#303030',
+  },
+} as const;
+
+export const gradients = {
+  darkHero: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
+  darkHero135: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+  darkHero135Mid: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+  darkHero135Ray: 'linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0f172a 100%)',
 } as const;
 
 export const typography = {

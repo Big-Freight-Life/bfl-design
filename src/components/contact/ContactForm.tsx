@@ -2,10 +2,9 @@
 
 import { Box, TextField, Button, MenuItem, Alert, Typography } from '@mui/material';
 import { useContactForm } from '@/viewmodels/useContactForm';
-import { PROJECT_TYPES } from '@/models/contact';
 
 export default function ContactForm() {
-  const { fields, errors, isSubmitting, submitted, submitError, updateField, handleSubmit } = useContactForm();
+  const { fields, errors, isSubmitting, submitted, submitError, updateField, handleSubmit, projectTypes } = useContactForm();
 
   if (submitted) {
     return (
@@ -24,7 +23,7 @@ export default function ContactForm() {
       </Box>
       <TextField label="Project Type" select fullWidth value={fields.projectType} onChange={(e) => updateField('projectType', e.target.value)}>
         <MenuItem value="">Select a type</MenuItem>
-        {PROJECT_TYPES.map((type) => (<MenuItem key={type} value={type}>{type}</MenuItem>))}
+        {projectTypes.map((type) => (<MenuItem key={type} value={type}>{type}</MenuItem>))}
       </TextField>
       <TextField label="Subject" fullWidth value={fields.subject} onChange={(e) => updateField('subject', e.target.value)} inputProps={{ maxLength: 200 }} />
       <TextField label="Message" required fullWidth multiline rows={6} value={fields.message} onChange={(e) => updateField('message', e.target.value)} error={!!errors.message} helperText={errors.message} inputProps={{ maxLength: 5000 }} />

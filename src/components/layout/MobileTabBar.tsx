@@ -10,10 +10,15 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigation } from '@/viewmodels/useNavigation';
 import { layout } from '@/theme/tokens';
 
+// Icons must match mobileTabItems order from navigation model
 const icons = [HomeIcon, ArticleIcon, WorkIcon, PersonIcon];
 
 export default function MobileTabBar() {
   const { mobileTabItems, toggleDrawer, isActive } = useNavigation();
+
+  if (icons.length !== mobileTabItems.length) {
+    console.warn('MobileTabBar: icons array length does not match mobileTabItems');
+  }
 
   return (
     <Box

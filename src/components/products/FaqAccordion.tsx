@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { colors } from '@/theme/tokens';
 
 interface FaqItem {
   question: string;
@@ -15,7 +16,7 @@ interface FaqAccordionProps {
   accentColor?: string;
 }
 
-export default function FaqAccordion({ faqs, accentColor = '#14B8A6' }: FaqAccordionProps) {
+export default function FaqAccordion({ faqs, accentColor = colors.primary.main }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (

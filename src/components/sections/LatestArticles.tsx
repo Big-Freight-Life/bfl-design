@@ -2,6 +2,7 @@
 
 import { Box, Typography, Container, Grid } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 import { colors, typography, radius } from '@/theme/tokens';
 
 interface Article {
@@ -79,17 +80,17 @@ export default function LatestArticles({ articles }: LatestArticlesProps) {
                     bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : colors.gray[100],
                     overflow: 'hidden',
                     mb: 2,
+                    position: 'relative',
                   }}
                 >
                   {article.imageUrl && (
-                    <Box
+                    <Image
                       className="article-thumb"
-                      component="img"
                       src={article.imageUrl}
                       alt={article.title}
-                      sx={{
-                        width: '100%',
-                        height: '100%',
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 960px) 50vw, 33vw"
+                      style={{
                         objectFit: 'cover',
                         transition: 'transform 0.3s ease',
                       }}

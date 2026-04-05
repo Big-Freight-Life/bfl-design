@@ -1,7 +1,20 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { CaseStudyCredentials, validateCredentials, authenticateCaseStudy } from '@/models/case-study';
+import { CaseStudyCredentials, validateCredentials } from '@/models/case-study';
+
+async function authenticateCaseStudy(creds: CaseStudyCredentials): Promise<{ success: boolean; error?: string }> {
+  const response = await fetch('/api/case-study-auth', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(creds),
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    return { success: false, error: body.error ?? 'Authentication failed' };
+  }
+  return { success: true };
+}
 
 export function useCaseStudyAuth() {
   const [email, setEmail] = useState('');

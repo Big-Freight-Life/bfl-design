@@ -22,7 +22,7 @@ export default function POVSection() {
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },
-          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1a1a1a' : '#d8d8d8',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? theme.palette.background.paper : '#d8d8d8',
           backgroundImage: (theme) => {
             const highlight = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.7)';
             const shadow = theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.08)';
@@ -101,12 +101,12 @@ export default function POVSection() {
               textDecoration: 'none',
               borderRadius: '9999px',
               border: (theme) => `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
-              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#2a2a2a' : '#f3f4f6',
+              bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.darkCard : colors.surface.lightCard,
               px: 2.5,
               py: 1,
               transition: 'all 0.2s ease',
               '&:hover': {
-                bgcolor: (theme) => theme.palette.mode === 'dark' ? '#333333' : '#e5e7eb',
+                bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.darkCardHover : colors.surface.lightCardHover,
                 borderColor: (theme) => theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.2)',
               },
             }}
@@ -115,7 +115,7 @@ export default function POVSection() {
               label="Meet"
               size="small"
               sx={{
-                bgcolor: '#e67e22',
+                bgcolor: colors.badge.meet,
                 color: '#fff',
                 fontWeight: typography.weights.semibold,
                 fontSize: typography.sizes.xs,
@@ -143,7 +143,7 @@ export default function POVSection() {
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },
-          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#0e0e0e' : '#e8e8e8',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.diamondPlate.dark : colors.surface.diamondPlate.light,
           display: { xs: 'none', md: 'flex' },
           position: 'relative',
           zIndex: 1,

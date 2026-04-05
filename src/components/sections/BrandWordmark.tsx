@@ -13,24 +13,27 @@ export default function BrandWordmark() {
   // Typing animation
   useEffect(() => {
     let i = 0;
-    let typing = true;
+    let cancelled = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const type = () => {
+      if (cancelled) return;
       if (i <= tagline.length) {
         setDisplayText(tagline.slice(0, i));
         i++;
-        setTimeout(type, 60);
+        timeoutId = setTimeout(type, 60);
       } else {
         // Pause, then restart
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
+          if (cancelled) return;
           i = 0;
           setDisplayText('');
-          setTimeout(type, 500);
+          timeoutId = setTimeout(type, 500);
         }, 3000);
       }
     };
 
-    setTimeout(type, 1000);
+    timeoutId = setTimeout(type, 1000);
 
     // Blinking cursor
     const cursorInterval = setInterval(() => {
@@ -38,7 +41,8 @@ export default function BrandWordmark() {
     }, 530);
 
     return () => {
-      typing = false;
+      cancelled = true;
+      clearTimeout(timeoutId);
       clearInterval(cursorInterval);
     };
   }, []);

@@ -104,7 +104,7 @@ export default function Hero() {
         pt: { xs: '20vh', md: '18vh' },
         overflow: 'hidden',
         // Dark fallback bg so there's no white flash before video loads
-        bgcolor: '#0a0a0a',
+        bgcolor: colors.surface.videoBg,
       }}
     >
       {/* Video background layer */}

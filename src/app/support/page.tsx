@@ -22,7 +22,7 @@ const apps = [
 
 export default function SupportPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box

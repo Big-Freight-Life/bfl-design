@@ -2,21 +2,20 @@
 
 import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import Link from 'next/link';
-import { colors, darkColors, typography } from '@/theme/tokens';
+import Image from 'next/image';
+import { colors, darkColors, typography, gradients } from '@/theme/tokens';
+import DarkHeroSection from '@/components/common/DarkHeroSection';
 
 export default function AboutPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
-      <Box
+      <DarkHeroSection
         component="section"
-        sx={{
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
-          py: { xs: 12, md: 20 },
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        gradient={gradients.darkHero135Mid}
+        sx={{ py: { xs: 12, md: 20 } }}
+        dotMatrix={false}
       >
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '52rem' }}>
@@ -56,7 +55,7 @@ export default function AboutPage() {
             </Typography>
           </Box>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
       {/* Section 1 — Why We Exist */}
       <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
@@ -286,18 +285,21 @@ export default function AboutPage() {
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 4 }}>
-              <Box
-                component="img"
-                src="/images/ray-butler-profile.png"
-                alt="Ray Butler"
-                sx={{
-                  width: '100%',
-                  maxWidth: 320,
-                  borderRadius: '1.5rem',
-                  display: 'block',
-                  mx: 'auto',
-                }}
-              />
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  src="/images/ray-butler-profile.png"
+                  alt="Ray Butler"
+                  width={320}
+                  height={320}
+                  style={{
+                    width: '100%',
+                    maxWidth: 320,
+                    height: 'auto',
+                    borderRadius: '1.5rem',
+                    display: 'block',
+                  }}
+                />
+              </Box>
             </Grid>
             <Grid size={{ xs: 12, md: 8 }}>
               <Typography
@@ -349,12 +351,11 @@ export default function AboutPage() {
       </Box>
 
       {/* Section 6 — Closing */}
-      <Box
+      <DarkHeroSection
         component="section"
-        sx={{
-          py: { xs: 10, md: 16 },
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        }}
+        gradient={gradients.darkHero135}
+        sx={{ py: { xs: 10, md: 16 } }}
+        dotMatrix={false}
       >
         <Container maxWidth="lg">
           <Grid container spacing={{ xs: 6, md: 10 }} alignItems="flex-start">
@@ -434,7 +435,7 @@ export default function AboutPage() {
             </Grid>
           </Grid>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
     </Box>
   );

@@ -75,7 +75,7 @@ const sections = [
 
 export default function PrivacyPage() {
   return (
-    <Box component="main">
+    <Box>
       {/* Hero */}
       <Box
         component="section"

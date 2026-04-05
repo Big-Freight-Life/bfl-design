@@ -64,23 +64,14 @@ const faqs = [
 
 export default function ProductsPage() {
   return (
-    <Box component="main">
+    <Box>
       {/* Hero */}
       <Box
         component="header"
         sx={{
           position: 'relative',
-          backgroundImage:
-            'url(/wp-content/uploads/2026/01/envato-labs-image-edit-11-scaled.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
           py: { xs: 12, md: 18 },
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            bgcolor: 'rgba(0,0,0,0.55)',
-          },
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>

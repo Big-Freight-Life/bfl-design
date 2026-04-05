@@ -2,7 +2,8 @@
 
 import { Box, Container, Typography, Button } from '@mui/material';
 import Link from 'next/link';
-import { colors, typography as typographyTokens, motion } from '@/theme/tokens';
+import { colors, typography as typographyTokens, motion, gradients } from '@/theme/tokens';
+import DarkHeroSection from '@/components/common/DarkHeroSection';
 import { useRef, useEffect, useState, useCallback } from 'react';
 
 const steps = [
@@ -98,36 +99,15 @@ function RevealBox({
 
 export default function ProcessPage() {
   return (
-    <Box component="main">
+    <Box>
 
       {/* ── Hero ── */}
-      <Box
+      <DarkHeroSection
         component="header"
-        sx={{
-          pt: { xs: 16, md: 24 },
-          pb: { xs: 10, md: 16 },
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        gradient={gradients.darkHero}
+        sx={{ pt: { xs: 16, md: 24 }, pb: { xs: 10, md: 16 } }}
       >
-        {/* Dot matrix texture */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-            maskImage:
-              'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+        <Container maxWidth="lg">
           <RevealBox>
             <Typography
               variant="h1"
@@ -173,7 +153,7 @@ export default function ProcessPage() {
             </Box>
           </RevealBox>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
       {/* ── Opening statement ── */}
       <Box component="section" sx={{ py: { xs: 10, md: 16 } }}>
@@ -498,32 +478,12 @@ export default function ProcessPage() {
       </Box>
 
       {/* ── Closing CTA ── */}
-      <Box
+      <DarkHeroSection
         component="section"
-        sx={{
-          py: { xs: 12, md: 20 },
-          background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+        gradient={gradients.darkHero}
+        sx={{ py: { xs: 12, md: 20 } }}
       >
-        {/* Dot matrix texture */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-            maskImage:
-              'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            WebkitMaskImage:
-              'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
+        <Container maxWidth="lg">
           <RevealBox>
             <Typography
               sx={{
@@ -577,7 +537,7 @@ export default function ProcessPage() {
             </Button>
           </RevealBox>
         </Container>
-      </Box>
+      </DarkHeroSection>
 
     </Box>
   );

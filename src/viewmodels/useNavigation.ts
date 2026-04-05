@@ -8,6 +8,10 @@ import {
   footerNav, isActiveRoute, isMegamenuActive,
 } from '@/models/navigation';
 
+// Re-export types and utilities so views can import from the viewmodel layer instead of models directly
+export type { MegamenuPanel } from '@/models/navigation';
+export { isActiveRoute } from '@/models/navigation';
+
 export function useNavigation() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);

@@ -3,7 +3,8 @@
 import { Box, Typography, Button, Paper } from '@mui/material';
 import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { MegamenuPanel, isActiveRoute } from '@/models/navigation';
+import type { MegamenuPanel } from '@/viewmodels/useNavigation';
+import { isActiveRoute } from '@/viewmodels/useNavigation';
 import { usePathname } from 'next/navigation';
 import { motion, colors, darkColors } from '@/theme/tokens';
 

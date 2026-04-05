@@ -3,8 +3,21 @@
 import { useState, useCallback } from 'react';
 import {
   ContactFormData, ContactFormErrors,
-  validateContactForm, hasErrors, submitContact,
+  validateContactForm, hasErrors, PROJECT_TYPES,
 } from '@/models/contact';
+
+async function submitContact(data: ContactFormData): Promise<{ success: boolean; error?: string }> {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    return { success: false, error: body.error ?? 'Failed to send message' };
+  }
+  return { success: true };
+}
 
 const INITIAL_DATA: ContactFormData = {
   name: '', email: '', projectType: '', subject: '', message: '',
@@ -41,5 +54,5 @@ export function useContactForm() {
     }
   }, [fields]);
 
-  return { fields, errors, isSubmitting, submitted, submitError, updateField, handleSubmit };
+  return { fields, errors, isSubmitting, submitted, submitError, updateField, handleSubmit, projectTypes: PROJECT_TYPES };
 }

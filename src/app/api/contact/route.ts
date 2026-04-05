@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { validateContactForm, hasErrors } from '@/models/contact';
+import { contactRateLimit, getClientIp } from '@/lib/rateLimit';
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req);
+
+  if (contactRateLimit) {
+    const { success } = await contactRateLimit.limit(ip);
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY ?? '');
   const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK_URL;
   const data = await req.json();

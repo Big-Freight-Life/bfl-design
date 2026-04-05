@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { Box, Container, Typography, Button, Paper, Tab, Tabs } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import Link from 'next/link';
+import { colors } from '@/theme/tokens';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const principles = [
@@ -102,7 +104,7 @@ export default function AIEthicsPage() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <Box component="main">
+    <Box>
 
       {/* Hero */}
       <Box
@@ -143,7 +145,7 @@ export default function AIEthicsPage() {
               alignItems: 'center',
               px: 2,
               py: 0.75,
-              bgcolor: 'rgba(20,184,166,0.1)',
+              bgcolor: alpha(colors.primary.main, 0.1),
               color: 'primary.main',
               borderRadius: '9999px',
               fontSize: '0.75rem',
