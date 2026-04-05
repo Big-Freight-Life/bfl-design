@@ -104,8 +104,8 @@ export default function Hero() {
         position: 'relative',
         minHeight: { xs: 600, md: '100vh' },
         display: 'flex',
-        alignItems: 'center',
-        pb: { xs: 12, md: 16 },
+        alignItems: 'flex-start',
+        pt: { xs: '20vh', md: '18vh' },
         overflow: 'hidden',
       }}
     >
@@ -248,7 +248,7 @@ export default function Hero() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: spacing[6],
+          bottom: spacing[8],
           left: '50%',
           display: 'flex',
           flexDirection: 'column',
