@@ -27,7 +27,7 @@ const pillars = [
 
 export default function WhatWeDoSection() {
   return (
-    <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
+    <Box component="section" sx={{ pt: { xs: 12, md: 18 }, pb: { xs: 8, md: 12 } }}>
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ maxWidth: 640, mx: 'auto', textAlign: 'center', mb: { xs: 5, md: 6 } }}>
