@@ -22,7 +22,20 @@ export default function POVSection() {
       <Box
         sx={{
           width: { xs: '100%', md: '50%' },
-          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1a1a1a' : '#e8e8e8',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1a1a1a' : '#d8d8d8',
+          backgroundImage: (theme) => {
+            const highlight = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.7)';
+            const shadow = theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.08)';
+            const midtone = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.03)';
+            // Diamond plate pattern using layered SVG-encoded background images
+            return `
+              url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='10' cy='10' rx='4' ry='1.5' transform='rotate(45 10 10)' fill='${encodeURIComponent(highlight)}' /%3E%3Cellipse cx='10' cy='10' rx='3.5' ry='1' transform='rotate(45 10 10)' fill='${encodeURIComponent(shadow)}' style='transform-origin:10px 10px;transform:rotate(45deg) translate(0.5px,0.5px)' /%3E%3C/svg%3E"),
+              url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='10' cy='10' rx='4' ry='1.5' transform='rotate(-45 10 10)' fill='${encodeURIComponent(highlight)}' /%3E%3Cellipse cx='10' cy='10' rx='3.5' ry='1' transform='rotate(-45 10 10)' fill='${encodeURIComponent(shadow)}' style='transform-origin:10px 10px;transform:rotate(-45deg) translate(0.5px,0.5px)' /%3E%3C/svg%3E"),
+              url("data:image/svg+xml,%3Csvg width='4' height='4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='${encodeURIComponent(midtone)}' /%3E%3Crect x='0' y='0' width='2' height='2' fill='${encodeURIComponent(highlight)}' opacity='0.3' /%3E%3C/svg%3E")
+            `;
+          },
+          backgroundSize: '20px 20px, 20px 20px, 4px 4px',
+          backgroundPosition: '0 0, 10px 10px, 0 0',
           display: 'flex',
           alignItems: 'center',
           position: 'relative',
