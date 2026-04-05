@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import Link from 'next/link';
@@ -11,9 +11,9 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const lightVideoRef = useRef<HTMLVideoElement>(null);
   const darkVideoRef = useRef<HTMLVideoElement>(null);
-  const [videosReady, setVideosReady] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { mode } = useThemeMode();
+  const isDark = mode === 'dark';
 
   // Staggered reveal on mount
   useEffect(() => {
@@ -21,69 +21,64 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Wait for video metadata to load
+  // Scroll-scrub: only scrub the active video, start as soon as it's ready
   useEffect(() => {
-    const light = lightVideoRef.current;
-    const dark = darkVideoRef.current;
-    if (!light || !dark) return;
-
-    let lightReady = false;
-    let darkReady = false;
-
-    const checkReady = () => {
-      if (lightReady && darkReady) setVideosReady(true);
-    };
-
-    const onLightLoaded = () => { lightReady = true; checkReady(); };
-    const onDarkLoaded = () => { darkReady = true; checkReady(); };
-
-    if (light.readyState >= 1) { lightReady = true; } else { light.addEventListener('loadedmetadata', onLightLoaded); }
-    if (dark.readyState >= 1) { darkReady = true; } else { dark.addEventListener('loadedmetadata', onDarkLoaded); }
-    checkReady();
-
-    return () => {
-      light.removeEventListener('loadedmetadata', onLightLoaded);
-      dark.removeEventListener('loadedmetadata', onDarkLoaded);
-    };
-  }, []);
-
-  // Scroll-scrub: frame-by-frame video playback tied to scroll position
-  useEffect(() => {
-    if (!videosReady) return;
-
-    // Respect reduced motion preference
+    if (typeof window === 'undefined') return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const hero = heroRef.current;
-    const lightVideo = lightVideoRef.current;
-    const darkVideo = darkVideoRef.current;
-    if (!hero || !lightVideo || !darkVideo) return;
+    const activeVideo = isDark ? darkVideoRef.current : lightVideoRef.current;
+    if (!hero || !activeVideo) return;
 
-    lightVideo.pause();
-    darkVideo.pause();
+    let ready = false;
+    let animId: number | null = null;
+    let targetTime = 0;
+    let currentTime = 0;
 
-    let ticking = false;
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-
-      requestAnimationFrame(() => {
-        const rect = hero.getBoundingClientRect();
-        const heroHeight = hero.offsetHeight;
-        // Video plays through its full duration over 60% of hero scroll
-        const progress = Math.max(0, Math.min(1, -rect.top / (heroHeight * 0.6)));
-
-        lightVideo.currentTime = progress * lightVideo.duration;
-        darkVideo.currentTime = progress * darkVideo.duration;
-
-        ticking = false;
-      });
+    const startScrub = () => {
+      ready = true;
+      activeVideo.pause();
+      // Set initial position
+      const rect = hero.getBoundingClientRect();
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.max(0, Math.min(1, -rect.top / (heroHeight * 0.6)));
+      currentTime = progress * activeVideo.duration;
+      targetTime = currentTime;
+      activeVideo.currentTime = currentTime;
     };
 
+    const onScroll = () => {
+      if (!ready) return;
+      const rect = hero.getBoundingClientRect();
+      const heroHeight = hero.offsetHeight;
+      const progress = Math.max(0, Math.min(1, -rect.top / (heroHeight * 0.6)));
+      targetTime = progress * activeVideo.duration;
+    };
+
+    // Smooth lerp loop for buttery scrub
+    const tick = () => {
+      if (ready && Math.abs(targetTime - currentTime) > 0.01) {
+        currentTime += (targetTime - currentTime) * 0.15;
+        activeVideo.currentTime = currentTime;
+      }
+      animId = requestAnimationFrame(tick);
+    };
+
+    if (activeVideo.readyState >= 1) {
+      startScrub();
+    } else {
+      activeVideo.addEventListener('loadedmetadata', startScrub, { once: true });
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [videosReady]);
+    animId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      activeVideo.removeEventListener('loadedmetadata', startScrub);
+      if (animId) cancelAnimationFrame(animId);
+    };
+  }, [isDark]);
 
   const revealStyle = (delay: number) => ({
     opacity: isVisible ? 1 : 0,
@@ -108,6 +103,8 @@ export default function Hero() {
         alignItems: 'flex-start',
         pt: { xs: '20vh', md: '18vh' },
         overflow: 'hidden',
+        // Dark fallback bg so there's no white flash before video loads
+        bgcolor: '#0a0a0a',
       }}
     >
       {/* Video background layer */}
@@ -123,10 +120,9 @@ export default function Hero() {
           component="video"
           ref={lightVideoRef}
           src="/videos/hero-scroll.webm"
-          poster="/images/hero-watch.png"
           muted
           playsInline
-          preload="auto"
+          preload={isDark ? 'metadata' : 'auto'}
           aria-hidden="true"
           sx={{
             position: 'absolute',
@@ -134,7 +130,7 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            display: mode === 'dark' ? 'none' : 'block',
+            display: isDark ? 'none' : 'block',
           }}
         />
         {/* Dark mode video */}
@@ -142,10 +138,9 @@ export default function Hero() {
           component="video"
           ref={darkVideoRef}
           src="/videos/hero-scroll-dark.webm"
-          poster="/images/hero-watch.png"
           muted
           playsInline
-          preload="auto"
+          preload={isDark ? 'auto' : 'metadata'}
           aria-hidden="true"
           sx={{
             position: 'absolute',
@@ -153,7 +148,7 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            display: mode === 'dark' ? 'block' : 'none',
+            display: isDark ? 'block' : 'none',
           }}
         />
       </Box>

@@ -17,6 +17,7 @@ export interface MegamenuPanel {
 export const primaryNav: NavItem[] = [
   { label: 'Our Work', href: '/works' },
   { label: 'What We Do', href: '/transformation' },
+  { label: 'Newsletter', href: '/newsletter' },
   { label: 'Products', href: '#', megamenu: 'products' },
   { label: 'About', href: '/about', megamenu: 'about' },
 ];
