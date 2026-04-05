@@ -113,7 +113,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           })}
         </Box>
 
-        {/* Right panel - contextual content */}
+        {/* Middle panel - contextual content */}
         <Box
           key={activePanel.id}
           sx={{
@@ -131,28 +131,6 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
             },
           }}
         >
-          {activePanel.image && (
-            <Box
-              sx={{
-                position: 'relative',
-                width: '100%',
-                maxWidth: 400,
-                aspectRatio: '16 / 9',
-                borderRadius: 2,
-                overflow: 'hidden',
-                mb: 3,
-                bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.200',
-              }}
-            >
-              <Image
-                src={activePanel.image}
-                alt={activePanel.label}
-                fill
-                style={{ objectFit: 'contain' }}
-                sizes="400px"
-              />
-            </Box>
-          )}
           <Typography variant="h4" gutterBottom>{activePanel.label}</Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 480 }}>
             {activePanel.description}
@@ -173,6 +151,38 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
             Learn more →
           </Button>
         </Box>
+
+        {/* Right panel - product image */}
+        {activePanel.image && (
+          <Box
+            key={`${activePanel.id}-img`}
+            sx={{
+              width: 280,
+              p: 4,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderLeft: 1,
+              borderColor: 'divider',
+              bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
+              animation: `megamenuImgFadeIn ${motion.duration.smooth} ${motion.easing.outExpo} forwards`,
+              '@keyframes megamenuImgFadeIn': {
+                '0%': { opacity: 0, transform: 'scale(0.95)' },
+                '100%': { opacity: 1, transform: 'scale(1)' },
+              },
+            }}
+          >
+            <Box sx={{ position: 'relative', width: '100%', aspectRatio: '9 / 16', maxHeight: 320 }}>
+              <Image
+                src={activePanel.image}
+                alt={activePanel.label}
+                fill
+                style={{ objectFit: 'contain' }}
+                sizes="280px"
+              />
+            </Box>
+          </Box>
+        )}
       </Paper>
     </>
   );
