@@ -28,8 +28,6 @@ export default function WorksPage() {
         component="section"
         sx={{
           py: { xs: 10, md: 16 },
-          borderBottom: '1px solid',
-          borderColor: 'divider',
         }}
       >
         <Container maxWidth="lg">
