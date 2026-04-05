@@ -123,9 +123,10 @@ export default function ProductFeatureGridAnimated({
             const blur = (1 - cp) * 6;
 
             return (
-              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={f.title}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={f.title} sx={{ display: 'flex' }}>
                 <Box
                   sx={{
+                    width: '100%',
                     transform: `translate(${x}px, ${y}px) rotate(${r}deg) scale(${sc})`,
                     opacity: op,
                     filter: `blur(${blur}px)`,
