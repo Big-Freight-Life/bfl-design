@@ -27,9 +27,11 @@ export const authRateLimit = redis
   : null;
 
 export function getClientIp(request: Request): string {
+  // Prefer x-real-ip (set by Vercel from the socket, cannot be spoofed by client)
+  // Fall back to last entry in x-forwarded-for (appended by the proxy, not client-controlled)
   return (
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',').pop()?.trim() ||
     '127.0.0.1'
   );
 }
