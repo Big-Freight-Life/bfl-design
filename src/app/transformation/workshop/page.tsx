@@ -253,7 +253,7 @@ function PricingCard({
       <List disablePadding sx={{ mb: 3 }}>
         {currentTier.features.map((f) => (
           <ListItem key={f} disablePadding sx={{ py: 0.5, gap: 1, alignItems: 'flex-start' }}>
-            <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
+            <Box sx={{ color: 'primary.main', flexShrink: 0, mt: 0.25 }}>
               <CheckIcon />
             </Box>
             <Typography variant="body2" sx={{ color: 'grey.300' }}>
@@ -323,13 +323,13 @@ export default function WorkshopPage() {
             <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               <Button
                 variant="outlined"
-                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
+                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: 'primary.main' } }}
               >
                 View Syllabus
               </Button>
               <Button
                 variant="outlined"
-                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: '#14B8A6' } }}
+                sx={{ borderColor: 'rgba(255,255,255,0.3)', color: '#fff', '&:hover': { borderColor: 'primary.main' } }}
               >
                 Check Availability
               </Button>
@@ -403,7 +403,7 @@ export default function WorkshopPage() {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#14B8A6',
+                          color: 'primary.main',
                           mt: 0.25,
                         }}
                       >
@@ -440,7 +440,7 @@ export default function WorkshopPage() {
                       borderRadius: '0.5rem !important',
                       mb: 1.5,
                       '&::before': { display: 'none' },
-                      '&.Mui-expanded': { borderColor: '#14B8A6' },
+                      '&.Mui-expanded': { borderColor: 'primary.main' },
                     }}
                   >
                     <AccordionSummary
@@ -500,7 +500,7 @@ export default function WorkshopPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     size="small"
-                    sx={{ mt: 1.5, color: '#117680', p: 0, minWidth: 0, fontSize: '0.8125rem' }}
+                    sx={(theme) => ({ mt: 1.5, color: theme.palette.mode === 'dark' ? 'primary.main' : '#117680', p: 0, minWidth: 0, fontSize: '0.8125rem' })}
                   >
                     LinkedIn →
                   </Button>
@@ -509,7 +509,7 @@ export default function WorkshopPage() {
                   <Typography variant="h3" sx={{ fontWeight: 600, mb: 0.5 }}>
                     Ray Butler
                   </Typography>
-                  <Typography variant="body2" sx={{ color: '#117680', fontWeight: 500, mb: 2 }}>
+                  <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 500, mb: 2 }}>
                     Designer and Founder, Big Freight Life
                   </Typography>
                   <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625 }}>
@@ -560,7 +560,7 @@ export default function WorkshopPage() {
                 {includedItems.map((item) => (
                   <Grid size={{ xs: 12, sm: 6 }} key={item.title}>
                     <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                      <Box sx={{ color: '#14B8A6', flexShrink: 0, mt: 0.25 }}>
+                      <Box sx={{ color: 'primary.main', flexShrink: 0, mt: 0.25 }}>
                         <CheckIcon />
                       </Box>
                       <Box>
@@ -594,7 +594,7 @@ export default function WorkshopPage() {
                       borderRadius: '0.5rem !important',
                       mb: 1.5,
                       '&::before': { display: 'none' },
-                      '&.Mui-expanded': { borderColor: '#14B8A6' },
+                      '&.Mui-expanded': { borderColor: 'primary.main' },
                     }}
                   >
                     <AccordionSummary
@@ -665,12 +665,12 @@ export default function WorkshopPage() {
             variant="contained"
             size="large"
             sx={{
-              bgcolor: '#117680',
+              bgcolor: (theme) => theme.palette.mode === 'dark' ? 'primary.main' : '#117680',
               color: '#fff',
               px: 4,
               py: 1.5,
               fontSize: '1rem',
-              '&:hover': { bgcolor: '#0e5f67' },
+              '&:hover': { bgcolor: (theme) => theme.palette.mode === 'dark' ? 'primary.dark' : '#0e5f67' },
             }}
           >
             Get Started

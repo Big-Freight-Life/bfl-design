@@ -96,7 +96,7 @@ export default function RayPage() {
               <Typography
                 variant="overline"
                 sx={{
-                  color: '#14B8A6',
+                  color: 'primary.main',
                   letterSpacing: '0.1em',
                   fontWeight: 600,
                   display: 'block',
@@ -163,7 +163,7 @@ export default function RayPage() {
               <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 2, mb: 4 }}>
                 <Typography
                   variant="overline"
-                  sx={{ color: '#14B8A6', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em' }}
+                  sx={{ color: 'primary.main', fontSize: '0.875rem', fontWeight: 700, letterSpacing: '0.1em' }}
                 >
                   {chapter.number}
                 </Typography>
@@ -178,7 +178,6 @@ export default function RayPage() {
                       height: 280,
                       borderRadius: '1rem',
                       bgcolor: 'grey.200',
-                      background: 'linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%)',
                     }}
                   />
                 </Grid>
@@ -208,7 +207,7 @@ export default function RayPage() {
                 bgcolor: idx % 2 === 0 ? 'grey.50' : 'background.default',
                 borderTop: '1px solid',
                 borderBottom: '1px solid',
-                borderColor: 'grey.200',
+                borderColor: 'divider',
               }}
             >
               <Container maxWidth="lg">
@@ -238,7 +237,7 @@ export default function RayPage() {
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography
               variant="overline"
-              sx={{ color: '#14B8A6', letterSpacing: '0.1em', fontWeight: 600, display: 'block', mb: 1 }}
+              sx={{ color: 'primary.main', letterSpacing: '0.1em', fontWeight: 600, display: 'block', mb: 1 }}
             >
               Areas of Focus
             </Typography>
@@ -255,7 +254,7 @@ export default function RayPage() {
                     p: 3,
                     height: '100%',
                     border: '1px solid',
-                    borderColor: 'grey.200',
+                    borderColor: 'divider',
                     borderRadius: '1rem',
                     transition: 'border-color 0.2s, box-shadow 0.2s',
                     '&:hover': {
@@ -269,7 +268,7 @@ export default function RayPage() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: '#14B8A6', fontWeight: 500, mb: 2, display: 'block' }}
+                    sx={{ color: 'primary.main', fontWeight: 500, mb: 2, display: 'block' }}
                   >
                     {area.tagline}
                   </Typography>

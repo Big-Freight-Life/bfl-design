@@ -130,7 +130,9 @@ export default function BioBreakSupportPage() {
         component="section"
         sx={{
           py: { xs: 10, md: 16 },
-          background: 'linear-gradient(160deg, #f0f4ff 0%, #e8f5e9 100%)',
+          background: (theme) => theme.palette.mode === 'dark'
+            ? 'linear-gradient(160deg, #1a1a1a 0%, #1a2218 100%)'
+            : 'linear-gradient(160deg, #f0f4ff 0%, #e8f5e9 100%)',
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}
@@ -144,7 +146,7 @@ export default function BioBreakSupportPage() {
                 fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
-                color: '#4CAF50',
+                color: 'success.main',
                 mb: 1.5,
               }}
             >
@@ -273,7 +275,7 @@ export default function BioBreakSupportPage() {
               href="mailto:appsupport@bigfreightlife.com?subject=Bio%20Break%20Support"
               sx={{
                 display: 'inline-block',
-                color: '#4CAF50',
+                color: 'success.main',
                 fontWeight: 500,
                 fontSize: '1.125rem',
                 textDecoration: 'none',

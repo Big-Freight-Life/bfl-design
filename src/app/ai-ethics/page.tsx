@@ -113,7 +113,9 @@ export default function AIEthicsPage() {
           minHeight: { md: '60vh' },
           display: 'flex',
           alignItems: 'center',
-          background: 'linear-gradient(160deg, #f9fafb 0%, #f0fdfa 100%)',
+          background: (theme) => theme.palette.mode === 'dark'
+            ? 'linear-gradient(160deg, #1a1a1a 0%, #162221 100%)'
+            : 'linear-gradient(160deg, #f9fafb 0%, #f0fdfa 100%)',
           overflow: 'hidden',
           borderBottom: '1px solid',
           borderColor: 'divider',
@@ -125,8 +127,10 @@ export default function AIEthicsPage() {
           sx={{
             position: 'absolute',
             inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
+            backgroundImage: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)'
+                : 'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
             maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',

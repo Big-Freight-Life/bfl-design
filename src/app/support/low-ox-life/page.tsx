@@ -131,7 +131,9 @@ export default function LowOxLifeSupportPage() {
         component="section"
         sx={{
           py: { xs: 10, md: 16 },
-          background: 'linear-gradient(160deg, #f0fdfa 0%, #e0f2fe 100%)',
+          background: (theme) => theme.palette.mode === 'dark'
+            ? 'linear-gradient(160deg, #1a1a1a 0%, #162226 100%)'
+            : 'linear-gradient(160deg, #f0fdfa 0%, #e0f2fe 100%)',
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}
@@ -145,7 +147,7 @@ export default function LowOxLifeSupportPage() {
                 fontWeight: 600,
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em',
-                color: '#0D9488',
+                color: 'primary.main',
                 mb: 1.5,
               }}
             >
@@ -274,7 +276,7 @@ export default function LowOxLifeSupportPage() {
               href="mailto:appsupport@bigfreightlife.com?subject=Low%20Ox%20Life%20Support"
               sx={{
                 display: 'inline-block',
-                color: '#0D9488',
+                color: 'primary.main',
                 fontWeight: 500,
                 fontSize: '1.125rem',
                 textDecoration: 'none',
