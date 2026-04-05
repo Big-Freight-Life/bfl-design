@@ -14,14 +14,14 @@ interface ProductFeatureGridAnimatedProps {
 
 /** Each card flies in from a unique direction with rotation */
 const SCATTER = [
-  { tx:  250, ty: 350, r: -16 },
-  { tx: -200, ty: 420, r:  18 },
-  { tx:  320, ty: 280, r:  12 },
-  { tx: -280, ty: 380, r: -20 },
-  { tx:  180, ty: 460, r:  14 },
-  { tx: -240, ty: 300, r: -10 },
-  { tx:  300, ty: 400, r:  22 },
-  { tx: -320, ty: 340, r: -16 },
+  { tx:  500, ty: 600, r: -22 },
+  { tx: -420, ty: 700, r:  24 },
+  { tx:  600, ty: 500, r:  18 },
+  { tx: -550, ty: 650, r: -26 },
+  { tx:  380, ty: 750, r:  20 },
+  { tx: -480, ty: 550, r: -16 },
+  { tx:  560, ty: 680, r:  28 },
+  { tx: -600, ty: 580, r: -22 },
 ];
 
 function easeOutQuart(t: number) {
