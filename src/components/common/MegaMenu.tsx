@@ -117,7 +117,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
         <Box
           key={activePanel.id}
           sx={{
-            flex: 1,
+            flex: '0 0 60%',
             p: 5,
             display: 'flex',
             flexDirection: 'column',
@@ -157,7 +157,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           <Box
             key={`${activePanel.id}-img`}
             sx={{
-              width: 280,
+              flex: '0 0 40%',
               p: 4,
               display: 'flex',
               alignItems: 'center',
