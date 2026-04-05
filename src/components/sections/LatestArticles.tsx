@@ -76,7 +76,7 @@ export default function LatestArticles({ articles }: LatestArticlesProps) {
                     width: '100%',
                     aspectRatio: '16 / 10',
                     borderRadius: radius.lg,
-                    bgcolor: colors.gray[100],
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : colors.gray[100],
                     overflow: 'hidden',
                     mb: 2,
                   }}

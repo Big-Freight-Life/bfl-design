@@ -24,7 +24,7 @@ export default function EntryPointsSection() {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: colors.gray[50],
+        bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : colors.gray[50],
       }}
     >
       <Container maxWidth="lg">
@@ -35,10 +35,10 @@ export default function EntryPointsSection() {
                 sx={{
                   p: { xs: 4, md: 5 },
                   borderRadius: radius.card,
-                  bgcolor: '#fff',
+                  bgcolor: 'background.paper',
                   boxShadow: shadows.sm,
                   height: '100%',
-                  border: `1px solid ${colors.gray[100]}`,
+                  border: (theme) => `1px solid ${theme.palette.divider}`,
                   transition: 'box-shadow 0.2s ease, transform 0.2s ease',
                   '&:hover': {
                     boxShadow: shadows.md,

@@ -115,7 +115,7 @@ export default function POVSection() {
               label="Meet"
               size="small"
               sx={{
-                bgcolor: colors.primary.main,
+                bgcolor: '#e67e22',
                 color: '#fff',
                 fontWeight: typography.weights.semibold,
                 fontSize: typography.sizes.xs,

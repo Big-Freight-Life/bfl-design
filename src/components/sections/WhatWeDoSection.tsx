@@ -67,7 +67,7 @@ export default function WhatWeDoSection() {
                 sx={{
                   p: { xs: 4, md: 5 },
                   borderRadius: radius.card,
-                  bgcolor: colors.gray[50],
+                  bgcolor: 'background.paper',
                   height: '100%',
                   textAlign: 'center',
                   display: 'flex',
