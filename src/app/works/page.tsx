@@ -44,8 +44,7 @@ export default function WorksPage() {
               Not a portfolio.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              A view into how systems break —{' '}
-              and how we make them work.
+              A view into how systems break and how we make them work.
             </Typography>
           </Box>
         </Container>
@@ -120,7 +119,7 @@ export default function WorksPage() {
           py: { xs: 6, md: 10 },
           borderTop: '1px solid',
           borderColor: 'divider',
-          bgcolor: 'grey.50',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
         }}
       >
         <Container maxWidth="lg">
@@ -218,7 +217,7 @@ export default function WorksPage() {
           py: { xs: 8, md: 14 },
           borderTop: '1px solid',
           borderColor: 'divider',
-          bgcolor: 'grey.50',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
         }}
       >
         <Container maxWidth="lg">
