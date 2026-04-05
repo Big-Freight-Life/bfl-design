@@ -172,7 +172,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
               },
             }}
           >
-            <Box sx={{ position: 'relative', width: '100%', aspectRatio: '9 / 16', maxHeight: 320 }}>
+            <Box sx={{ position: 'relative', width: '100%', aspectRatio: '16 / 9' }}>
               <Image
                 src={activePanel.image}
                 alt={activePanel.label}
