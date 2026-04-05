@@ -35,17 +35,29 @@ export default function ProductFeatureGridAnimated({
   subheadline,
 }: ProductFeatureGridAnimatedProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [headProgress, setHeadProgress] = useState(0);
+  const [gridProgress, setGridProgress] = useState(0);
 
   const onScroll = useCallback(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
     const vh = window.innerHeight;
-    const startAt = vh * 0.8;
-    const endAt = vh * 0.1;
-    const raw = 1 - (rect.top - endAt) / (startAt - endAt);
-    setProgress(Math.min(1, Math.max(0, raw)));
+
+    // Headline: based on section top
+    const sectionEl = sectionRef.current;
+    if (sectionEl) {
+      const sr = sectionEl.getBoundingClientRect();
+      const sRaw = 1 - (sr.top - vh * 0.3) / (vh * 0.7);
+      setHeadProgress(Math.min(1, Math.max(0, sRaw)));
+    }
+
+    // Cards: based on grid top — don't start until grid enters viewport
+    const gridEl = gridRef.current;
+    if (gridEl) {
+      const gr = gridEl.getBoundingClientRect();
+      // Start when grid top enters viewport bottom, finish when at 30% from top
+      const gRaw = 1 - (gr.top - vh * 0.3) / (vh - vh * 0.3);
+      setGridProgress(Math.min(1, Math.max(0, gRaw)));
+    }
   }, []);
 
   useEffect(() => {
@@ -54,11 +66,9 @@ export default function ProductFeatureGridAnimated({
     return () => window.removeEventListener('scroll', onScroll);
   }, [onScroll]);
 
-  const eased = easeOutQuart(progress);
-
-  // Headline
-  const headP = easeOutQuart(Math.min(1, progress * 3));
-  const subP = easeOutQuart(Math.min(1, Math.max(0, (progress - 0.05) * 3)));
+  const headP = easeOutQuart(Math.min(1, headProgress * 2));
+  const subP = easeOutQuart(Math.min(1, Math.max(0, (headProgress - 0.1) * 2)));
+  const eased = easeOutQuart(gridProgress);
 
   return (
     <Box
@@ -94,7 +104,7 @@ export default function ProductFeatureGridAnimated({
             {subheadline}
           </Typography>
         )}
-        <Grid container spacing={3}>
+        <Grid ref={gridRef} container spacing={3}>
           {features.map((f, i) => {
             const s = SCATTER[i % SCATTER.length];
             const staggerStart = 0.1 + i * 0.08;
