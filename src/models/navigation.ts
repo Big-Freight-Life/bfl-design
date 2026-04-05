@@ -29,11 +29,11 @@ export const secondaryNav: NavItem[] = [
 ];
 
 export const productsPanels: MegamenuPanel[] = [
-  { id: 'low-ox-life', label: 'Low Ox Life', href: '/products/low-ox-life', description: 'Track and manage oxalate intake with smart food logging.', image: '/images/products/lowoxlife-launch-device.png' },
-  { id: 'bio-break', label: 'Bio Break', href: '/products/bio-break', description: 'Track bathroom health patterns and insights.', image: '/images/products/biobreak-today-device.png' },
-  { id: 'product-releases', label: 'Product Releases', href: '/products/releases', description: 'Latest updates and release notes.' },
-  { id: 'legal', label: 'Legal', href: '/legal', description: 'Privacy policies and terms of service.' },
-  { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products.' },
+  { id: 'low-ox-life', label: 'Low Ox Life', href: '/products/low-ox-life', description: 'The only iOS app built on the Harvard 2023 Oxalate Table. Browse 400+ foods for free, log meals, and track your daily oxalate intake.', image: '/images/products/lowoxlife-launch-device.png' },
+  { id: 'bio-break', label: 'Bio Break', href: '/products/bio-break', description: 'Track bathroom habits, food, and symptoms on iPhone and Apple Watch. Understand your patterns and share reports with your doctor.', image: '/images/products/biobreak-today-device.png' },
+  { id: 'product-releases', label: 'Product Releases', href: '/products/releases', description: 'Stay up to date with the latest updates, new features, and release notes for all our products.' },
+  { id: 'legal', label: 'Legal', href: '/legal', description: 'Privacy policies, terms of service, and Apple EULA for all our products. Find the legal documents you need.' },
+  { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products. Find answers to common questions, troubleshooting guides, and contact information.' },
 ];
 
 export const aboutPanels: MegamenuPanel[] = [
