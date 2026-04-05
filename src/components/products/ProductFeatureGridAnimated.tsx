@@ -50,16 +50,16 @@ export default function ProductFeatureGridAnimated({
       setHeadProgress(Math.min(1, Math.max(0, sRaw)));
     }
 
-    // Cards: start when grid top enters viewport, finish when grid bottom is visible
+    // Cards: start when grid top is near viewport bottom, finish after
+    // scrolling ~60% of viewport height so the animation plays out slowly
     const gridEl = gridRef.current;
     if (gridEl) {
       const gr = gridEl.getBoundingClientRect();
-      // Start: grid top enters viewport bottom
-      const start = gr.top - vh;
-      // End: grid bottom is fully visible (at or above viewport bottom)
-      const end = gr.bottom - vh;
-      // When start→end goes from 0 to negative, progress goes 0→1
-      const gRaw = start <= 0 ? Math.min(1, -start / (start - end || 1)) : 0;
+      // Start when grid top hits 90% from top (near bottom of viewport)
+      const startAt = vh * 0.9;
+      // End when grid top hits 30% from top — 60% vh of scroll distance
+      const endAt = vh * 0.3;
+      const gRaw = 1 - (gr.top - endAt) / (startAt - endAt);
       setGridProgress(Math.min(1, Math.max(0, gRaw)));
     }
   }, []);
