@@ -154,7 +154,17 @@ export default function BioBreakPage() {
       />
 
       {/* Value Prop */}
-      <Box component="section" sx={{ py: { xs: 8, md: 10 } }}>
+      <Box
+        component="section"
+        sx={{
+          mx: { xs: 1, sm: 2, md: 4 },
+          my: { xs: 2, md: 3 },
+          borderRadius: { xs: '1.25rem', md: '1.75rem' },
+          boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+          bgcolor: 'background.paper',
+          py: { xs: 6, md: 8 },
+        }}
+      >
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
           <Typography
             variant="body1"
