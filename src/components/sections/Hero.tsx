@@ -223,7 +223,7 @@ export default function Hero() {
               }}
             >
               <PlayArrowRoundedIcon sx={{ fontSize: 20, mr: 0.5 }} />
-              Watch Intro
+              Watch Drive to Thrive
             </Button>
             <Button
               component={Link}
