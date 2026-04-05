@@ -113,6 +113,8 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           })}
         </Box>
 
+        {/* Right area - description + image */}
+        <Box sx={{ flex: 1, display: 'flex', minWidth: 0 }}>
         {/* Middle panel - contextual content */}
         <Box
           key={activePanel.id}
@@ -183,6 +185,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
             </Box>
           </Box>
         )}
+        </Box>
       </Paper>
     </>
   );
