@@ -16,7 +16,7 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ProductHero from '@/components/products/ProductHero';
 import ProductCta from '@/components/products/ProductCta';
 import ProductSpotlightSection from '@/components/products/ProductSpotlightSection';
-import ProductFeatureGrid from '@/components/products/ProductFeatureGrid';
+import ProductFeatureGridAnimated from '@/components/products/ProductFeatureGridAnimated';
 import ProductPricingSection from '@/components/products/ProductPricingSection';
 import ProductFaqSection from '@/components/products/ProductFaqSection';
 
@@ -39,6 +39,8 @@ const spotlights = [
     headline: '400+ Foods. One Search.',
     desc: 'Browse the complete Harvard 2023 Oxalate Table with serving sizes and oxalate content for every food. Search instantly and filter by oxalate level.',
     bg: 'background.default',
+    image: '/images/products/lowoxlife-foodlist-device.png',
+    imageAlt: 'Low Ox Life Foods - Browse Harvard 2023 database with search and oxalate level filters',
   },
   {
     title: 'Food Journal',
@@ -46,6 +48,8 @@ const spotlights = [
     desc: 'Add foods to your daily journal with one tap. Track your total oxalate intake over time with date navigation and daily summaries.',
     bg: DARK,
     dark: true,
+    image: '/images/products/lowoxlife-journal-device.png',
+    imageAlt: 'Low Ox Life Journal - Log meals and track daily oxalate intake with date navigation',
   },
   {
     title: 'Cloud Sync',
@@ -53,6 +57,8 @@ const spotlights = [
     desc: 'Sign in with Apple and your journal, favorites, and custom foods sync seamlessly across all your devices.',
     bg: ACCENT,
     dark: true,
+    image: '/images/products/lowoxlife-fooddatabase-device.png',
+    imageAlt: 'Low Ox Life Food Database - Manage databases and sync across devices',
   },
 ];
 
@@ -162,7 +168,7 @@ export default function LowOxLifePage() {
 
       <ProductSpotlightSection spotlights={spotlights} accentColor={ACCENT} />
 
-      <ProductFeatureGrid
+      <ProductFeatureGridAnimated
         features={features}
         accentColor={ACCENT}
         subheadline="A complete suite of tools for managing your oxalate intake."

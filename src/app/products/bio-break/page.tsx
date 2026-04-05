@@ -39,6 +39,8 @@ const spotlights = [
     desc: 'See your activity trends over time with daily comparison charts, 7-day averages, and intelligent hydration insights powered by your data.',
     bg: 'background.default',
     dark: false,
+    image: '/images/products/biobreak-insights-device.png',
+    imageAlt: 'Bio Break Insights - Weekly activity charts, heart rate trends, and personalized health insights',
   },
   {
     title: 'Activity History',
@@ -46,6 +48,8 @@ const spotlights = [
     desc: 'Browse your entries by date with quick filter chips for BB1, BB2, Food, and more. Each entry shows status tags at a glance.',
     bg: '#0a2333',
     dark: true,
+    image: '/images/products/biobreak-history-device.png',
+    imageAlt: 'Bio Break History - Daily log entries with BB1 and BB2 filter chips, status tags, and date navigation',
   },
   {
     title: 'Community Stats',
@@ -53,6 +57,8 @@ const spotlights = [
     desc: 'Compare your average interval, peak hour, and urgency against anonymous community averages. Plus a monthly heat map calendar to visualize your activity at a glance.',
     bg: ACCENT,
     dark: true,
+    image: '/images/products/biobreak-reports-device.png',
+    imageAlt: 'Bio Break Community - Compare your stats against community averages with monthly heat map calendar',
   },
 ];
 
