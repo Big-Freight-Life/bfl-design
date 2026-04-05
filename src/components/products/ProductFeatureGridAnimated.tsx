@@ -60,8 +60,8 @@ export default function ProductFeatureGridAnimated({
     const sectionEl = sectionRef.current;
     if (sectionEl) {
       const sr = sectionEl.getBoundingClientRect();
-      // Start when section top hits 60% from top, complete at 30%
-      const sRaw = 1 - (sr.top - vh * 0.3) / (vh * 0.3);
+      // Start when section top hits 50% from top, complete at 30%
+      const sRaw = 1 - (sr.top - vh * 0.3) / (vh * 0.2);
       setHeadProgress(Math.min(1, Math.max(0, sRaw)));
     }
 
