@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import Link from 'next/link';
 import { colors, typography, spacing, motion } from '@/theme/tokens';
 import { useThemeMode } from '@/viewmodels/useThemeMode';
@@ -221,7 +222,8 @@ export default function Hero() {
                 '&:hover': { bgcolor: colors.button.primary.hover },
               }}
             >
-              Explore Transformation
+              <PlayArrowRoundedIcon sx={{ fontSize: 20, mr: 0.5 }} />
+              Watch Intro
             </Button>
             <Button
               component={Link}
