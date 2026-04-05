@@ -168,7 +168,7 @@ export default function LowOxLifePage() {
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
           <Typography
             variant="body1"
-            sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' }, lineHeight: 1.8, color: 'text.secondary' }}
+            sx={{ fontSize: { xs: '1.15rem', md: '1.35rem' }, lineHeight: 1.7, fontWeight: 500, color: 'text.primary' }}
           >
             Low Ox Life gives you evidence-based oxalate data at your fingertips. Search the complete
             Harvard 2023 database, filter by oxalate level, log meals to your journal, and sync across

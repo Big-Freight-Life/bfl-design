@@ -168,7 +168,7 @@ export default function BioBreakPage() {
         <Container maxWidth="md" sx={{ textAlign: 'center' }}>
           <Typography
             variant="body1"
-            sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' }, lineHeight: 1.8, color: 'text.secondary' }}
+            sx={{ fontSize: { xs: '1.15rem', md: '1.35rem' }, lineHeight: 1.7, fontWeight: 500, color: 'text.primary' }}
           >
             Bathroom habits say a lot about your health — but tracking them shouldn&#39;t feel awkward.
             Bio Break makes it simple, private, and insightful. Log in seconds, understand your
