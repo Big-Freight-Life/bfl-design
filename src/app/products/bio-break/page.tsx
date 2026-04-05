@@ -16,7 +16,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ProductHero from '@/components/products/ProductHero';
 import ProductCta from '@/components/products/ProductCta';
 import ProductSpotlightSection from '@/components/products/ProductSpotlightSection';
-import ProductFeatureGrid from '@/components/products/ProductFeatureGrid';
+import ProductFeatureGridAnimated from '@/components/products/ProductFeatureGridAnimated';
 import ProductPricingSection from '@/components/products/ProductPricingSection';
 import ProductFaqSection from '@/components/products/ProductFaqSection';
 
@@ -168,7 +168,7 @@ export default function BioBreakPage() {
 
       <ProductSpotlightSection spotlights={spotlights} accentColor={ACCENT} />
 
-      <ProductFeatureGrid
+      <ProductFeatureGridAnimated
         features={features}
         accentColor={ACCENT}
         subheadline="Simple logging. Powerful insights. Designed for your privacy."
