@@ -28,6 +28,19 @@ function easeOutQuart(t: number) {
   return 1 - Math.pow(1 - t, 4);
 }
 
+/** Respect prefers-reduced-motion */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  return reduced;
+}
+
 export default function ProductFeatureGridAnimated({
   features,
   accentColor,
@@ -38,6 +51,7 @@ export default function ProductFeatureGridAnimated({
   const gridRef = useRef<HTMLDivElement>(null);
   const [headProgress, setHeadProgress] = useState(0);
   const [gridProgress, setGridProgress] = useState(0);
+  const reducedMotion = usePrefersReducedMotion();
 
   const onScroll = useCallback(() => {
     const vh = window.innerHeight;
@@ -50,15 +64,15 @@ export default function ProductFeatureGridAnimated({
       setHeadProgress(Math.min(1, Math.max(0, sRaw)));
     }
 
-    // Cards: start when grid top is near viewport bottom, finish after
-    // scrolling ~60% of viewport height so the animation plays out slowly
+    // Cards: longer scroll distance for slower, more deliberate animation
     const gridEl = gridRef.current;
     if (gridEl) {
       const gr = gridEl.getBoundingClientRect();
-      // Start when grid top hits 90% from top (near bottom of viewport)
-      const startAt = vh * 0.9;
-      // End when grid top hits 10% from top — 80% vh of scroll distance
-      const endAt = vh * 0.1;
+      // Start when grid top hits 95% from top (just enters viewport)
+      const startAt = vh * 0.95;
+      // End when grid top is above viewport — animation spans ~120% vh
+      // so it plays out over a long, comfortable scroll
+      const endAt = vh * -0.25;
       const gRaw = 1 - (gr.top - endAt) / (startAt - endAt);
       setGridProgress(Math.min(1, Math.max(0, gRaw)));
     }
@@ -69,6 +83,43 @@ export default function ProductFeatureGridAnimated({
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, [onScroll]);
+
+  // If reduced motion, skip all animation — show everything immediately
+  if (reducedMotion) {
+    return (
+      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h2"
+            fontWeight={700}
+            textAlign="center"
+            sx={{ mb: 2, fontSize: { xs: '1.75rem', md: '2.25rem' } }}
+          >
+            {headline}
+          </Typography>
+          {subheadline && (
+            <Typography variant="body1" color="text.secondary" textAlign="center" sx={{ mb: 6 }}>
+              {subheadline}
+            </Typography>
+          )}
+          <Grid container spacing={3}>
+            {features.map((f) => (
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={f.title} sx={{ display: 'flex' }}>
+                <FeatureCard
+                  title={f.title}
+                  desc={f.desc}
+                  tier={f.tier}
+                  icon={f.icon}
+                  accentColor={accentColor}
+                  comingSoon={f.comingSoon}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    );
+  }
 
   const headP = easeOutQuart(Math.min(1, headProgress * 2));
   const subP = easeOutQuart(Math.min(1, Math.max(0, (headProgress - 0.1) * 2)));
@@ -111,7 +162,8 @@ export default function ProductFeatureGridAnimated({
         <Grid ref={gridRef} container spacing={3}>
           {features.map((f, i) => {
             const s = SCATTER[i % SCATTER.length];
-            const staggerStart = 0.1 + i * 0.08;
+            // Heavier stagger — 12% per card for more sequential arrivals
+            const staggerStart = 0.05 + i * 0.12;
             const cardRaw = (eased - staggerStart) / (1 - staggerStart);
             const cp = easeOutQuart(Math.min(1, Math.max(0, cardRaw)));
 
