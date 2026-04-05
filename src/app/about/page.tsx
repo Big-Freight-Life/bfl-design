@@ -41,7 +41,7 @@ export default function AboutPage() {
                 mb: 1,
               }}
             >
-              Big Freight Life is an applied AI architecture practice focused on one thing:
+              Big Freight Life is an applied AI architecture and design practice focused on one thing:
             </Typography>
             <Typography
               variant="body1"
@@ -313,16 +313,13 @@ export default function AboutPage() {
                 Designer, Builder, Founder
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
-                Ray works at the intersection of experience design, engineering, and system architecture&mdash;focusing on how complex systems behave, not just how they appear.
+                Ray works at the intersection of experience design, engineering, and system architecture&mdash;focusing on how systems behave, not just how they appear.
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
-                His work centers on Applied AI Architecture: structuring systems so AI can operate clearly, predictably, and within real-world conditions.
-              </Typography>
-              <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
-                With a background in building production-ready applications&mdash;from health platforms to AI-driven systems&mdash;he moves from concept to working systems with precision.
+                His work centers on Applied AI Architecture: structuring systems so AI operates clearly, predictably, and within real-world conditions.
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 4 }}>
-                What defines his work is the ability to bring clarity to systems that were never designed to support the complexity they carry.
+                He brings clarity to systems that were never designed to support the complexity they carry.
               </Typography>
               <Button
                 component="a"
@@ -360,39 +357,82 @@ export default function AboutPage() {
         }}
       >
         <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '44rem' }}>
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
-              Most organizations are moving faster than their systems can support. That&apos;s where things break.
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 4, fontSize: '1.0625rem' }}>
-              Not because of effort, but because the foundation isn&apos;t designed to matter.
-            </Typography>
-            <Typography
-              variant="h3"
-              sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, color: '#fff', fontWeight: 600, mb: 1 }}
-            >
-              We design that foundation.
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 5, fontSize: '1.0625rem' }}>
-              Without it, nothing else matters.
-            </Typography>
-            <Button
-              component={Link}
-              href="/contact"
-              variant="contained"
-              size="large"
-              sx={{
-                bgcolor: colors.button.primary.bg,
-                color: '#fff',
-                px: 5,
-                py: 1.75,
-                fontSize: '1.0625rem',
-                '&:hover': { bgcolor: colors.button.primary.hover },
-              }}
-            >
-              Work With Us
-            </Button>
-          </Box>
+          <Grid container spacing={{ xs: 6, md: 10 }} alignItems="flex-start">
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
+                Most organizations are moving faster than their systems can support. That&apos;s where things break.
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 4, fontSize: '1.0625rem' }}>
+                Not because of effort, but because the foundation isn&apos;t designed to matter.
+              </Typography>
+              <Typography
+                variant="h3"
+                sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, color: '#fff', fontWeight: 600, mb: 1 }}
+              >
+                We design that foundation.
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 5, fontSize: '1.0625rem' }}>
+                Without it, nothing else matters.
+              </Typography>
+              <Button
+                component={Link}
+                href="/contact"
+                variant="contained"
+                size="large"
+                sx={{
+                  bgcolor: colors.button.primary.bg,
+                  color: '#fff',
+                  px: 5,
+                  py: 1.75,
+                  fontSize: '1.0625rem',
+                  '&:hover': { bgcolor: colors.button.primary.hover },
+                }}
+              >
+                Work With Us
+              </Button>
+            </Grid>
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Box sx={{ borderLeft: { md: '1px solid rgba(255,255,255,0.12)' }, pl: { md: 5 } }}>
+                <Typography variant="overline" sx={{ color: 'rgba(255,255,255,0.4)', letterSpacing: '0.1em', display: 'block', mb: 3 }}>
+                  Contact
+                </Typography>
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600, mb: 0.5 }}>
+                    Address
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
+                    Big Freight Life LLC
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
+                    1351 N Buckner Blvd #180397
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
+                    Dallas, TX 75218
+                  </Typography>
+                </Box>
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600, mb: 0.5 }}>
+                    Email
+                  </Typography>
+                  <Box
+                    component="a"
+                    href="mailto:hello@bflux.co"
+                    sx={{ color: colors.primary.main, textDecoration: 'none', fontSize: '0.875rem', '&:hover': { textDecoration: 'underline' } }}
+                  >
+                    hello@bflux.co
+                  </Box>
+                </Box>
+                <Box>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.4)', fontWeight: 600, mb: 0.5 }}>
+                    Business Hours
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
+                    Monday &ndash; Friday, 9am &ndash; 6pm CT
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
 
