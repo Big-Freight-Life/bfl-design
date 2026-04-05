@@ -12,6 +12,8 @@ interface ProductHeroProps {
   ctaUrl: string;
   ctaText: string;
   ctaExternal?: boolean;
+  /** Show official Apple App Store badge instead of regular button */
+  appStoreBadge?: boolean;
   secondaryUrl?: string;
   secondaryText?: string;
   price: string;
@@ -29,6 +31,7 @@ export default function ProductHero({
   ctaUrl,
   ctaText,
   ctaExternal = false,
+  appStoreBadge = false,
   secondaryUrl,
   secondaryText,
   price,
@@ -94,24 +97,42 @@ export default function ProductHero({
             {subheadline}
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', sm: 'center' }}>
-            <Button
-              component={ctaExternal ? 'a' : Link}
-              href={ctaUrl}
-              {...(ctaExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              variant="contained"
-              size="large"
-              sx={{
-                bgcolor: accentColor,
-                color: '#fff',
-                fontWeight: 600,
-                px: 4,
-                py: 1.5,
-                borderRadius: '8px',
-                '&:hover': { bgcolor: accentColor, filter: 'brightness(1.1)' },
-              }}
-            >
-              {ctaText}
-            </Button>
+            {appStoreBadge ? (
+              <Box
+                component="a"
+                href={ctaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ display: 'block' }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                  alt="Download on the App Store"
+                  width={156}
+                  height={52}
+                />
+              </Box>
+            ) : (
+              <Button
+                component={ctaExternal ? 'a' : Link}
+                href={ctaUrl}
+                {...(ctaExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                variant="contained"
+                size="large"
+                sx={{
+                  bgcolor: accentColor,
+                  color: '#fff',
+                  fontWeight: 600,
+                  px: 4,
+                  py: 1.5,
+                  borderRadius: '8px',
+                  '&:hover': { bgcolor: accentColor, filter: 'brightness(1.1)' },
+                }}
+              >
+                {ctaText}
+              </Button>
+            )}
             {secondaryUrl && secondaryText && (
               <Button
                 component="a"

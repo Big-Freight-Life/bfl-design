@@ -12,6 +12,8 @@ interface ProductCtaProps {
   ctaText: string;
   ctaUrl: string;
   ctaExternal?: boolean;
+  /** Show official Apple App Store badge instead of regular button */
+  appStoreBadge?: boolean;
   gradient: string;
   accentColor: string;
   legalLinks?: LegalLink[];
@@ -23,6 +25,7 @@ export default function ProductCta({
   ctaText,
   ctaUrl,
   ctaExternal = false,
+  appStoreBadge = false,
   gradient,
   accentColor,
   legalLinks,
@@ -46,26 +49,44 @@ export default function ProductCta({
         >
           {description}
         </Typography>
-        <Button
-          component={ctaExternal ? 'a' : Link}
-          href={ctaUrl}
-          {...(ctaExternal ? { target: '_blank', rel: 'noopener' } : {})}
-          variant="contained"
-          size="large"
-          sx={{
-            bgcolor: accentColor,
-            color: '#fff',
-            fontWeight: 600,
-            px: 5,
-            py: 1.75,
-            borderRadius: '8px',
-            fontSize: '1rem',
-            mb: 4,
-            '&:hover': { bgcolor: accentColor, filter: 'brightness(1.1)' },
-          }}
-        >
-          {ctaText}
-        </Button>
+        {appStoreBadge ? (
+          <Box
+            component="a"
+            href={ctaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ display: 'inline-block', mb: 4 }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              alt="Download on the App Store"
+              width={156}
+              height={52}
+            />
+          </Box>
+        ) : (
+          <Button
+            component={ctaExternal ? 'a' : Link}
+            href={ctaUrl}
+            {...(ctaExternal ? { target: '_blank', rel: 'noopener' } : {})}
+            variant="contained"
+            size="large"
+            sx={{
+              bgcolor: accentColor,
+              color: '#fff',
+              fontWeight: 600,
+              px: 5,
+              py: 1.75,
+              borderRadius: '8px',
+              fontSize: '1rem',
+              mb: 4,
+              '&:hover': { bgcolor: accentColor, filter: 'brightness(1.1)' },
+            }}
+          >
+            {ctaText}
+          </Button>
+        )}
         {legalLinks && legalLinks.length > 0 && (
           <Stack
             direction="row"

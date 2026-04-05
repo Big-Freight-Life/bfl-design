@@ -29,7 +29,6 @@ export const secondaryNav: NavItem[] = [
 export const productsPanels: MegamenuPanel[] = [
   { id: 'low-ox-life', label: 'Low Ox Life', href: '/products/low-ox-life', description: 'Track and manage oxalate intake with smart food logging.' },
   { id: 'bio-break', label: 'Bio Break', href: '/products/bio-break', description: 'Track bathroom health patterns and insights.' },
-  { id: '24h-urine', label: '24-Hour Urine Analysis', href: '/products/24-hour-urine-analysis', description: 'Comprehensive urine analysis tracking.' },
   { id: 'product-releases', label: 'Product Releases', href: '/products/releases', description: 'Latest updates and release notes.' },
   { id: 'legal', label: 'Legal', href: '/legal', description: 'Privacy policies and terms of service.' },
   { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products.' },

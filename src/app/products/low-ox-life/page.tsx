@@ -144,6 +144,7 @@ export default function LowOxLifePage() {
         ctaUrl="https://apps.apple.com/us/app/low-ox-life-list/id6748654148"
         ctaText="View in App Store"
         ctaExternal
+        appStoreBadge
         secondaryUrl="https://www.facebook.com/groups/lowoxlife"
         secondaryText="Join Facebook Community"
         price="Free"
@@ -195,6 +196,7 @@ export default function LowOxLifePage() {
         ctaText="View in App Store"
         ctaUrl="https://apps.apple.com/us/app/low-ox-life-list/id6748654148"
         ctaExternal
+        appStoreBadge
         gradient={GRADIENT}
         accentColor={ACCENT}
         legalLinks={legalLinks}

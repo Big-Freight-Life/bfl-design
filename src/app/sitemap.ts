@@ -16,7 +16,6 @@ const staticRoutes = [
   '/products',
   '/products/low-ox-life',
   '/products/bio-break',
-  '/products/24-hour-urine-analysis',
   '/products/releases',
   '/transformation',
   '/transformation/workshop',

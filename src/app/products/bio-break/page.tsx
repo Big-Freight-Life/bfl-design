@@ -146,6 +146,7 @@ export default function BioBreakPage() {
         ctaUrl="#"
         ctaText="View in App Store"
         ctaExternal
+        appStoreBadge
         price="Free"
         priceNote="Pro upgrade $4.99/month · 7-day free trial"
         gradient={GRADIENT}
@@ -190,6 +191,7 @@ export default function BioBreakPage() {
         ctaText="View in App Store"
         ctaUrl="#"
         ctaExternal
+        appStoreBadge
         gradient={GRADIENT}
         accentColor={ACCENT}
         legalLinks={legalLinks}

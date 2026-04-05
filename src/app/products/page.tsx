@@ -32,14 +32,6 @@ const products = [
     price: 'Free to start',
     url: '/products/bio-break',
   },
-  {
-    type: 'iOS App',
-    title: '24H Urine Analysis',
-    excerpt:
-      'AI-powered analysis turns complex 24-hour urine test results into clear, actionable health insights.',
-    price: 'Free to try',
-    url: '/products/24-hour-urine-analysis',
-  },
 ];
 
 const faqs = [
