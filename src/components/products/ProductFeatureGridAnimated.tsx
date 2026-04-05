@@ -78,7 +78,7 @@ export default function ProductFeatureGridAnimated({
     <Box
       ref={sectionRef}
       component="section"
-      sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}
+      sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50', overflow: 'clip' }}
     >
       <Container maxWidth="lg">
         <Typography
