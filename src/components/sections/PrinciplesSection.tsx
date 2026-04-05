@@ -76,7 +76,7 @@ export default function PrinciplesSection() {
             ))}
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            So progress looks like movement—but doesn&apos;t hold.
+            Progress looks like movement, but doesn&apos;t hold.
           </Typography>
         </Box>
       </Container>
