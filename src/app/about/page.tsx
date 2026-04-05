@@ -1,5 +1,7 @@
+'use client';
+
 import { Box, Container, Typography, Grid, Paper, Button } from '@mui/material';
-import { colors, typography } from '@/theme/tokens';
+import { colors, darkColors, typography } from '@/theme/tokens';
 
 const credentials = [
   {
@@ -100,7 +102,7 @@ export default function AboutPage() {
             </Box>
             <Typography
               variant="body1"
-              sx={{ color: colors.button.primary.bg, fontWeight: 500, fontSize: '1.0625rem' }}
+              sx={{ color: (theme) => theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg, fontWeight: 500, fontSize: '1.0625rem' }}
             >
               That gap is where we work.
             </Typography>
@@ -109,7 +111,7 @@ export default function AboutPage() {
       </Box>
 
       {/* Section 2 — What We Do */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
+      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50' }}>
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
             <Typography
@@ -155,7 +157,7 @@ export default function AboutPage() {
             <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
               Because:
             </Typography>
-            <Box sx={{ pl: 3, borderLeft: `3px solid ${colors.primary.main}`, mb: 4 }}>
+            <Box sx={{ pl: 3, borderLeft: (theme) => `3px solid ${theme.palette.primary.main}`, mb: 4 }}>
               {[
                 'AI without structure creates noise',
                 'tools without alignment create friction',
@@ -180,7 +182,7 @@ export default function AboutPage() {
       </Box>
 
       {/* Section 4 — What Makes This Different */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
+      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50' }}>
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
             <Typography
@@ -240,7 +242,7 @@ export default function AboutPage() {
                     sx={{
                       p: 3,
                       border: '1px solid',
-                      borderColor: 'grey.200',
+                      borderColor: 'divider',
                       borderRadius: '0.75rem',
                       height: '100%',
                     }}
@@ -261,7 +263,7 @@ export default function AboutPage() {
       </Box>
 
       {/* Meet the Founder */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: 'grey.50' }}>
+      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50' }}>
         <Container maxWidth="lg">
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 4 }}>
@@ -288,7 +290,7 @@ export default function AboutPage() {
               <Typography variant="h2" sx={{ mb: 0.5, fontWeight: 600 }}>
                 Ray Butler
               </Typography>
-              <Typography variant="body1" sx={{ color: '#14B8A6', fontWeight: 500, mb: 3 }}>
+              <Typography variant="body1" sx={{ color: 'primary.main', fontWeight: 500, mb: 3 }}>
                 Designer, Builder, Founder
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
@@ -312,11 +314,14 @@ export default function AboutPage() {
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                   </svg>
                 }
-                sx={{
-                  borderColor: '#117680',
-                  color: '#117680',
-                  '&:hover': { borderColor: '#0e5f67', bgcolor: 'rgba(17,118,128,0.04)' },
-                }}
+                sx={(theme) => ({
+                  borderColor: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
+                  color: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
+                  '&:hover': {
+                    borderColor: theme.palette.mode === 'dark' ? darkColors.button.primary.hover : colors.button.primary.hover,
+                    bgcolor: theme.palette.mode === 'dark' ? 'rgba(26,154,166,0.08)' : 'rgba(17,118,128,0.04)',
+                  },
+                })}
               >
                 Connect on LinkedIn
               </Button>
@@ -344,19 +349,19 @@ export default function AboutPage() {
                     sx={{
                       p: 3,
                       border: '1px solid',
-                      borderColor: 'grey.200',
+                      borderColor: 'divider',
                       borderRadius: '0.75rem',
                       display: 'block',
                       textDecoration: 'none',
                       transition: 'border-color 0.2s, box-shadow 0.2s',
                       '&:hover': cred.href
-                        ? { borderColor: '#14B8A6', boxShadow: '0 4px 12px rgba(20,184,166,0.12)' }
+                        ? { borderColor: 'primary.main', boxShadow: '0 4px 12px rgba(20,184,166,0.12)' }
                         : {},
                     }}
                   >
                     <Typography
                       variant="overline"
-                      sx={{ color: '#14B8A6', fontWeight: 600, letterSpacing: '0.08em', display: 'block', mb: 0.5 }}
+                      sx={{ color: 'primary.main', fontWeight: 600, letterSpacing: '0.08em', display: 'block', mb: 0.5 }}
                     >
                       {cred.issuer}
                     </Typography>

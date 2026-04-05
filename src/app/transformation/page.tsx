@@ -118,7 +118,7 @@ export default function TransformationPage() {
 
       {/* ── Divider ── */}
       <Box sx={{ mx: 'auto', maxWidth: '1024px', px: 3 }}>
-        <Box sx={{ height: '1px', bgcolor: 'grey.200' }} />
+        <Box sx={{ height: '1px', bgcolor: 'divider' }} />
       </Box>
 
       {/* ── What we do ── */}
@@ -157,7 +157,7 @@ export default function TransformationPage() {
               We step into how the system actually works.
             </Typography>
 
-            <Box sx={{ mb: 5, pl: { xs: 2, md: 4 }, borderLeft: `3px solid ${colors.primary.main}` }}>
+            <Box sx={{ mb: 5, pl: { xs: 2, md: 4 }, borderLeft: (theme) => `3px solid ${theme.palette.primary.main}` }}>
               {[
                 'Not the roadmap.',
                 'Not the documentation.',
@@ -252,7 +252,7 @@ export default function TransformationPage() {
 
       {/* ── Divider ── */}
       <Box sx={{ mx: 'auto', maxWidth: '1024px', px: 3 }}>
-        <Box sx={{ height: '1px', bgcolor: 'grey.200' }} />
+        <Box sx={{ height: '1px', bgcolor: 'divider' }} />
       </Box>
 
       {/* ── What changes ── */}

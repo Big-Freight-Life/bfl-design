@@ -60,5 +60,27 @@ export const darkTheme = createTheme({
     background: { default: '#121212', paper: '#1a1a1a' },
     text: { primary: '#d4d4d4', secondary: '#a3a3a3' },
     divider: '#303030',
+    grey: {
+      50: '#1e1e1e',
+      100: '#252525',
+      200: '#333333',
+      300: '#404040',
+      400: '#525252',
+      500: '#6b7280',
+      600: '#9ca3af',
+      700: '#d1d5db',
+      800: '#e5e7eb',
+      900: '#171717',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: {
+          color: '#ffffff',
+          '&:hover': { color: '#ffffff' },
+        },
+      },
+    },
   },
 });

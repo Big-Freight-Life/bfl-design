@@ -100,14 +100,14 @@ export default function POVSection() {
               gap: 1.5,
               textDecoration: 'none',
               borderRadius: '9999px',
-              border: `1px solid rgba(0,0,0,0.12)`,
-              bgcolor: 'rgba(0,0,0,0.04)',
+              border: (theme) => `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)'}`,
+              bgcolor: (theme) => theme.palette.mode === 'dark' ? '#2a2a2a' : '#f3f4f6',
               px: 2.5,
               py: 1,
               transition: 'all 0.2s ease',
               '&:hover': {
-                bgcolor: 'rgba(0,0,0,0.08)',
-                borderColor: 'rgba(0,0,0,0.2)',
+                bgcolor: (theme) => theme.palette.mode === 'dark' ? '#333333' : '#e5e7eb',
+                borderColor: (theme) => theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.2)',
               },
             }}
           >

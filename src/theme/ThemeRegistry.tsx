@@ -11,7 +11,7 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssBaseline enableColorScheme />
       {children}
     </ThemeProvider>
   );

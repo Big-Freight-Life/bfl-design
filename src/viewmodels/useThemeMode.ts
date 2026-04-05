@@ -6,6 +6,7 @@ type ThemeMode = 'light' | 'dark';
 
 export function useThemeMode() {
   const [mode, setMode] = useState<ThemeMode>('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('theme-mode') as ThemeMode | null;
@@ -14,6 +15,7 @@ export function useThemeMode() {
     } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setMode('dark');
     }
+    setMounted(true);
   }, []);
 
   const toggleMode = useCallback(() => {
@@ -24,5 +26,5 @@ export function useThemeMode() {
     });
   }, []);
 
-  return { mode, toggleMode };
+  return { mode, toggleMode, mounted };
 }

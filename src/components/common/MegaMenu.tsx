@@ -32,7 +32,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           left: 0,
           right: 0,
           bottom: 0,
-          bgcolor: 'rgba(0,0,0,0.06)',
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.06)',
           zIndex: 'modal',
           animation: 'megamenuBackdropIn 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
           '@keyframes megamenuBackdropIn': {
@@ -57,7 +57,7 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
           borderColor: 'divider',
           bgcolor: 'background.paper',
           zIndex: 'modal',
-          boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+          boxShadow: (theme) => theme.palette.mode === 'dark' ? '0 10px 40px rgba(0,0,0,0.4)' : '0 10px 40px rgba(0,0,0,0.08)',
           animation: `megamenuSlideIn ${motion.duration.smooth} ${motion.easing.outExpo} forwards`,
           '@keyframes megamenuSlideIn': {
             '0%': { opacity: 0, transform: 'translateY(-12px)' },

@@ -39,7 +39,6 @@ export const aboutPanels: MegamenuPanel[] = [
   { id: 'about-us', label: 'About Us', href: '/about', description: 'Learn about Big Freight Life and our mission.' },
   { id: 'process', label: 'Process', href: '/process', description: 'How we approach system design and transformation.' },
   { id: 'ai-ethics', label: 'AI Ethics', href: '/ai-ethics', description: 'Our principles for responsible AI design.' },
-  { id: 'newsletter', label: 'Our Newsletter', href: '/newsletter', description: 'Stay updated with our latest thinking.' },
 ];
 
 export const mobileTabItems: NavItem[] = [

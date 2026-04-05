@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Container, Typography, Paper } from '@mui/material';
 import Link from 'next/link';
 
@@ -100,9 +102,7 @@ export default function TermsPage() {
         sx={{
           position: 'relative',
           py: { xs: 10, md: 14 },
-          background: 'linear-gradient(160deg, #f9fafb 0%, #f0fdfa 100%)',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
+          bgcolor: 'background.paper',
           overflow: 'hidden',
         }}
       >
@@ -111,8 +111,10 @@ export default function TermsPage() {
           sx={{
             position: 'absolute',
             inset: 0,
-            backgroundImage:
-              'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
+            backgroundImage: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)'
+                : 'linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)',
             backgroundSize: '60px 60px',
             maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
             WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 70%)',
@@ -196,7 +198,7 @@ export default function TermsPage() {
         component="section"
         sx={{
           py: { xs: 5, md: 7 },
-          bgcolor: 'grey.50',
+          bgcolor: 'action.hover',
           borderTop: '1px solid',
           borderColor: 'divider',
         }}

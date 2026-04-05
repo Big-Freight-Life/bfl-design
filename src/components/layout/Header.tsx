@@ -73,7 +73,7 @@ export default function Header() {
     <AppBar
       position="sticky"
       elevation={0}
-      sx={{ bgcolor: 'background.paper', color: 'text.primary', borderBottom: 1, borderColor: 'divider' }}
+      sx={{ top: 0, bgcolor: 'background.paper', color: 'text.primary', borderBottom: 1, borderColor: 'divider' }}
     >
       <Toolbar
         sx={{
