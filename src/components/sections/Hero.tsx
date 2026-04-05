@@ -248,7 +248,7 @@ export default function Hero() {
       <Box
         sx={{
           position: 'absolute',
-          bottom: spacing[8],
+          bottom: spacing[12],
           left: '50%',
           display: 'flex',
           flexDirection: 'column',
