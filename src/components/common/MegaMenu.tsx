@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Box, Typography, Button, Paper } from '@mui/material';
 import Link from 'next/link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -130,6 +131,28 @@ export default function MegaMenu({ title, panels, activePanelId, onPanelHover, o
             },
           }}
         >
+          {activePanel.image && (
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: 400,
+                aspectRatio: '16 / 9',
+                borderRadius: 2,
+                overflow: 'hidden',
+                mb: 3,
+                bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.800' : 'grey.200',
+              }}
+            >
+              <Image
+                src={activePanel.image}
+                alt={activePanel.label}
+                fill
+                style={{ objectFit: 'contain' }}
+                sizes="400px"
+              />
+            </Box>
+          )}
           <Typography variant="h4" gutterBottom>{activePanel.label}</Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3, maxWidth: 480 }}>
             {activePanel.description}

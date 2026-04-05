@@ -12,6 +12,8 @@ export interface MegamenuPanel {
   label: string;
   href: string;
   description: string;
+  /** Optional 16:9 image shown in the right panel */
+  image?: string;
 }
 
 export const primaryNav: NavItem[] = [
@@ -27,8 +29,8 @@ export const secondaryNav: NavItem[] = [
 ];
 
 export const productsPanels: MegamenuPanel[] = [
-  { id: 'low-ox-life', label: 'Low Ox Life', href: '/products/low-ox-life', description: 'Track and manage oxalate intake with smart food logging.' },
-  { id: 'bio-break', label: 'Bio Break', href: '/products/bio-break', description: 'Track bathroom health patterns and insights.' },
+  { id: 'low-ox-life', label: 'Low Ox Life', href: '/products/low-ox-life', description: 'Track and manage oxalate intake with smart food logging.', image: '/images/products/lowoxlife-launch-device.png' },
+  { id: 'bio-break', label: 'Bio Break', href: '/products/bio-break', description: 'Track bathroom health patterns and insights.', image: '/images/products/biobreak-today-device.png' },
   { id: 'product-releases', label: 'Product Releases', href: '/products/releases', description: 'Latest updates and release notes.' },
   { id: 'legal', label: 'Legal', href: '/legal', description: 'Privacy policies and terms of service.' },
   { id: 'support', label: 'Support', href: '/support', description: 'Get help with our products.' },
