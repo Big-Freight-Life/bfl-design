@@ -141,7 +141,7 @@ export default function ProductFeatureGridAnimated({
             mb: 2,
             fontSize: { xs: '1.75rem', md: '2.25rem' },
             opacity: headP,
-            transform: `translateY(${(1 - headP) * 30}px)`,
+            transform: `translateY(${(1 - headP) * 60}px)`,
           }}
         >
           {headline}
@@ -154,7 +154,7 @@ export default function ProductFeatureGridAnimated({
             sx={{
               mb: 6,
               opacity: subP,
-              transform: `translateY(${(1 - subP) * 20}px)`,
+              transform: `translateY(${(1 - subP) * 40}px)`,
             }}
           >
             {subheadline}
