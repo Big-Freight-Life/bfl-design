@@ -60,7 +60,8 @@ export default function ProductFeatureGridAnimated({
     const sectionEl = sectionRef.current;
     if (sectionEl) {
       const sr = sectionEl.getBoundingClientRect();
-      const sRaw = 1 - (sr.top - vh * 0.3) / (vh * 0.7);
+      // Start when section top hits 60% from top, complete at 30%
+      const sRaw = 1 - (sr.top - vh * 0.3) / (vh * 0.3);
       setHeadProgress(Math.min(1, Math.max(0, sRaw)));
     }
 
@@ -121,8 +122,8 @@ export default function ProductFeatureGridAnimated({
     );
   }
 
-  const headP = easeOutQuart(Math.min(1, headProgress * 2));
-  const subP = easeOutQuart(Math.min(1, Math.max(0, (headProgress - 0.1) * 2)));
+  const headP = easeOutQuart(Math.min(1, headProgress));
+  const subP = easeOutQuart(Math.min(1, Math.max(0, (headProgress - 0.2) / 0.8)));
   const eased = easeOutQuart(gridProgress);
 
   return (
