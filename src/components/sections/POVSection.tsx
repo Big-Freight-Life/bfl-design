@@ -112,7 +112,7 @@ export default function POVSection() {
             }}
           >
             <Chip
-              label="Meet"
+              label="Now Available"
               size="small"
               sx={{
                 bgcolor: colors.badge.meet,
