@@ -22,16 +22,6 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
-    label: 'Government & Permitting',
-    title: 'PlanFlow: Structuring How Plan Reviews Get Decided',
-    excerpt:
-      'A plan submission and review system for agencies managing permits and approvals — structured workflows, role-based reviews, and AI that sharpens human judgment instead of replacing it.',
-    year: '2026',
-    imageUrl: '/images/case-studies/planflow-engineers.jpg',
-    link: '#',
-    gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
-  },
-  {
     label: 'Health & Wellness',
     title: 'Low Ox Life: What Empathy Really Means in Design',
     excerpt:
@@ -40,6 +30,16 @@ export const caseStudies: CaseStudy[] = [
     imageUrl: '/images/case-studies/lowoxlife-empathy.jpg',
     link: '/products/low-ox-life',
     gradient: 'linear-gradient(135deg, #24A89C, #0B3733)',
+  },
+  {
+    label: 'Government & Permitting',
+    title: 'PlanFlow: Structuring How Plan Reviews Get Decided',
+    excerpt:
+      'A plan submission and review system for agencies managing permits and approvals — structured workflows, role-based reviews, and AI that sharpens human judgment instead of replacing it.',
+    year: '2026',
+    imageUrl: '/images/case-studies/planflow-engineers.jpg',
+    link: '#',
+    gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
   },
   {
     label: 'Creative Services',
