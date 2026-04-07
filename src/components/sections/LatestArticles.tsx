@@ -18,17 +18,19 @@ const placeholderArticles: Article[] = [
     title: 'Where Users Really Look: Visual Attention and Interface Design',
     date: 'December 17, 2025',
     slug: '#',
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80',
   },
   {
     title: 'Democratizing Design: How Intelligent Interfaces Empower Non-Experts',
     date: 'December 17, 2025',
     slug: '#',
+    imageUrl: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80',
   },
   {
     title: 'Goal Mapping: Designing Interfaces That Guide Users to Success',
     date: 'December 17, 2025',
     slug: '#',
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
   },
 ];
 
