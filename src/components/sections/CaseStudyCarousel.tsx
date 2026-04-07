@@ -71,6 +71,12 @@ export default function CaseStudyCarousel() {
             md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
             lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
           },
+          scrollPaddingRight: {
+            xs: `max(16px, calc((100vw - 1024px) / 2 + 16px))`,
+            sm: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+            md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+            lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+          },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
           '&:focus-visible': {
@@ -92,8 +98,17 @@ export default function CaseStudyCarousel() {
               md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
               lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
             },
-            pr: 2,
+            pr: {
+              xs: `max(16px, calc((100vw - 1024px) / 2 + 16px))`,
+              sm: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+              md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+              lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+            },
             width: 'max-content',
+            // Snap last card to its right edge so it lines up with the title
+            '& > :last-child': {
+              scrollSnapAlign: 'end',
+            },
           }}
         >
           {caseStudies.map((study) => (
