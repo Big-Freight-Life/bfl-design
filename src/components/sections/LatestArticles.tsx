@@ -21,9 +21,9 @@ const placeholderArticles: Article[] = [
     imageUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80',
   },
   {
-    title: 'Democratizing Design: How Intelligent Interfaces Empower Non-Experts',
-    date: 'December 17, 2025',
-    slug: '#',
+    title: 'Is Design a Bottleneck?',
+    date: 'April 7, 2026',
+    slug: 'is-design-a-bottleneck',
     imageUrl: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80',
   },
   {
