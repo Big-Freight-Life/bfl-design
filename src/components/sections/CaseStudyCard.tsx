@@ -38,8 +38,8 @@ export default function CaseStudyCard({ study }: CaseStudyCardProps) {
         background: study.imageUrl ? 'transparent' : study.gradient,
         position: 'relative',
         p: { xs: 0, sm: 4, lg: '40px' },
-        scrollSnapAlign: { xs: 'none', sm: 'start' },
-        scrollSnapStop: { xs: 'normal', sm: 'always' },
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
         transition: `box-shadow ${motion.duration.fast} ${motion.easing.outExpo}`,
         '&:hover': {
           boxShadow: shadows.xl,

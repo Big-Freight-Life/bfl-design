@@ -64,6 +64,13 @@ export default function CaseStudyCarousel() {
           overflowY: 'hidden',
           WebkitOverflowScrolling: 'touch',
           scrollBehavior: 'smooth',
+          scrollSnapType: 'x mandatory',
+          scrollPaddingLeft: {
+            xs: `max(16px, calc((100vw - 1024px) / 2 + 16px))`,
+            sm: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+            md: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+            lg: `max(24px, calc((100vw - 1024px) / 2 + 24px))`,
+          },
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
           '&:focus-visible': {
@@ -77,7 +84,6 @@ export default function CaseStudyCarousel() {
           sx={{
             display: 'flex',
             gap: { xs: '12px', sm: 2, md: '24px' },
-            scrollSnapType: { xs: 'none', sm: 'x proximity' },
             pt: 2,
             pb: 4,
             pl: {
