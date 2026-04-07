@@ -22,12 +22,22 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    label: 'Government & Permitting',
+    title: 'PlanFlow: Structuring How Plan Reviews Get Decided',
+    excerpt:
+      'A plan submission and review system for agencies managing permits and approvals — structured workflows, role-based reviews, and AI that sharpens human judgment instead of replacing it.',
+    year: '2026',
+    imageUrl: '/images/case-studies/planflow-engineers.jpg',
+    link: '#',
+    gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
+  },
+  {
     label: 'Creative Services',
     title: 'Designing a Portfolio When Anyone Can Build Anything',
     excerpt:
       'In a world where generative AI can produce websites in seconds, how do you make a portfolio that actually means something?',
     year: '2025',
-    imageUrl: '/images/case-studies/cranes-sunset.jpg',
+    imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
     link: '/case-study-style-1/',
     gradient: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
   },
