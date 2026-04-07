@@ -32,6 +32,16 @@ export const caseStudies: CaseStudy[] = [
     gradient: 'linear-gradient(135deg, #f59e0b, #ea580c)',
   },
   {
+    label: 'Health & Wellness',
+    title: 'Low Ox Life: What Empathy Really Means in Design',
+    excerpt:
+      'Empathy is not a workshop exercise. It is the discipline of building for a problem you have actually carried — and using design to make a hard daily reality navigable for the people living it.',
+    year: '2026',
+    imageUrl: '/images/case-studies/lowoxlife-empathy.jpg',
+    link: '/products/low-ox-life',
+    gradient: 'linear-gradient(135deg, #24A89C, #0B3733)',
+  },
+  {
     label: 'Creative Services',
     title: 'Designing a Portfolio When Anyone Can Build Anything',
     excerpt:
