@@ -15,10 +15,10 @@ interface Article {
 // Placeholder articles matching WordPress — replaced by real posts when blog has content
 const placeholderArticles: Article[] = [
   {
-    title: 'Where Users Really Look: Visual Attention and Interface Design',
-    date: 'December 17, 2025',
-    slug: '#',
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80',
+    title: 'From T-Shaped to Comb-Shaped: Why Gen AI Demands More Than One Specialty',
+    date: 'April 7, 2026',
+    slug: 'from-t-shaped-to-comb-shaped',
+    imageUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80',
   },
   {
     title: 'Democratizing Design: How Intelligent Interfaces Empower Non-Experts',
