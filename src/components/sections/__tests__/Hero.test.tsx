@@ -45,9 +45,9 @@ describe('Hero', () => {
     expect(screen.getByText('We help teams build systems that work.')).toBeInTheDocument();
   });
 
-  it('renders the Watch Drive to Thrive CTA button', () => {
+  it('renders the Watch 30sec Intro CTA button', () => {
     render(<Hero />);
-    expect(screen.getByText(/watch drive to thrive/i)).toBeInTheDocument();
+    expect(screen.getByText(/watch 30sec intro/i)).toBeInTheDocument();
   });
 
   it('renders the See the Work CTA button', () => {
