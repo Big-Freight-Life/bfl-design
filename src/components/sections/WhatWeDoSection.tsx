@@ -68,10 +68,24 @@ export default function WhatWeDoSection() {
                   p: { xs: 4, md: 5 },
                   borderRadius: radius.card,
                   bgcolor: 'background.paper',
+                  border: 1,
+                  borderColor: 'divider',
+                  boxShadow: (theme) =>
+                    theme.palette.mode === 'dark'
+                      ? '0 4px 24px rgba(0,0,0,0.4)'
+                      : '0 4px 24px rgba(0,0,0,0.06)',
                   height: '100%',
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: (theme) =>
+                      theme.palette.mode === 'dark'
+                        ? '0 8px 32px rgba(0,0,0,0.5)'
+                        : '0 8px 32px rgba(0,0,0,0.1)',
+                  },
                 }}
               >
                 <Typography
