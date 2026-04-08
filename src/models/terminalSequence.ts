@@ -31,52 +31,86 @@ export const terminalConfig = {
   loopDelay: 2500,
 };
 
+// Intentionally a short, fully self-contained Python snippet. Every symbol
+// is imported or defined in the same module so a reader inspecting the
+// code won't find undefined references, missing __init__s, or handwaved
+// framework calls. The code is decorative but still has to be correct.
 export const sequence: SequenceItem[] = [
-  { type: 'human', text: 'build a multi-agent system for automated customer support with intent classification and escalation paths' },
-  { type: 'thinking', text: 'Analyzing requirements...' },
-  { type: 'agent', text: "Hey Ray! I'll design a multi-agent workflow with specialized handlers for triage, resolution, and escalation." },
-  { type: 'action', verb: 'Planning', file: 'workflow architecture' },
-  { type: 'empty' },
-  { type: 'agent', text: 'The workflow will use three coordinated agents:' },
+  { type: 'human', text: 'build a triage function with routing fallback' },
+  { type: 'thinking', text: 'Scaffolding handler routing...' },
+  { type: 'action', verb: 'Write', file: 'src/triage.py' },
   { type: 'code', lines: [
-    { text: '1. Triage Agent', color: 'type' },
-    { text: '   → Classifies incoming requests', color: 'comment' },
-    { text: '   → Routes to appropriate handler', color: 'comment' },
-  ]},
-  { type: 'code', lines: [
-    { text: '2. Resolution Agent', color: 'type' },
-    { text: '   → Handles common issues', color: 'comment' },
-    { text: '   → Accesses knowledge base', color: 'comment' },
-  ]},
-  { type: 'code', lines: [
-    { text: '3. Escalation Agent', color: 'type' },
-    { text: '   → Complex issue handling', color: 'comment' },
-    { text: '   → Human handoff when needed', color: 'comment' },
-  ]},
-  { type: 'empty' },
-  { type: 'action', verb: 'Write', file: 'src/agents/triage.py' },
-  { type: 'code', lines: [
-    { parts: [{ text: 'from', color: 'keyword' }, { text: ' langchain.agents ', color: 'default' }, { text: 'import', color: 'keyword' }, { text: ' Agent', color: 'type' }] },
-    { parts: [{ text: 'from', color: 'keyword' }, { text: ' langchain.tools ', color: 'default' }, { text: 'import', color: 'keyword' }, { text: ' Tool', color: 'type' }] },
+    // from typing import Callable
+    { parts: [
+      { text: 'from', color: 'keyword' },
+      { text: ' typing ', color: 'default' },
+      { text: 'import', color: 'keyword' },
+      { text: ' Callable', color: 'type' },
+    ]},
     { text: '', color: 'default' },
-    { parts: [{ text: 'class', color: 'keyword' }, { text: ' TriageAgent', color: 'type' }, { text: ':', color: 'default' }] },
-    { parts: [{ text: '    ', color: 'default' }, { text: 'def', color: 'keyword' }, { text: ' classify', color: 'function' }, { text: '(self, request):', color: 'default' }] },
-    { parts: [{ text: '        ', color: 'default' }, { text: '"""Route request to handler"""', color: 'string' }] },
-    { parts: [{ text: '        intent = self.', color: 'default' }, { text: 'analyze', color: 'function' }, { text: '(request)', color: 'default' }] },
-    { parts: [{ text: '        ', color: 'default' }, { text: 'return', color: 'keyword' }, { text: ' self.router[intent]', color: 'default' }] },
+    // Routes = dict[str, Callable]
+    { parts: [
+      { text: 'Routes', color: 'type' },
+      { text: ' = ', color: 'default' },
+      { text: 'dict', color: 'type' },
+      { text: '[', color: 'default' },
+      { text: 'str', color: 'type' },
+      { text: ', ', color: 'default' },
+      { text: 'Callable', color: 'type' },
+      { text: ']', color: 'default' },
+    ]},
+    { text: '', color: 'default' },
+    // def classify(text: str) -> str:
+    { parts: [
+      { text: 'def', color: 'keyword' },
+      { text: ' classify', color: 'function' },
+      { text: '(text: ', color: 'default' },
+      { text: 'str', color: 'type' },
+      { text: ') -> ', color: 'default' },
+      { text: 'str', color: 'type' },
+      { text: ':', color: 'default' },
+    ]},
+    //     """Plug in your LLM classifier."""
+    { parts: [
+      { text: '    ', color: 'default' },
+      { text: '"""Plug in your LLM classifier."""', color: 'string' },
+    ]},
+    //     return "general"
+    { parts: [
+      { text: '    ', color: 'default' },
+      { text: 'return', color: 'keyword' },
+      { text: ' ', color: 'default' },
+      { text: '"general"', color: 'string' },
+    ]},
+    { text: '', color: 'default' },
+    // def triage(text: str, routes: Routes) -> Callable:
+    { parts: [
+      { text: 'def', color: 'keyword' },
+      { text: ' triage', color: 'function' },
+      { text: '(text: ', color: 'default' },
+      { text: 'str', color: 'type' },
+      { text: ', routes: ', color: 'default' },
+      { text: 'Routes', color: 'type' },
+      { text: ') -> ', color: 'default' },
+      { text: 'Callable', color: 'type' },
+      { text: ':', color: 'default' },
+    ]},
+    //     intent = classify(text)
+    { parts: [
+      { text: '    intent = ', color: 'default' },
+      { text: 'classify', color: 'function' },
+      { text: '(text)', color: 'default' },
+    ]},
+    //     return routes.get(intent, routes["escalate"])
+    { parts: [
+      { text: '    ', color: 'default' },
+      { text: 'return', color: 'keyword' },
+      { text: ' routes.', color: 'default' },
+      { text: 'get', color: 'function' },
+      { text: '(intent, routes[', color: 'default' },
+      { text: '"escalate"', color: 'string' },
+      { text: '])', color: 'default' },
+    ]},
   ]},
-  { type: 'success', text: 'Created src/agents/triage.py' },
-  { type: 'empty' },
-  { type: 'human', text: 'add try-catch error handling with fallback to human support queue' },
-  { type: 'thinking', text: 'Adding error handling...' },
-  { type: 'action', verb: 'Edit', file: 'src/agents/triage.py' },
-  { type: 'code', lines: [
-    { parts: [{ text: '        ', color: 'default' }, { text: 'try', color: 'keyword' }, { text: ':', color: 'default' }] },
-    { parts: [{ text: '            intent = self.', color: 'default' }, { text: 'analyze', color: 'function' }, { text: '(request)', color: 'default' }] },
-    { parts: [{ text: '        ', color: 'default' }, { text: 'except', color: 'keyword' }, { text: ' ClassificationError:', color: 'type' }] },
-    { parts: [{ text: '            ', color: 'default' }, { text: 'return', color: 'keyword' }, { text: ' self.', color: 'default' }, { text: 'fallback_handler', color: 'function' }] },
-  ]},
-  { type: 'success', text: 'Updated src/agents/triage.py' },
-  { type: 'empty' },
-  { type: 'agent', text: 'Error handling added. The agent now gracefully handles classification failures.' },
+  { type: 'success', text: 'Created src/triage.py' },
 ];
