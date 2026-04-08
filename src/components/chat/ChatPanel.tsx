@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { Box, IconButton, Typography, CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import Link from 'next/link';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 import type { ChatMessage as ChatMessageType } from '@/models/chat';
@@ -170,6 +171,34 @@ export default function ChatPanel({
       </Box>
 
       <ChatInput onSend={onSend} disabled={isLoading} accentColor={accentColor} />
+      <Box
+        sx={{
+          px: 2,
+          pb: 1,
+          pt: 0.25,
+          bgcolor: 'background.paper',
+          textAlign: 'center',
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'text.secondary',
+            fontSize: '0.6875rem',
+            lineHeight: 1.4,
+          }}
+        >
+          Raybot can make mistakes.{' '}
+          <Link
+            href="/contact"
+            onClick={onClose}
+            style={{ color: 'inherit', textDecoration: 'underline' }}
+          >
+            Contact us
+          </Link>{' '}
+          for important stuff.
+        </Typography>
+      </Box>
     </Box>
   );
 }
