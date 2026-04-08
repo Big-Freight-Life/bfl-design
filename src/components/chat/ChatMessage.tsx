@@ -1,14 +1,51 @@
 'use client';
 
+import { Fragment, type ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
+import Link from 'next/link';
 import type { ChatMessage as ChatMessageType } from '@/models/chat';
 
 interface ChatMessageProps {
   message: ChatMessageType;
   accentColor: string;
+  onNavigate?: () => void;
 }
 
-export default function ChatMessage({ message, accentColor }: ChatMessageProps) {
+// Match internal paths like /contact or /works/case-studies. Stops at
+// whitespace or punctuation that isn't part of a URL path so a trailing
+// period or comma in the sentence doesn't get swallowed into the href.
+const PATH_REGEX = /\/[a-z][a-z0-9-]*(?:\/[a-z][a-z0-9-]+)*/gi;
+
+function renderWithLinks(text: string, onNavigate?: () => void): ReactNode[] {
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  for (const match of text.matchAll(PATH_REGEX)) {
+    const matchIndex = match.index ?? 0;
+    const href = match[0];
+    if (matchIndex > lastIndex) {
+      nodes.push(
+        <Fragment key={`t-${lastIndex}`}>{text.slice(lastIndex, matchIndex)}</Fragment>,
+      );
+    }
+    nodes.push(
+      <Link
+        key={`l-${matchIndex}`}
+        href={href}
+        onClick={onNavigate}
+        style={{ color: 'inherit', textDecoration: 'underline' }}
+      >
+        {href}
+      </Link>,
+    );
+    lastIndex = matchIndex + href.length;
+  }
+  if (lastIndex < text.length) {
+    nodes.push(<Fragment key={`t-${lastIndex}`}>{text.slice(lastIndex)}</Fragment>);
+  }
+  return nodes;
+}
+
+export default function ChatMessage({ message, accentColor, onNavigate }: ChatMessageProps) {
   const isUser = message.role === 'user';
 
   return (
@@ -44,7 +81,7 @@ export default function ChatMessage({ message, accentColor }: ChatMessageProps) 
             wordBreak: 'break-word',
           }}
         >
-          {message.content}
+          {isUser ? message.content : renderWithLinks(message.content, onNavigate)}
         </Typography>
       </Box>
     </Box>

@@ -129,7 +129,12 @@ export default function ChatPanel({
         }}
       >
         {messages.map((m) => (
-          <ChatMessage key={m.id} message={m} accentColor={accentColor} />
+          <ChatMessage
+            key={m.id}
+            message={m}
+            accentColor={accentColor}
+            onNavigate={onClose}
+          />
         ))}
         {isLoading && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
