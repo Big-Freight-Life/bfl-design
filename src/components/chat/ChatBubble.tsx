@@ -32,27 +32,65 @@ export default function ChatBubble() {
     open();
   };
 
-  // Hide the bubble when the visitor scrolls near the bottom of the page
-  // (avoids overlapping footer content). 200px buffer feels natural.
-  const [isNearBottom, setIsNearBottom] = useState(false);
+  // Hide the bubble when the footer enters the viewport — uses
+  // IntersectionObserver against the actual <footer> element so the
+  // bubble never overlaps footer content regardless of footer height.
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   useEffect(() => {
-    const HIDE_BUFFER = 200;
-    const onScroll = () => {
-      const scrollY = window.scrollY;
-      const viewportH = window.innerHeight;
-      const docH = document.documentElement.scrollHeight;
-      const distanceFromBottom = docH - (scrollY + viewportH);
-      setIsNearBottom(distanceFromBottom < HIDE_BUFFER);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    const footer = document.querySelector('footer');
+    if (!footer) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
+      {
+        // Trigger as soon as ANY part of the footer enters viewport
+        rootMargin: '0px 0px 0px 0px',
+        threshold: 0,
+      },
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
   }, []);
+
+  // Fast-scroll detection — fade bubble while scrolling rapidly so it
+  // doesn't visually compete with content flying past. Comes back when
+  // the visitor pauses for ~150ms.
+  const [isFastScrolling, setIsFastScrolling] = useState(false);
+  useEffect(() => {
+    const FAST_THRESHOLD = 25; // px per scroll event
+    const PAUSE_MS = 150;
+    let lastY = window.scrollY;
+    let lastT = performance.now();
+    let pauseTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const onScroll = () => {
+      const now = performance.now();
+      const dt = now - lastT;
+      const dy = Math.abs(window.scrollY - lastY);
+      lastY = window.scrollY;
+      lastT = now;
+
+      // Velocity threshold: if we moved more than FAST_THRESHOLD px in <50ms
+      if (dt < 50 && dy > FAST_THRESHOLD) {
+        setIsFastScrolling(true);
+        if (pauseTimer) clearTimeout(pauseTimer);
+        pauseTimer = setTimeout(() => setIsFastScrolling(false), PAUSE_MS);
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (pauseTimer) clearTimeout(pauseTimer);
+    };
+  }, []);
+
+  const isHidden = isFooterVisible;
+  const isMuted = isFastScrolling && !isHidden;
 
   return (
     <>
       {/* Preview bubble — slides out next to the icon on first visit */}
-      {showFirstVisitNotice && !isOpen && !isNearBottom && (
+      {showFirstVisitNotice && !isOpen && !isHidden && (
         <Box
           sx={{
             position: 'fixed',
@@ -140,9 +178,9 @@ export default function ChatBubble() {
           right: { xs: 16, sm: 24 },
           zIndex: 1200,
           display: isOpen ? { xs: 'none', sm: 'block' } : 'block',
-          opacity: isNearBottom ? 0 : 1,
-          pointerEvents: isNearBottom ? 'none' : 'auto',
-          transform: isNearBottom ? 'translateY(20px) scale(0.9)' : 'translateY(0) scale(1)',
+          opacity: isHidden ? 0 : isMuted ? 0.35 : 1,
+          pointerEvents: isHidden ? 'none' : 'auto',
+          transform: isHidden ? 'translateY(20px) scale(0.9)' : 'translateY(0) scale(1)',
           transition:
             'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1)',
           '@media (prefers-reduced-motion: reduce)': {
