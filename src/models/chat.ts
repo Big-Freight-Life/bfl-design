@@ -24,6 +24,7 @@ export interface LeadCapture {
 
 const STORAGE_KEY = 'bfl-chat-history-v1';
 const LEAD_KEY = 'bfl-chat-lead-v1';
+const NOTIFICATION_DISMISSED_KEY = 'bfl-chat-notification-dismissed-v1';
 const MAX_HISTORY = 50;
 export const MAX_MESSAGE_LENGTH = 2000;
 
@@ -112,6 +113,25 @@ export function saveLead(lead: LeadCapture): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(LEAD_KEY, JSON.stringify(lead));
+  } catch {
+    // ignore
+  }
+}
+
+/** True if the visitor has already seen and dismissed the first-visit notification. */
+export function isNotificationDismissed(): boolean {
+  if (typeof window === 'undefined') return true;
+  try {
+    return window.localStorage.getItem(NOTIFICATION_DISMISSED_KEY) === '1';
+  } catch {
+    return true;
+  }
+}
+
+export function dismissNotification(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(NOTIFICATION_DISMISSED_KEY, '1');
   } catch {
     // ignore
   }

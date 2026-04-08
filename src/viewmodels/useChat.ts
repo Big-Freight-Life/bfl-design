@@ -8,6 +8,8 @@ import {
   clearHistory as clearHistoryStorage,
   newMessage,
   validateMessage,
+  isNotificationDismissed,
+  dismissNotification as dismissNotificationStorage,
 } from '@/models/chat';
 
 interface SendResult {
@@ -21,6 +23,10 @@ interface UseChatReturn {
   error: string | null;
   isOpen: boolean;
   hasUnread: boolean;
+  /** True when the first-visit notification badge + preview should be shown */
+  showFirstVisitNotice: boolean;
+  /** Dismiss the first-visit notice (and persist so it never re-appears) */
+  dismissNotice: () => void;
   open: () => void;
   close: () => void;
   toggle: () => void;
@@ -30,12 +36,16 @@ interface UseChatReturn {
 
 const WELCOME_MESSAGE = `Hi — I'm Raybot, Ray's assistant for Big Freight Life. Ray runs an applied AI design and architecture practice here. Tell me what you're working on or what brought you to the site, and I'll help if I can.`;
 
+const FIRST_VISIT_DELAY_MS = 3000;
+const FIRST_VISIT_AUTO_DISMISS_MS = 30000;
+
 export function useChat(): UseChatReturn {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [hasUnread, setHasUnread] = useState(false);
+  const [showFirstVisitNotice, setShowFirstVisitNotice] = useState(false);
   const hydratedRef = useRef(false);
 
   // Hydrate from localStorage once on mount
@@ -57,14 +67,46 @@ export function useChat(): UseChatReturn {
     saveHistory(messages);
   }, [messages]);
 
-  // Clear unread badge when panel opens
+  // Clear unread badge and notice when panel opens
   useEffect(() => {
-    if (isOpen) setHasUnread(false);
-  }, [isOpen]);
+    if (isOpen) {
+      setHasUnread(false);
+      if (showFirstVisitNotice) {
+        setShowFirstVisitNotice(false);
+        dismissNotificationStorage();
+      }
+    }
+  }, [isOpen, showFirstVisitNotice]);
+
+  // First-visit notice: show after delay if user hasn't dismissed before
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (isNotificationDismissed()) return;
+
+    const showTimer = setTimeout(() => {
+      setShowFirstVisitNotice(true);
+      setHasUnread(true);
+    }, FIRST_VISIT_DELAY_MS);
+
+    const dismissTimer = setTimeout(() => {
+      setShowFirstVisitNotice(false);
+    }, FIRST_VISIT_DELAY_MS + FIRST_VISIT_AUTO_DISMISS_MS);
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(dismissTimer);
+    };
+  }, []);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
   const toggle = useCallback(() => setIsOpen((v) => !v), []);
+
+  const dismissNotice = useCallback(() => {
+    setShowFirstVisitNotice(false);
+    setHasUnread(false);
+    dismissNotificationStorage();
+  }, []);
 
   const send = useCallback(
     async (text: string): Promise<SendResult> => {
@@ -81,7 +123,6 @@ export function useChat(): UseChatReturn {
       setIsLoading(true);
 
       try {
-        // Send full conversation (server caps it)
         const payload = updated.map((m) => ({
           role: m.role,
           content: m.content,
@@ -136,6 +177,8 @@ export function useChat(): UseChatReturn {
     error,
     isOpen,
     hasUnread,
+    showFirstVisitNotice,
+    dismissNotice,
     open,
     close,
     toggle,
