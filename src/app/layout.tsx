@@ -5,6 +5,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileTabBar from '@/components/layout/MobileTabBar';
 import MobileDrawer from '@/components/layout/MobileDrawer';
+import ChatBubble from '@/components/chat/ChatBubble';
 import { layout } from '@/theme/tokens';
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <MobileTabBar />
           <MobileDrawer />
+          <ChatBubble />
         </ThemeRegistry>
       </body>
     </html>

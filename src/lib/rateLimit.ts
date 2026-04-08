@@ -26,6 +26,14 @@ export const authRateLimit = redis
     })
   : null;
 
+export const chatRateLimit = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(20, '1 m'),
+      prefix: 'ratelimit:chat',
+    })
+  : null;
+
 export function getClientIp(request: Request): string {
   // Prefer x-real-ip (set by Vercel from the socket, cannot be spoofed by client)
   // Fall back to last entry in x-forwarded-for (appended by the proxy, not client-controlled)
