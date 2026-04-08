@@ -93,9 +93,6 @@ export default function ChatPanel({
           <Typography variant="subtitle1" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
             Raybot
           </Typography>
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Ask about the work
-          </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 0.5 }}>
           <IconButton
