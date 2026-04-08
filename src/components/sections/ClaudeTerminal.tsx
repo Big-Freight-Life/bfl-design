@@ -56,6 +56,8 @@ export default function ClaudeTerminal() {
   const [entries, setEntries] = useState<OutputEntry[]>([]);
   const [inputText, setInputText] = useState('');
   const [placeholder, setPlaceholder] = useState('Try "design an agent workflow"');
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
   const lineIdRef = useRef(0);
   const runningRef = useRef(false);
@@ -65,18 +67,10 @@ export default function ClaudeTerminal() {
 
   const t = themes[mode === 'dark' ? 'dark' : 'light'];
 
-  const scrollToBottom = useCallback(() => {
-    if (outputRef.current) {
-      outputRef.current.scrollTop = outputRef.current.scrollHeight;
-    }
-  }, []);
-
   const addEntry = useCallback((type: string, data: Record<string, unknown>) => {
     const id = lineIdRef.current++;
     setEntries((prev) => [...prev, { id, type, data }]);
-    const scrollId = setTimeout(scrollToBottom, 10);
-    pendingTimeoutsRef.current.add(scrollId);
-  }, [scrollToBottom]);
+  }, []);
 
   const delay = useCallback((ms: number) => new Promise<void>((resolve, reject) => {
     const id = setTimeout(() => {
@@ -139,13 +133,36 @@ export default function ClaudeTerminal() {
     }
   }, [addEntry, delay, typeText]);
 
+  // Observe visibility — only run the sequence while the terminal is
+  // actually in the viewport. Avoids burning CPU on an animation nobody
+  // can see and prevents the visitor from landing on a random mid-loop
+  // state when they scroll down.
   useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.25 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
     if (runningRef.current) return;
     runningRef.current = true;
     cancelRef.current = false;
+    const pendingTimeouts = pendingTimeoutsRef.current;
 
     const run = async () => {
       try {
+        // Start fresh every time the terminal re-enters view so visitors
+        // always see the sequence from the beginning. Awaited so the
+        // reset isn't a synchronous setState inside the effect body.
+        await Promise.resolve();
+        setEntries([]);
+        lineIdRef.current = 0;
         await delay(terminalConfig.initialDelay);
         while (runningRef.current) {
           await runSequence();
@@ -154,7 +171,7 @@ export default function ClaudeTerminal() {
           lineIdRef.current = 0;
         }
       } catch {
-        // Cancellation rejection — component unmounted, do nothing
+        // Cancellation rejection — view exited or component unmounted.
       }
     };
     run();
@@ -162,13 +179,14 @@ export default function ClaudeTerminal() {
     return () => {
       runningRef.current = false;
       cancelRef.current = true;
-      pendingTimeoutsRef.current.forEach((id) => clearTimeout(id));
-      pendingTimeoutsRef.current.clear();
+      pendingTimeouts.forEach((id) => clearTimeout(id));
+      pendingTimeouts.clear();
     };
-  }, [runSequence, delay]);
+  }, [isInView, runSequence, delay]);
 
   return (
     <Box
+      ref={containerRef}
       sx={{
         bgcolor: t.bg,
         borderRadius: 0,
@@ -209,16 +227,16 @@ export default function ClaudeTerminal() {
         <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: '#28c840' }} />
       </Box>
 
-      {/* Output */}
+      {/* Output — no scroll, content that overflows the fixed-height
+          container is clipped. The sequence loops/resets so visitors
+          always see a fresh start when they scroll into view. */}
       <Box
         ref={outputRef}
         sx={{
           flex: 1,
-          overflowY: 'auto',
+          overflow: 'hidden',
           px: 2,
           py: 1.5,
-          scrollbarWidth: 'none',
-          '&::-webkit-scrollbar': { display: 'none' },
         }}
       >
         <Box sx={{ color: t.helpText, mb: 1 }}>? for shortcuts</Box>
