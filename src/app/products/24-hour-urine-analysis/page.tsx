@@ -219,7 +219,7 @@ export default function UrineAnalysisPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                    src="/images/download-on-the-app-store.svg"
                     alt="Download on the App Store"
                     width={156}
                     height={52}
@@ -547,7 +547,7 @@ export default function UrineAnalysisPage() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+              src="/images/download-on-the-app-store.svg"
               alt="Download on the App Store"
               width={156}
               height={52}
