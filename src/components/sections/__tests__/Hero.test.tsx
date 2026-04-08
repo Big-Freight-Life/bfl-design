@@ -57,7 +57,7 @@ describe('Hero', () => {
 
   it('CTA button links to /transformation', () => {
     render(<Hero />);
-    const link = screen.getByText(/watch drive to thrive/i).closest('a');
+    const link = screen.getByText(/watch 30sec intro/i).closest('a');
     expect(link).toHaveAttribute('href', '/transformation');
   });
 

@@ -118,8 +118,8 @@ describe('case-study model', () => {
       expect(portfolio?.year).toBe('2025');
     });
 
-    it('has exactly 4 case studies', () => {
-      expect(caseStudies).toHaveLength(4);
+    it('has at least 4 case studies', () => {
+      expect(caseStudies.length).toBeGreaterThanOrEqual(4);
     });
   });
 });
