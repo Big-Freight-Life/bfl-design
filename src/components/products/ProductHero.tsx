@@ -111,6 +111,8 @@ export default function ProductHero({
                   alt="Download on the App Store"
                   width={156}
                   height={52}
+                  loading="lazy"
+                  decoding="async"
                 />
               </Box>
             ) : (

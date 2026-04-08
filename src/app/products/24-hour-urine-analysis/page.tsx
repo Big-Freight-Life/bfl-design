@@ -223,6 +223,8 @@ export default function UrineAnalysisPage() {
                     alt="Download on the App Store"
                     width={156}
                     height={52}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </Box>
                 <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -551,6 +553,8 @@ export default function UrineAnalysisPage() {
               alt="Download on the App Store"
               width={156}
               height={52}
+              loading="lazy"
+              decoding="async"
             />
           </Box>
           <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap" useFlexGap>

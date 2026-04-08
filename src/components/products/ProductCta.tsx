@@ -63,6 +63,8 @@ export default function ProductCta({
               alt="Download on the App Store"
               width={156}
               height={52}
+              loading="lazy"
+              decoding="async"
             />
           </Box>
         ) : (
