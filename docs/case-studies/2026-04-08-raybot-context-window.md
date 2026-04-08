@@ -138,3 +138,64 @@ The lesson for anyone building LLM-backed products:
 The cost of checking this once, proactively, before shipping: five minutes of "what happens if I send 40 messages?" The cost of finding it in production: some unknown number of lost conversations that never became leads, discovered only by accident during unrelated testing.
 
 That's the actual takeaway. Not sliding-window-vs-summarization. **Test the tail.**
+
+---
+
+## Related decision — the visual handoff from "thinking" to "replied"
+
+Tied to the same debugging session, we noticed the loading state felt abrupt. A spinner labeled "Thinking..." appeared, then vanished, then the bot reply snapped into existence. Three discrete state changes, visually unrelated to each other. It worked, but it felt like three separate events instead of one continuous action — which is the opposite of how a real conversation flows.
+
+The fix was to make the loading indicator and the eventual reply look like **the same UI element getting its content filled in**, rather than two different elements swapping places.
+
+### Options considered
+
+**Option 1 — Keep the spinner + label** (the status quo)
+Zero work. Accurate to what the system is doing. But it looks like a progress bar, not a conversation. Spinners are for "the computer is working on a task." Typing indicators are for "the other party is composing a message." A lead-capture bot is pretending to be the second one; it should look like the second one.
+
+**Option 2 — Three-dot typing indicator, plain row** (common cheap version)
+Three bouncing dots in a row, no bubble around them. Communicates "typing" clearly. Cheap to build. But it's visually disconnected from the message bubbles that surround it, which re-introduces the same "discrete events" feeling.
+
+**Option 3 — Three-dot indicator inside a bot-shaped bubble** (what we picked)
+Three dots inside a container that has the exact same `border-radius`, `bgcolor`, padding, and positioning as an assistant `ChatMessage` bubble. When the reply arrives, the indicator unmounts and the real message mounts in the same position with a short fade-in. Because the visual container is continuous across the handoff, the eye reads it as one bubble whose content changed from "dots" to "text."
+
+**Option 4 — Streaming the response token-by-token** (what ChatGPT actually does)
+The gold standard. No indicator at all — the bot's reply just streams in character by character as the model generates it. Feels alive. But it requires server-sent events or a streaming HTTP response from the Gemini API and rewiring both the route handler and the client hook to consume chunks. Significant implementation work for a bot whose median response is ~200 tokens and takes ~1.5 seconds. Worth it for ChatGPT at scale; over-investment for Raybot.
+
+### Why option 3
+
+Same logic as the context window decision, applied to a different axis:
+
+1. **Product fit.** We're trying to make the bot feel like a person composing a reply, not a database processing a query. A bubble-shaped typing indicator is the exact vocabulary every messaging app on Earth uses for that. iMessage, WhatsApp, Slack, Intercom — same pattern. Visitors already know what it means without being told.
+
+2. **Complexity budget.** Building option 3 is ~60 lines in a new `TypingIndicator` component. Building option 4 (streaming) is multiple files across client and server, new failure modes (partial chunks, dropped connections, backpressure), and a significant increase in testing surface. Option 3 gets 80% of the feel for 5% of the effort.
+
+3. **Reversibility.** If we later decide Raybot should stream, swapping out the TypingIndicator is trivial. The component has a single call site and no public API beyond an optional color prop. Option 4 would be a one-way door into more complex client/server plumbing.
+
+4. **Latency tolerance.** Streaming mostly matters when responses are long and users want to start reading before the model is done. Raybot's replies are typically 1–3 sentences. By the time a reader's eyes could parse a streamed first word, the whole reply is usually already done. The visible payoff of streaming at our response length is near zero.
+
+### What the visual handoff actually does
+
+Play through the sequence frame-by-frame:
+
+1. **User hits send.** The user's message bubble slides in from below (`translateY(4px) → 0`, 280ms, ease-out).
+2. **`isLoading` flips true.** A `TypingIndicator` component mounts in the same column as assistant messages. It fades in and slides up 6px (220ms, ease-out).
+3. **The bot's reply returns from the API.** `isLoading` flips false, the typing indicator unmounts, and a new assistant `ChatMessage` mounts at the same position. The new bubble uses the same entrance animation as the indicator.
+4. **Because both the indicator and the bubble use matching shapes and matching entrance timings, the human eye reads them as the same element whose contents changed.** The three dots turn into text, and it feels natural rather than stuttery.
+
+That perceptual continuity is the whole point of the exercise. It's not about the animation itself — it's about making two separate components in the code read as one component to the visitor.
+
+### Implementation notes
+
+- New component: `src/components/chat/TypingIndicator.tsx` (~70 lines). Takes an optional `color` prop. Uses MUI `sx` for both the bubble and the three dots, with CSS keyframes defined inline.
+- `ChatPanel.tsx`: removed `CircularProgress` and the "Thinking..." row, replaced with `<TypingIndicator />` behind the existing `isLoading` gate. Net: removed 8 lines, added 1.
+- `ChatMessage.tsx`: added a `chatMessageIn` keyframe animation on the outer `Box`. User messages use a slightly smaller displacement (4px) than bot messages (6px) — the user's own action should feel a touch more reactive than the bot's reply.
+- All animations honor `prefers-reduced-motion: reduce` and disable themselves for users with that setting.
+
+### What this adds to "test the tail"
+
+A parallel lesson, slightly different shape:
+
+> **Feel is a first-class feature, not a polish pass.** The bot worked fine before this change — responses arrived in the right place with the right content. But "works" isn't the same as "feels right," and the gap between them is where trust is won or lost. You don't get a second chance to make a conversational interface feel like a conversation. If the first interaction feels mechanical, visitors will quietly decide the tool isn't worth their attention and leave, and you'll never know why.
+
+Spend the 60 lines. Make the handoff continuous. It's the same philosophy as testing the tail — look at the moments most people skim past, because those moments compound.
+
