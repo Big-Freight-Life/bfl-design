@@ -165,7 +165,7 @@ export default function Hero() {
 
       {/* Content */}
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-        <Box sx={{ maxWidth: 800 }}>
+        <Box sx={{ maxWidth: 800, mx: 'auto', textAlign: 'center' }}>
           <Box sx={heroRevealStyle}>
             <Typography
               variant="h1"
@@ -198,13 +198,13 @@ export default function Hero() {
           <Box sx={revealStyle(100)}>
             <Typography
               variant="body1"
-              sx={{ mb: 4, maxWidth: 500, fontSize: typography.sizes.lg, color: 'rgba(255,255,255,0.85)' }}
+              sx={{ mb: 4, maxWidth: 500, mx: 'auto', fontSize: typography.sizes.lg, color: 'rgba(255,255,255,0.85)' }}
             >
               We help teams build systems that work.
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', ...revealStyle(200) }}>
+          <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center', ...revealStyle(200) }}>
             <Button
               component={Link}
               href="/transformation"
