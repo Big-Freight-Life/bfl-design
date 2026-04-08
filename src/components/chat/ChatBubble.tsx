@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Box, IconButton, Badge, Typography } from '@mui/material';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,10 +32,27 @@ export default function ChatBubble() {
     open();
   };
 
+  // Hide the bubble when the visitor scrolls near the bottom of the page
+  // (avoids overlapping footer content). 200px buffer feels natural.
+  const [isNearBottom, setIsNearBottom] = useState(false);
+  useEffect(() => {
+    const HIDE_BUFFER = 200;
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      const viewportH = window.innerHeight;
+      const docH = document.documentElement.scrollHeight;
+      const distanceFromBottom = docH - (scrollY + viewportH);
+      setIsNearBottom(distanceFromBottom < HIDE_BUFFER);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
       {/* Preview bubble — slides out next to the icon on first visit */}
-      {showFirstVisitNotice && !isOpen && (
+      {showFirstVisitNotice && !isOpen && !isNearBottom && (
         <Box
           sx={{
             position: 'fixed',
@@ -122,46 +140,17 @@ export default function ChatBubble() {
           right: { xs: 16, sm: 24 },
           zIndex: 1200,
           display: isOpen ? { xs: 'none', sm: 'block' } : 'block',
+          opacity: isNearBottom ? 0 : 1,
+          pointerEvents: isNearBottom ? 'none' : 'auto',
+          transform: isNearBottom ? 'translateY(20px) scale(0.9)' : 'translateY(0) scale(1)',
+          transition:
+            'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+          '@media (prefers-reduced-motion: reduce)': {
+            transition: 'opacity 200ms ease',
+            transform: 'none',
+          },
         }}
       >
-        {/* Pulse rings — only show when notification active and reduced motion is off */}
-        {showFirstVisitNotice && (
-          <Box
-            aria-hidden
-            sx={{
-              position: 'absolute',
-              inset: 0,
-              borderRadius: '50%',
-              pointerEvents: 'none',
-              '&::before, &::after': {
-                content: '""',
-                position: 'absolute',
-                inset: 0,
-                borderRadius: '50%',
-                border: `2px solid ${ACCENT}`,
-                opacity: 0,
-                animation: 'chatPulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite',
-              },
-              '&::after': {
-                animationDelay: '1.2s',
-              },
-              '@keyframes chatPulse': {
-                '0%': {
-                  transform: 'scale(1)',
-                  opacity: 0.6,
-                },
-                '100%': {
-                  transform: 'scale(1.8)',
-                  opacity: 0,
-                },
-              },
-              '@media (prefers-reduced-motion: reduce)': {
-                display: 'none',
-              },
-            }}
-          />
-        )}
-
         <Badge
           color="error"
           badgeContent={hasUnread ? 1 : 0}

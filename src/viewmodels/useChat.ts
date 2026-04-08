@@ -36,7 +36,7 @@ interface UseChatReturn {
 
 const WELCOME_MESSAGE = `Hi — I'm Raybot, Ray's assistant for Big Freight Life. Ray runs an applied AI design and architecture practice here. Tell me what you're working on or what brought you to the site, and I'll help if I can.`;
 
-const FIRST_VISIT_DELAY_MS = 3000;
+const FIRST_VISIT_DELAY_MS = 10000;
 const FIRST_VISIT_AUTO_DISMISS_MS = 30000;
 
 export function useChat(): UseChatReturn {
