@@ -41,7 +41,7 @@ import { isDuplicateLead, markLeadCaptured } from '@/lib/chat/idempotency';
 import { audit } from '@/lib/chat/audit';
 import { MAX_MESSAGE_LENGTH } from '@/models/chat';
 
-const MODEL = 'gemini-2.0-flash';
+const MODEL = 'gemini-2.5-flash';
 const MAX_OUTPUT_TOKENS = 1024;
 const MAX_HISTORY_TURNS = 30;
 /** Hard cap on total input chars across the whole conversation. ~10x avg msg length × max turns. */
