@@ -42,7 +42,7 @@ export default function ChatBubble() {
         >
           <IconButton
             onClick={open}
-            aria-label="Open chat with BFL assistant"
+            aria-label="Open Raybot chat"
             sx={{
               width: 56,
               height: 56,
@@ -68,17 +68,30 @@ export default function ChatBubble() {
       </Box>
 
       {isOpen && (
-        <ChatPanel
-          messages={messages}
-          isLoading={isLoading}
-          error={error}
-          onSend={(text) => {
-            void send(text);
-          }}
-          onClose={close}
-          onClear={clear}
-          accentColor={ACCENT}
-        />
+        <>
+          {/* Backdrop — click outside to close */}
+          <Box
+            onClick={close}
+            aria-hidden
+            sx={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 1250,
+              bgcolor: { xs: 'rgba(0,0,0,0.4)', sm: 'transparent' },
+            }}
+          />
+          <ChatPanel
+            messages={messages}
+            isLoading={isLoading}
+            error={error}
+            onSend={(text) => {
+              void send(text);
+            }}
+            onClose={close}
+            onClear={clear}
+            accentColor={ACCENT}
+          />
+        </>
       )}
     </>
   );

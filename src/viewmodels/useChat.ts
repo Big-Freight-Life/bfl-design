@@ -28,7 +28,7 @@ interface UseChatReturn {
   clear: () => void;
 }
 
-const WELCOME_MESSAGE = `Hi — I'm the assistant for Big Freight Life. Ray runs an applied AI design and architecture practice here. Tell me what you're working on or what brought you to the site, and I'll help if I can.`;
+const WELCOME_MESSAGE = `Hi — I'm Raybot, Ray's assistant for Big Freight Life. Ray runs an applied AI design and architecture practice here. Tell me what you're working on or what brought you to the site, and I'll help if I can.`;
 
 export function useChat(): UseChatReturn {
   const [messages, setMessages] = useState<ChatMessage[]>([]);

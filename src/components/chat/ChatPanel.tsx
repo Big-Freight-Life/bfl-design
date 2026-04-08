@@ -48,7 +48,7 @@ export default function ChatPanel({
   return (
     <Box
       role="dialog"
-      aria-label="Chat with BFL assistant"
+      aria-label="Chat with Raybot"
       sx={{
         position: 'fixed',
         bottom: { xs: 0, sm: 96 },
@@ -90,10 +90,10 @@ export default function ChatPanel({
       >
         <Box>
           <Typography variant="subtitle1" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
-            BFL Assistant
+            Raybot
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Lead-qualifying assistant for Big Freight Life
+            Ask about the work
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 0.5 }}>
