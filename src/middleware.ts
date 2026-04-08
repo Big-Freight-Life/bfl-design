@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { SESSION_COOKIE_NAME, verifySessionToken } from '@/lib/caseStudySession';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith('/works/case-studies')) {
-    const session = request.cookies.get('cs_session');
-    if (!session || session.value !== 'authenticated') {
+    const token = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+    const valid = await verifySessionToken(token);
+    if (!valid) {
       const url = request.nextUrl.clone();
       url.pathname = '/works/case-studies';
       url.searchParams.set('auth', 'required');
-      return NextResponse.rewrite(url);
+      return NextResponse.redirect(url);
     }
   }
 

@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { cookies } from 'next/headers';
 import SectionHeader from '@/components/common/SectionHeader';
 import AuthGate from '@/components/case-studies/AuthGate';
+import LogoutButton from '@/components/case-studies/LogoutButton';
+import {
+  SESSION_COOKIE_NAME,
+  verifySessionToken,
+} from '@/lib/caseStudySession';
 
 export const metadata: Metadata = {
   title: 'Case Studies | BFL Design',
@@ -11,8 +16,8 @@ export const metadata: Metadata = {
 
 export default async function CaseStudiesPage() {
   const cookieStore = await cookies();
-  const session = cookieStore.get('cs_session');
-  const isAuthenticated = session?.value === 'authenticated';
+  const token = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+  const isAuthenticated = await verifySessionToken(token);
 
   if (!isAuthenticated) {
     return <AuthGate />;
@@ -20,7 +25,10 @@ export default async function CaseStudiesPage() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
-      <SectionHeader overline="Portfolio" title="Case Studies" subtitle="Detailed project work for our clients." />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 2, flexWrap: 'wrap' }}>
+        <SectionHeader overline="Portfolio" title="Case Studies" subtitle="Detailed project work for our clients." />
+        <LogoutButton />
+      </Box>
     </Container>
   );
 }

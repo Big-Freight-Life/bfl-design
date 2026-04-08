@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { authRateLimit, getClientIp } from '@/lib/rateLimit';
+import {
+  createSessionToken,
+  SESSION_COOKIE_NAME,
+  SESSION_MAX_AGE_SECONDS,
+} from '@/lib/caseStudySession';
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req);
@@ -15,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const { email, password } = await req.json();
+  const { password } = await req.json();
 
   const validPassword = process.env.CASE_STUDY_PASSWORD;
   if (!validPassword || password !== validPassword) {
@@ -24,12 +29,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
 
+  let token: string;
+  try {
+    token = await createSessionToken();
+  } catch {
+    // Secret misconfigured — fail closed rather than minting an insecure token.
+    return NextResponse.json(
+      { error: 'Server misconfigured' },
+      { status: 500 }
+    );
+  }
+
   const cookieStore = await cookies();
-  cookieStore.set('cs_session', 'authenticated', {
+  cookieStore.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: SESSION_MAX_AGE_SECONDS,
     path: '/',
   });
 
