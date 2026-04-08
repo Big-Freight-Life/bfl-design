@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Box, IconButton, Typography, CircularProgress } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Link from 'next/link';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
+import TypingIndicator from './TypingIndicator';
 import type { ChatMessage as ChatMessageType } from '@/models/chat';
 
 interface ChatPanelProps {
@@ -138,14 +139,7 @@ export default function ChatPanel({
             onNavigate={onClose}
           />
         ))}
-        {isLoading && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-            <CircularProgress size={14} sx={{ color: accentColor }} />
-            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-              Thinking...
-            </Typography>
-          </Box>
-        )}
+        {isLoading && <TypingIndicator />}
         {error && (
           <Box
             sx={{

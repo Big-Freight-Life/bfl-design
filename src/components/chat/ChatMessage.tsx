@@ -58,6 +58,25 @@ export default function ChatMessage({ message, accentColor, onNavigate }: ChatMe
         display: 'flex',
         justifyContent: isUser ? 'flex-end' : 'flex-start',
         mb: 1.5,
+        // Gentle fade + slide entrance for both roles. The typing indicator
+        // animates out as this animates in, so the handoff from "thinking"
+        // to "replied" feels continuous instead of snappy.
+        animation: 'chatMessageIn 280ms cubic-bezier(0.16, 1, 0.3, 1)',
+        '@keyframes chatMessageIn': {
+          '0%': {
+            opacity: 0,
+            transform: isUser
+              ? 'translateY(4px) scale(0.98)'
+              : 'translateY(6px) scale(0.98)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateY(0) scale(1)',
+          },
+        },
+        '@media (prefers-reduced-motion: reduce)': {
+          animation: 'none',
+        },
       }}
     >
       <Box
