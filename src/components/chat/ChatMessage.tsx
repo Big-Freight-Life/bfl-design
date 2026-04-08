@@ -21,7 +21,8 @@ export default function ChatMessage({ message, accentColor }: ChatMessageProps) 
     >
       <Box
         sx={{
-          maxWidth: '85%',
+          maxWidth: isUser ? '85%' : '100%',
+          width: isUser ? 'auto' : '100%',
           px: 2,
           py: 1.25,
           borderRadius: isUser
