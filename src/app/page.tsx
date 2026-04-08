@@ -6,7 +6,7 @@ import POVSection from '@/components/sections/POVSection';
 import WhatWeDoSection from '@/components/sections/WhatWeDoSection';
 import CTASection from '@/components/sections/CTASection';
 import BrandWordmark from '@/components/sections/BrandWordmark';
-import LatestArticles from '@/components/sections/LatestArticles';
+// import LatestArticles from '@/components/sections/LatestArticles';
 
 export const metadata: Metadata = {
   title: 'BFL Design | Applied AI Architecture & Design',
@@ -23,7 +23,7 @@ export default function Home() {
       <WhatWeDoSection />
       <CTASection />
       <BrandWordmark />
-      <LatestArticles />
+      {/* <LatestArticles /> */}
     </>
   );
 }
