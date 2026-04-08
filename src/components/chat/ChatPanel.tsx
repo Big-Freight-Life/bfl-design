@@ -193,7 +193,7 @@ export default function ChatPanel({
           <Link
             href="/contact"
             onClick={onClose}
-            style={{ color: 'inherit', textDecoration: 'underline' }}
+            style={{ color: accentColor, textDecoration: 'underline' }}
           >
             Contact us
           </Link>{' '}

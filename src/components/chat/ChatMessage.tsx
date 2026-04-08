@@ -16,7 +16,11 @@ interface ChatMessageProps {
 // period or comma in the sentence doesn't get swallowed into the href.
 const PATH_REGEX = /\/[a-z][a-z0-9-]*(?:\/[a-z][a-z0-9-]+)*/gi;
 
-function renderWithLinks(text: string, onNavigate?: () => void): ReactNode[] {
+function renderWithLinks(
+  text: string,
+  linkColor: string,
+  onNavigate?: () => void,
+): ReactNode[] {
   const nodes: ReactNode[] = [];
   let lastIndex = 0;
   for (const match of text.matchAll(PATH_REGEX)) {
@@ -32,7 +36,7 @@ function renderWithLinks(text: string, onNavigate?: () => void): ReactNode[] {
         key={`l-${matchIndex}`}
         href={href}
         onClick={onNavigate}
-        style={{ color: 'inherit', textDecoration: 'underline' }}
+        style={{ color: linkColor, textDecoration: 'underline' }}
       >
         {href}
       </Link>,
@@ -81,7 +85,9 @@ export default function ChatMessage({ message, accentColor, onNavigate }: ChatMe
             wordBreak: 'break-word',
           }}
         >
-          {isUser ? message.content : renderWithLinks(message.content, onNavigate)}
+          {isUser
+            ? message.content
+            : renderWithLinks(message.content, accentColor, onNavigate)}
         </Typography>
       </Box>
     </Box>
