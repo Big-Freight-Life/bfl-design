@@ -175,7 +175,8 @@ export default function ChatPanel({
         sx={{
           px: 2,
           pb: 1,
-          pt: 0.25,
+          pt: 0,
+          mt: -1,
           bgcolor: 'background.paper',
           textAlign: 'center',
         }}
