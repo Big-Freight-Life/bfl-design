@@ -122,6 +122,10 @@ export default function ChatPanel({
         sx={{
           flex: 1,
           overflowY: 'auto',
+          // Prevent scroll chaining — when the visitor reaches the top/bottom
+          // of the chat history, further scroll events stop here instead of
+          // scrolling the page behind the open panel.
+          overscrollBehavior: 'contain',
           px: 2,
           py: 2,
           bgcolor: (theme) =>

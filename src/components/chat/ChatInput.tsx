@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, KeyboardEvent, FormEvent } from 'react';
+import { useEffect, useRef, useState, KeyboardEvent, FormEvent } from 'react';
 import { Box, IconButton, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { MAX_MESSAGE_LENGTH } from '@/models/chat';
@@ -13,6 +13,18 @@ interface ChatInputProps {
 
 export default function ChatInput({ onSend, disabled, accentColor }: ChatInputProps) {
   const [value, setValue] = useState('');
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
+  const wasDisabled = useRef(disabled);
+
+  // Restore focus to the input when the bot finishes replying. Disabling a
+  // focused element drops focus, so without this the visitor has to click
+  // the field again to send another message.
+  useEffect(() => {
+    if (wasDisabled.current && !disabled) {
+      inputRef.current?.focus();
+    }
+    wasDisabled.current = disabled;
+  }, [disabled]);
 
   const handleSubmit = (e?: FormEvent) => {
     e?.preventDefault();
@@ -48,6 +60,7 @@ export default function ChatInput({ onSend, disabled, accentColor }: ChatInputPr
       }}
     >
       <TextField
+        inputRef={inputRef}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -59,6 +72,7 @@ export default function ChatInput({ onSend, disabled, accentColor }: ChatInputPr
         variant="outlined"
         size="small"
         error={isOverLimit}
+        autoFocus
         helperText={
           isOverLimit
             ? `${value.length} / ${MAX_MESSAGE_LENGTH}`
