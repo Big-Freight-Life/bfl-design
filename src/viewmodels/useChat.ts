@@ -39,6 +39,18 @@ const WELCOME_MESSAGE = `Hi — I'm Raybot, Ray's assistant for Big Freight Life
 const FIRST_VISIT_DELAY_MS = 10000;
 const FIRST_VISIT_AUTO_DISMISS_MS = 30000;
 
+/**
+ * Sliding-window size for outbound context. The display history grows
+ * without bound (stored in localStorage so the visitor can scroll back),
+ * but we only send the last N turns to the server so the request never
+ * trips the MAX_HISTORY_TURNS=30 server cap.
+ *
+ * 25 leaves a 5-turn safety margin under the server limit and is plenty
+ * of recent context for a lead-capture bot — older turns are rarely
+ * relevant by the time we're 25+ messages in.
+ */
+const CONTEXT_WINDOW_SIZE = 25;
+
 export function useChat(): UseChatReturn {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -123,7 +135,10 @@ export function useChat(): UseChatReturn {
       setIsLoading(true);
 
       try {
-        const payload = updated.map((m) => ({
+        // Send only the last N turns to the server. Full history stays
+        // in state + localStorage for the visitor's display. See
+        // CONTEXT_WINDOW_SIZE comment above for rationale.
+        const payload = updated.slice(-CONTEXT_WINDOW_SIZE).map((m) => ({
           role: m.role,
           content: m.content,
         }));
