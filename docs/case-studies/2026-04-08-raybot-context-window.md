@@ -199,3 +199,104 @@ A parallel lesson, slightly different shape:
 
 Spend the 60 lines. Make the handoff continuous. It's the same philosophy as testing the tail — look at the moments most people skim past, because those moments compound.
 
+---
+
+## Related decision — should bot messages be recorded?
+
+Once the abuse-hardening work (context window, rate limits, prompt-injection filter) and the observability work (audit logging, Axiom log drain) were in place, a natural question came up: should we also be recording the actual text of visitor messages and bot replies?
+
+The instinct was "yes, of course — we need it to debug problems and catch jailbreaks we missed." The right answer turned out to be "no, not by default, and only under very specific conditions later."
+
+### The two conflicting pressures
+
+Recording conversations pulls in two opposite directions:
+
+**Reasons to log message content**
+- Debugging surprising bot behavior requires seeing the prompt that caused it
+- Investigating a successful jailbreak requires the exact text that slipped through our regex filter
+- Measuring reply quality requires actually reading replies
+- Some industries (finance, healthcare) are legally required to retain conversations — not us, but worth naming
+
+**Reasons not to**
+- Visitors reasonably expect a chat widget to be private
+- The moment you start retaining conversation content, GDPR/CCPA scope kicks in — privacy policy disclosures, retention procedures, data subject access requests
+- If the log store gets breached, the blast radius jumps from "we recorded some hashed IPs" to "we recorded the actual text of conversations"
+- Sophisticated visitors inspect network traffic and will notice message content being sent to a log drain — bad trust signal for an audience of engineers
+- Some model-provider terms of service have gray areas around user-input retention
+
+### What we already log
+
+Before this decision, `audit()` already recorded per-event metadata: timestamp, event name (`chat.request`, `chat.blocked.injection`, etc.), hashed IP (SHA-256, not raw), message count, total character count, reply length, prompt version, and labels for which filter or validator fired. Every numeric and categorical field that could help us understand *what was happening*, but zero message text. That was a deliberate earlier choice, and the question now was whether to reverse it.
+
+### The five options we considered
+
+**Option 1 — Never log content (status quo)**
+Visibility into shapes and rates but nothing else. When a jailbreak slips past, we can see it happened but not what the attacker wrote, so we can't patch the filter. Maximum privacy, zero compliance burden.
+
+**Option 2 — Failure-only logging**
+Log content only for `chat.blocked.*`, `chat.error`, and `chat.tool.lead-rejected`. Normal successful conversations are never recorded. Attackers and error cases are. The asymmetry is the whole point: an attacker whose jailbreak was caught has close to zero legitimate privacy expectation around what they typed; a paying lead having a normal chat has the full expectation.
+
+**Option 3 — Log all content with short retention**
+Everything, 7 days, then auto-delete. Best for debugging and quality work. Worst for privacy and compliance.
+
+**Option 4 — Sample 1%**
+Random 1% of conversations recorded in full for quality measurement. Tiny privacy footprint, but almost useless for debugging because the specific broken conversation is almost never in the sample.
+
+**Option 5 — Opt-in "send this conversation" button**
+Visitor explicitly clicks to send their transcript to us. Perfect consent model, useless for abuse investigation because attackers won't click it.
+
+### The decision
+
+**Status quo for now (Option 1), with a conditional path to Option 2 later.**
+
+The reasoning:
+
+1. **Real data before real decisions.** We have no idea yet how often `chat.blocked.*` events actually fire in production. Building a content-logging pipeline for a threat model that might not exist is premature. Ship the metadata-only Axiom log drain, run it for a month, look at the actual event rates, and *then* decide whether the debugging benefit of content logging is worth the cost.
+
+2. **Privacy as a default, not a reluctant choice.** If someone inspects Raybot's network traffic today, they see a clean request/response pair with no opaque logging sidecar. That's a clear story we can defend. Turning on content logging, even failure-only, requires updating the privacy policy, adding retention procedures, and explaining ourselves. The bar to cross that threshold should be "we've proven we need it," not "we might need it."
+
+3. **The visitor population is unusually privacy-aware.** BFL's audience includes engineers, technical founders, and people who will absolutely check the network tab. Logging messages silently — even just on failures — without a privacy disclosure would feel dishonest to this specific cohort in a way it might not for a consumer-facing chat.
+
+4. **Most debugging can be done without it.** If Raybot gives a weird reply and the visitor mentions it, we can ask them to describe or screenshot what happened. If our audit event counts show unusual patterns, we can add more specific metadata logging (e.g., logging which exact regex pattern fired) without needing the full input. Content logging is a last resort, not a first resort.
+
+### The conditional path forward
+
+After ~1 month of baseline data from the Axiom log drain, review:
+
+- How many `chat.blocked.injection` events actually fire per week?
+- How many `chat.error` events?
+- Is the `chat.blocked.global-rate` ever tripping? (If yes, we have real distributed-IP abuse.)
+- Are there recurring patterns we can't diagnose from metadata alone?
+
+**If the tail of the distribution is empty** — abuse is theoretical, errors are rare, metadata is enough — leave content logging off permanently. We were right to skip it.
+
+**If the tail is full and metadata isn't enough** — implement Option 2 with the following guardrails:
+
+1. **Hard 500-character cap** on logged content. Truncate with `...` so a single long message can't dump a lot of sensitive text into the log store.
+2. **Separate dataset with shorter retention.** Content-bearing events go in a different Axiom dataset (e.g., `bfl-design-chat-content`) with 7-day retention and stricter access. Metadata stays in the 30-day main dataset.
+3. **Never log bot replies in full.** On `chat.error`, log the user's last message (because that's what caused the error) but not the partial bot reply — we already know the reply was broken, we need the input.
+4. **Pre-log PII scrubbing.** Run content through a regex pass that replaces email addresses, phone numbers, and credit card patterns with tokens like `[EMAIL]`, `[PHONE]`, `[CC]` before anything hits `audit()`. Not bulletproof, but catches the easy cases.
+5. **Privacy policy update.** Add a plain-language section: "If you attempt to bypass our safety systems or cause an error, the message you sent may be recorded for up to 7 days so we can investigate and fix the issue. Normal conversations are never recorded."
+6. **Never touch `chat.request` or `chat.success` events.** Make this a hard rule enforced at the `audit()` wrapper layer, not a convention that's easy to forget. Successful normal conversations are sacred.
+
+### What we decided NOT to do
+
+- **Log everything with short retention (Option 3).** The asymmetry between attacker privacy expectations and legitimate visitor privacy expectations is real and worth preserving. Logging normal conversations treats everyone like a suspect.
+- **Sample 1% (Option 4).** The math doesn't work: by the time something interesting happens, it's almost certainly not in your 1% sample. Random sampling is useful for quality metrics at scale (thousands of conversations per day); we're not at that scale and unlikely to be for a while.
+- **Log bot outputs.** Even on errors, the bot's output is either (a) already visible to the visitor so logging is redundant or (b) problematic, in which case the useful diagnostic is the *input* that caused the bad output, not the output itself.
+- **Log to stdout.** Anything in `console.log` is visible to anyone with Vercel project access. If content logging happens later, it goes directly to Axiom via a non-stdout path with access controls, not through the general log stream.
+
+### The meta-lesson
+
+This is the third time in this document we've arrived at the same underlying principle from a different angle. The context window decision was "don't over-engineer for a problem you haven't measured." The visual handoff decision was "invest in the moments users skim past because those moments compound." The content logging decision is "privacy by default, visibility when proven necessary."
+
+All three are versions of:
+
+> **Default to the restrained option. Let real data, not speculation, unlock the expansive one.**
+
+It's tempting — especially when you're alone with a codebase and no one is pushing back — to add the sophisticated version of every feature because you *could*. The right posture for a solo-maintained product is the opposite: ship the simplest thing that works, instrument it so you can see whether the simple thing is enough, and only add complexity when the instrumentation tells you to.
+
+Context windows: 25-turn slice, add summarization only if needed. Animation: bubble-shaped typing indicator, add token streaming only if needed. Logging: metadata only, add content logging only if needed.
+
+Three different axes, one consistent answer. That's not accidental — it's the only sustainable operating mode for a solo product that wants to stay defensible without becoming a second full-time job to maintain.
+
