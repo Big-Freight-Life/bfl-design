@@ -14,7 +14,7 @@ npm run dev       # http://localhost:3000
 ## Stack
 
 - Next.js 16 (App Router)
-- MUI 6 (Material UI)
+- MUI 7 (Material UI)
 - TypeScript
 - MVVM architecture
 - Vercel deployment

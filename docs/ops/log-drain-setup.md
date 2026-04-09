@@ -18,7 +18,7 @@ If you are ever on Pro and prefer the config-only Log Drain route, the alternate
 
 ## Why
 
-The chat endpoint at `src/app/api/chat/route.ts` already emits structured audit logs via `audit()` in `src/lib/chat/audit.ts` for every security-relevant event: `chat.request`, `chat.blocked.origin`, `chat.blocked.rate-limit`, `chat.blocked.budget`, `chat.blocked.malformed`, `chat.blocked.length`, `chat.blocked.injection`, `chat.tool.lead-attempt`, `chat.tool.lead-rejected`, `chat.tool.lead-rate-limited`, `chat.tool.lead-duplicate`, `chat.tool.lead-captured`, `chat.error`, and `chat.success`.
+The chat endpoint at `src/app/api/chat/route.ts` already emits structured audit logs via `audit()` in `src/lib/chat/audit.ts` for every security-relevant event: `chat.request`, `chat.blocked.origin`, `chat.blocked.rate-limit`, `chat.blocked.global-rate`, `chat.blocked.budget`, `chat.blocked.malformed`, `chat.blocked.length`, `chat.blocked.injection`, `chat.tool.lead-attempt`, `chat.tool.lead-validated`, `chat.tool.lead-rejected`, `chat.tool.lead-rate-limited`, `chat.tool.lead-duplicate`, `chat.tool.lead-captured`, `chat.error`, and `chat.success`.
 
 Those lines go to stdout and are picked up by Vercel's runtime log viewer. On the Hobby plan, Vercel retains runtime logs for roughly 1 hour. On Pro it is 24 hours. In either case:
 

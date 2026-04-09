@@ -6,4 +6,6 @@ Each runbook assumes production access to Vercel, GitHub, and any third-party se
 
 ## Runbooks
 
-- [`log-drain-setup.md`](./log-drain-setup.md) — Wire Vercel runtime logs into Axiom for long-term retention, querying, and alerting on Raybot audit events.
+- [`gemini-billing-setup.md`](./gemini-billing-setup.md) — Gemini API billing account, auto-reload, budget alerts, and key rotation for Raybot.
+- [`log-drain-setup.md`](./log-drain-setup.md) — Wire Raybot audit events into Axiom for long-term retention, querying, and alerting.
+- [`session-secret-rotation.md`](./session-secret-rotation.md) — Rotate the HMAC secret that signs case-study session cookies.

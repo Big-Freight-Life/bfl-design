@@ -5,8 +5,8 @@ powers Raybot.
 
 ## 1. Why this matters
 
-Raybot (the chat assistant at `raybot.bfl.design` and embedded on
-`bfl.design`) calls the Gemini API for every user message. If the billing
+Raybot (the chat assistant embedded on `bfl.design`) calls the Gemini API
+for every user message. If the billing
 account runs out of credits, Gemini returns auth/quota errors and Raybot
 degrades to "The assistant is having trouble right now" messages shown to
 real visitors.
@@ -103,7 +103,7 @@ so you get warnings before you hit the hard ceiling. It is both:
 
 Baseline numbers for what "normal" looks like right now:
 
-- **Model:** Gemini 2.5 Flash
+- **Model:** Gemini 2.5 Flash (`gemini-2.5-flash`)
 - **Approximate pricing** (verify current values at
   https://ai.google.dev/pricing before making decisions):
   - Input: ~$0.075 per 1M tokens

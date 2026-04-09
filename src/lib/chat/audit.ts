@@ -36,6 +36,7 @@ export type AuditEvent =
   | 'chat.blocked.origin'
   | 'chat.blocked.rate-limit'
   | 'chat.blocked.budget'
+  | 'chat.blocked.global-rate'
   | 'chat.blocked.injection'
   | 'chat.blocked.length'
   | 'chat.blocked.malformed'
