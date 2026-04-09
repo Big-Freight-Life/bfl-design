@@ -1,8 +1,18 @@
-# Log Drain Setup — Axiom via Vercel
+# Log Drain Setup — Axiom (direct HTTP forwarder)
 
 **Audience:** site owner / operator
 **System:** bfl-design (Raybot chat endpoint at `/api/chat`)
 **Status:** runbook — follow top to bottom
+
+---
+
+## Important — Vercel plan gate
+
+Vercel's native **Log Drains** feature is gated behind the **Pro plan** ($20/user/month). On the **Hobby plan** the Log Drains settings page is read-only or absent entirely.
+
+This runbook is written for the **free path**: instead of using Vercel's Log Drains, the `audit()` function in `src/lib/chat/audit.ts` forwards events directly to Axiom over HTTPS from inside the serverless function. Same result, no plan upgrade needed.
+
+If you are ever on Pro and prefer the config-only Log Drain route, the alternate setup is documented at the bottom of this file under "Appendix A — Vercel Log Drain path (Pro plan only)".
 
 ---
 
@@ -53,29 +63,26 @@ The instrumentation exists; what is missing is somewhere durable to send it and 
 5. Scope: restrict to the `bfl-design-chat` dataset. Do not grant workspace-wide access.
 6. Click **Create**. The token is shown **once**. Copy it immediately into your password manager — Axiom will never display it again. If you lose it, revoke and create a new one.
 
-## Step 3 — Configure the Vercel log drain
+## Step 3 — Set the Axiom env vars in Vercel
+
+The forwarder inside `audit.ts` reads two env vars. When both are set, every audit event is POSTed to Axiom in addition to being written to stdout. When either is missing, the forwarder is a silent no-op and only the stdout log is emitted — same fallback pattern as the Upstash clients.
 
 1. Open the Vercel dashboard and select the **bfl-design** project.
-2. Go to **Settings** then **Log Drains**.
-3. Click **Add Log Drain**.
-4. Source type: **Custom** / **HTTPS**.
-5. Endpoint URL:
-
-   ```
-   https://api.axiom.co/v1/datasets/bfl-design-chat/ingest
-   ```
-
-6. Delivery format: **JSON** (line-delimited). This matches what `audit()` emits.
-7. Custom headers — add:
-
-   ```
-   Authorization: Bearer <your-axiom-token>
-   ```
-
-   Replace `<your-axiom-token>` with the token from Step 2. Do not commit this token to the repo or paste it into chat.
-8. Environments: select **Production**. You can also add **Preview** if you want log drains from PR deployments. Do not select **Development** — local logs should stay local.
-9. Project: **bfl-design**.
-10. Save. Vercel will show the drain as **Active**.
+2. Go to **Settings** then **Environment Variables**.
+3. Click **Add New**. Fill in:
+   - **Key:** `AXIOM_INGEST_URL`
+   - **Value:** `https://api.axiom.co/v1/datasets/bfl-design-chat/ingest`
+     - Use this exact URL. The dataset name in the path must match what you created in Step 1.
+   - **Environments:** check **Production** and **Preview**. Do NOT check **Development** — local logs should stay local.
+   - **Type:** Plain text.
+4. Save.
+5. Click **Add New** again. Fill in:
+   - **Key:** `AXIOM_API_TOKEN`
+   - **Value:** paste the token from Step 2. **Paste directly from your password manager into this field.** Do not paste it anywhere else, especially not into any chat thread or log.
+   - **Environments:** check **Production** and **Preview**.
+   - **Type:** **Sensitive** (encrypted) if the option is available.
+6. Save.
+7. Redeploy to pick up the new env vars: Vercel → Deployments → latest → three-dot menu → **Redeploy**.
 
 ## Step 4 — Verify ingestion
 
@@ -187,12 +194,31 @@ This is the kind of slow-moving issue that alerts will never catch but a five-mi
 
 ## Rollback
 
-If anything goes wrong — the drain is too chatty, Axiom bills unexpectedly, or the endpoint starts dropping payloads — disable the drain:
+If anything goes wrong — the forwarder is too chatty, Axiom bills unexpectedly, or the endpoint starts erroring — disable the forwarder by removing either env var:
 
-1. Vercel dashboard → **bfl-design** → **Settings** → **Log Drains**.
-2. Click the three-dot menu on the `bfl-design-chat` drain and select **Delete**.
-3. Confirm.
+1. Vercel dashboard → **bfl-design** → **Settings** → **Environment Variables**.
+2. Find `AXIOM_INGEST_URL` (or `AXIOM_API_TOKEN`). Click the three-dot menu → **Remove**.
+3. Redeploy: Deployments → latest → three-dot menu → **Redeploy**.
 
-Rollback is instant. No redeploy is required. The audit logs keep flowing to Vercel's built-in log viewer exactly as they did before. The only thing lost is the external destination.
+The forwarder in `audit.ts` checks for both env vars on every call, so once the redeploy lands the Axiom POSTs stop. The audit logs keep flowing to Vercel's built-in log viewer exactly as they did before. The only thing lost is the external destination. No code changes required to rollback.
 
-To re-enable later, repeat Step 3.
+To re-enable later, put the env vars back and redeploy.
+
+---
+
+## Appendix A — Vercel Log Drain path (Pro plan only)
+
+If you are on the Vercel Pro plan (or higher) and prefer the config-only Log Drain feature instead of the in-function forwarder, follow this alternate setup. Either path produces identical results in Axiom.
+
+1. Skip the env var work in Step 3 above.
+2. Vercel dashboard → **bfl-design** → **Settings** → **Log Drains** → **Add Log Drain**.
+3. Source type: **Custom** / **HTTPS**.
+4. Endpoint URL: `https://api.axiom.co/v1/datasets/bfl-design-chat/ingest`
+5. Delivery format: **JSON** (line-delimited).
+6. Custom headers: `Authorization: Bearer <your-axiom-token>` — paste the token from Step 2 directly into the value field, never into chat.
+7. Environments: **Production** (and optionally **Preview**).
+8. Save. The drain will show as **Active**.
+
+The advantage of this path is that Axiom events continue to flow even if the serverless function exits before the in-function fetch completes (which is rare but theoretically possible on the free path). The disadvantage is the $20/user/month Pro plan cost.
+
+If you adopt this path, you can safely remove the `AXIOM_INGEST_URL` and `AXIOM_API_TOKEN` env vars — or leave them in place, in which case events will be forwarded twice (once by the in-function forwarder, once by the Vercel log drain). Duplication in Axiom is usually undesirable, so pick one path and stick with it.

@@ -147,3 +147,82 @@ describe('audit', () => {
     expect(typeof entry.auditError).toBe('string');
   });
 });
+
+describe('audit — Axiom forwarding', () => {
+  let logSpy: ReturnType<typeof vi.spyOn>;
+  let fetchMock: ReturnType<typeof vi.fn>;
+  const TEST_URL = 'https://api.axiom.co/v1/datasets/bfl-design-chat/ingest';
+  const TEST_TOKEN = 'xaat-test-token-value';
+
+  beforeEach(() => {
+    logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+  });
+
+  afterEach(() => {
+    logSpy.mockRestore();
+    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
+  });
+
+  it('does not call fetch when AXIOM_INGEST_URL is unset', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', '');
+    vi.stubEnv('AXIOM_API_TOKEN', TEST_TOKEN);
+    audit('chat.request', { messages: 1 });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('does not call fetch when AXIOM_API_TOKEN is unset', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', TEST_URL);
+    vi.stubEnv('AXIOM_API_TOKEN', '');
+    audit('chat.request', { messages: 1 });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('forwards a JSON-array body to the configured URL with a Bearer token', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', TEST_URL);
+    vi.stubEnv('AXIOM_API_TOKEN', TEST_TOKEN);
+    audit('chat.request', { messages: 5 });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe(TEST_URL);
+    expect(init.method).toBe('POST');
+    expect(init.headers['Content-Type']).toBe('application/json');
+    expect(init.headers.Authorization).toBe(`Bearer ${TEST_TOKEN}`);
+
+    // Body must be a JSON array containing exactly one event.
+    const parsed = JSON.parse(init.body as string);
+    expect(Array.isArray(parsed)).toBe(true);
+    expect(parsed).toHaveLength(1);
+    expect(parsed[0].event).toBe('chat.request');
+    expect(parsed[0].source).toBe('raybot');
+    expect(parsed[0].messages).toBe(5);
+  });
+
+  it('includes an abort signal so requests cannot hang indefinitely', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', TEST_URL);
+    vi.stubEnv('AXIOM_API_TOKEN', TEST_TOKEN);
+    audit('chat.request', {});
+    const [, init] = fetchMock.mock.calls[0];
+    expect(init.signal).toBeInstanceOf(AbortSignal);
+  });
+
+  it('does not throw when fetch rejects (Axiom down)', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', TEST_URL);
+    vi.stubEnv('AXIOM_API_TOKEN', TEST_TOKEN);
+    fetchMock.mockRejectedValueOnce(new Error('network unreachable'));
+    expect(() => audit('chat.request', { messages: 1 })).not.toThrow();
+  });
+
+  it('still writes to stdout when forwarding is configured', () => {
+    vi.stubEnv('AXIOM_INGEST_URL', TEST_URL);
+    vi.stubEnv('AXIOM_API_TOKEN', TEST_TOKEN);
+    audit('chat.success', { outputChars: 42 });
+    // Both the stdout write and the Axiom forward happen — stdout is not
+    // skipped when Axiom is configured.
+    expect(logSpy).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
