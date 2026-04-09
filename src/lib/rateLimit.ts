@@ -34,6 +34,24 @@ export const chatRateLimit = redis
     })
   : null;
 
+/**
+ * Global chat rate limit — a single shared bucket across ALL IPs.
+ *
+ * The per-IP `chatRateLimit` above can be defeated by a botnet: 100 IPs
+ * each sending 19 req/min would total 1900 req/min with none of them
+ * tripping the individual cap. This global cap catches that scenario.
+ *
+ * Set conservatively high so real traffic never hits it, but low enough
+ * that a small botnet trips it before burning model budget.
+ */
+export const globalChatRateLimit = redis
+  ? new Ratelimit({
+      redis,
+      limiter: Ratelimit.slidingWindow(300, '1 m'),
+      prefix: 'ratelimit:chat-global',
+    })
+  : null;
+
 export function getClientIp(request: Request): string {
   // Prefer x-real-ip (set by Vercel from the socket, cannot be spoofed by client)
   // Fall back to last entry in x-forwarded-for (appended by the proxy, not client-controlled)

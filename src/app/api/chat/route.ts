@@ -4,20 +4,21 @@
  * Security layers (in order, from outside in):
  *  1. Origin header check        — drops requests not from our domains
  *  2. Burst rate limit            — 20 requests/min per IP (Upstash)
- *  3. Daily request budget        — global kill switch via Upstash counter
- *  4. Body parse + shape validate — reject malformed payloads
- *  5. Conversation length cap     — hard limit on history turns
- *  6. Total input char cap        — defends against cost-explosion attacks
- *  7. Input sanitization          — NFC, strip control/zero-width chars
- *  8. Prompt injection pre-filter — block known jailbreak patterns
- *  9. Model call w/ tool use loop — Gemini handles capture_lead via function call
- * 10. Tool argument re-validation — every field re-checked server-side
- * 11. Disposable email block      — rejects burner emails
- * 12. Per-IP daily lead capture cap — max 3 captures/day per IP
- * 13. Lead idempotency            — same email can't trigger duplicate emails
- * 14. Output sanitization         — strip HTML/control chars from bot reply
- * 15. Generic error responses     — never leak provider error messages
- * 16. Audit logging               — every interaction logged with anon IP
+ *  3. Global rate limit           — 300 req/min across all IPs, catches distributed-IP floods
+ *  4. Daily request budget        — global kill switch via Upstash counter
+ *  5. Body parse + shape validate — reject malformed payloads
+ *  6. Conversation length cap     — hard limit on history turns
+ *  7. Total input char cap        — defends against cost-explosion attacks
+ *  8. Input sanitization          — NFC, strip control/zero-width chars
+ *  9. Prompt injection pre-filter — block known jailbreak patterns
+ * 10. Model call w/ tool use loop — Gemini handles capture_lead via function call
+ * 11. Tool argument re-validation — every field re-checked server-side
+ * 12. Disposable email block      — rejects burner emails
+ * 13. Per-IP daily lead capture cap — max 3 captures/day per IP
+ * 14. Lead idempotency            — same email can't trigger duplicate emails
+ * 15. Output sanitization         — strip HTML/control chars from bot reply
+ * 16. Generic error responses     — never leak provider error messages
+ * 17. Audit logging               — every interaction logged with anon IP
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -29,7 +30,7 @@ import {
   type FunctionCall,
 } from '@google/genai';
 import { Resend } from 'resend';
-import { chatRateLimit, getClientIp } from '@/lib/rateLimit';
+import { chatRateLimit, globalChatRateLimit, getClientIp } from '@/lib/rateLimit';
 import { isAllowedOrigin } from '@/lib/chat/origin';
 import { sanitizeUserText, sanitizeToolStringInput } from '@/lib/chat/sanitize';
 import { validateLead } from '@/lib/chat/validation';
@@ -133,7 +134,16 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // ── 3. Daily budget kill switch ────────────────────────────────────────
+  // ── 3. Global rate limit — catches distributed-IP floods that slip past the per-IP cap ──
+  if (globalChatRateLimit) {
+    const { success } = await globalChatRateLimit.limit('global');
+    if (!success) {
+      audit('chat.blocked.global-rate', { ip });
+      return generic('Service is busy — please try again in a moment.', 429);
+    }
+  }
+
+  // ── 4. Daily budget kill switch ────────────────────────────────────────
   const budget = await checkAndIncrementDailyBudget();
   if (!budget.ok) {
     audit('chat.blocked.budget', { ip });
@@ -149,7 +159,7 @@ export async function POST(req: NextRequest) {
     return generic('Chat is not configured.', 503);
   }
 
-  // ── 4. Body parse + shape validation ───────────────────────────────────
+  // ── 5. Body parse + shape validation ───────────────────────────────────
   let body: { messages?: IncomingMessage[] };
   try {
     body = await req.json();
@@ -164,13 +174,13 @@ export async function POST(req: NextRequest) {
     return generic('messages array is required', 400);
   }
 
-  // ── 5. Conversation length cap ─────────────────────────────────────────
+  // ── 6. Conversation length cap ─────────────────────────────────────────
   if (rawMessages.length > MAX_HISTORY_TURNS) {
     audit('chat.blocked.length', { ip, messages: rawMessages.length });
     return generic('Conversation too long', 400);
   }
 
-  // ── 6. Total input char cap (cost-explosion defense) ───────────────────
+  // ── 7. Total input char cap (cost-explosion defense) ───────────────────
   let totalChars = 0;
   for (const m of rawMessages) {
     if (m && typeof m.content === 'string') totalChars += m.content.length;
@@ -180,7 +190,7 @@ export async function POST(req: NextRequest) {
     return generic('Conversation too long', 400);
   }
 
-  // ── 7. Sanitize each message and enforce shape/order ───────────────────
+  // ── 8. Sanitize each message and enforce shape/order ───────────────────
   const sanitized: IncomingMessage[] = [];
   for (const m of rawMessages) {
     if (
@@ -201,7 +211,7 @@ export async function POST(req: NextRequest) {
     return generic('Last message must be from user', 400);
   }
 
-  // ── 8. Prompt injection pre-filter ─────────────────────────────────────
+  // ── 9. Prompt injection pre-filter ─────────────────────────────────────
   // Only check the latest user message — older messages are already in
   // the conversation context and would have been caught on their turn.
   const latestUserMessage = sanitized[sanitized.length - 1].content;
@@ -223,7 +233,7 @@ export async function POST(req: NextRequest) {
     promptVersion: PROMPT_VERSION,
   });
 
-  // ── 9. Build Gemini contents and call the model ────────────────────────
+  // ── 10. Build Gemini contents and call the model ───────────────────────
   const ai = new GoogleGenAI({ apiKey });
   const systemInstruction = buildRaybotSystemPrompt();
 
@@ -282,7 +292,7 @@ export async function POST(req: NextRequest) {
 
         audit('chat.tool.lead-attempt', { ip });
 
-        // ── 10. Re-validate every tool argument server-side ─────────────
+        // ── 11. Re-validate every tool argument server-side ─────────────
         const args = (call.args ?? {}) as Record<string, unknown>;
         const name = sanitizeToolStringInput(args.name, 80);
         const email = sanitizeToolStringInput(args.email, 254).toLowerCase();
@@ -302,7 +312,7 @@ export async function POST(req: NextRequest) {
           continue;
         }
 
-        // ── 11 & 12. Per-IP daily lead cap ────────────────────────────────
+        // ── 12 & 13. Per-IP daily lead cap ────────────────────────────────
         if (leadCaptureLimit) {
           const { success } = await leadCaptureLimit.limit(ip);
           if (!success) {
@@ -320,7 +330,7 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // ── 13. Idempotency: skip duplicate emails ──────────────────────
+        // ── 14. Idempotency: skip duplicate emails ──────────────────────
         if (await isDuplicateLead(validation.lead.email)) {
           audit('chat.tool.lead-duplicate', { ip });
           leadCaptured = true; // treat as success from user perspective
@@ -385,7 +395,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // ── 14. Sanitize bot output before returning ─────────────────────────
+    // ── 15. Sanitize bot output before returning ─────────────────────────
     const rawText = (response.text ?? '').trim();
     const cleanReply = sanitizeBotReply(rawText);
     if (!cleanReply) {
@@ -400,7 +410,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ reply: cleanReply, leadCaptured });
   } catch (err) {
-    // ── 15. Never leak provider errors ────────────────────────────────────
+    // ── 16. Never leak provider errors ────────────────────────────────────
     const message = err instanceof Error ? err.message : 'Unknown error';
     audit('chat.error', { ip, reason: message.slice(0, 200) });
     console.error('[chat] Provider error:', message);

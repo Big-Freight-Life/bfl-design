@@ -48,6 +48,44 @@ const INJECTION_PATTERNS: ReadonlyArray<{ name: string; pattern: RegExp }> = [
   // No safety claims
   { name: 'no-restrictions', pattern: /\b(?:no|without)\s+(?:restrictions?|safety|filters?|guardrails?|limits?)\b/i },
   { name: 'unrestricted-ai', pattern: /\bunrestricted\s+(?:ai|assistant|chat|mode|model)\b/i },
+
+  // Paraphrased override attempts — require the override verb AND a
+  // "prior context" reference in close proximity so innocent uses of
+  // "forget" or "erase" don't trip.
+  { name: 'paraphrased-forget', pattern: /\bforget\s+(?:what\s+)?(?:came\s+before|you\s+(?:were|have\s+been)\s+told|(?:was|were)\s+said)\b/i },
+  { name: 'paraphrased-disregard', pattern: /\bdisregard\s+(?:anything|everything|whatever)\s+(?:earlier|prior|before|above|previous)\b/i },
+  { name: 'erase-memory', pattern: /\b(?:erase|wipe|clear)\s+(?:your\s+)?(?:memory|context|history)\s+of\b/i },
+  { name: 'start-over-fresh', pattern: /\bstart\s+(?:over|fresh)\s+(?:and\s+)?(?:ignore|forget|without)\s+(?:all|the|your|any)\s+(?:previous|prior|earlier|instructions?|rules?)\b/i },
+
+  // Role-play framings that imply bypassing restrictions
+  { name: 'game-no-rules', pattern: /\b(?:let'?s\s+)?play\s+a\s+game\s+where\s+you\s+(?:have\s+no\s+|don'?t\s+have\s+|without\s+)?(?:rules?|restrictions?|limits?|filters?|guardrails?)\b/i },
+  { name: 'pretend-no-restrictions', pattern: /\bpretend\s+(?:you'?re|to\s+be|that\s+you'?re)\s+an?\s+ai\s+(?:without|with\s+no)\s+(?:restrictions?|rules?|filters?|limits?|guardrails?)\b/i },
+  { name: 'imagine-unfiltered', pattern: /\bimagine\s+(?:you'?re|you\s+are|a|an)\s+(?:an?\s+)?(?:unfiltered|uncensored|unrestricted)\b/i },
+  { name: 'roleplay-as-dan', pattern: /\brole[\s-]?play\s+as\s+(?:dan|an?\s+(?:unfiltered|uncensored|unrestricted|jailbroken))\b/i },
+
+  // Encoding / obfuscation tricks
+  { name: 'decode-and-follow', pattern: /\b(?:decode|decrypt)\s+(?:this|the\s+following|the\s+below)\s+(?:base64|hex|rot13|binary)?.*?(?:and\s+)?(?:follow|execute|obey|do\s+what|run)\b/i },
+  { name: 'base64-instructions', pattern: /\bbase64\b.*?(?:follow|execute|decode\s+and|instructions?)\b/i },
+  { name: 'rot13-trick', pattern: /\b(?:translate|decode)\s+(?:this|the\s+following).*?\brot\s*13\b/i },
+  { name: 'execute-in-reverse', pattern: /\b(?:execute|run|follow|read)\s+(?:the\s+following\s+)?(?:in\s+reverse|backwards)\b/i },
+
+  // Developer / admin / debug mode claims
+  { name: 'i-am-developer', pattern: /\bi\s+am\s+(?:the|your)\s+(?:developer|creator|admin(?:istrator)?|owner|operator)\b/i },
+  { name: 'system-override-claim', pattern: /\b(?:this\s+is\s+(?:a\s+)?|initiating\s+)?system\s+override\b/i },
+  { name: 'you-are-in-debug', pattern: /\byou(?:'?re|\s+are)\s+(?:now\s+)?(?:in|running\s+in|entering)\s+(?:debug|developer|admin|maintenance|diagnostic)\s+mode\b/i },
+  { name: 'enable-admin-privileges', pattern: /\benable\s+(?:admin(?:istrator)?|root|sudo|elevated)\s+(?:privileges?|mode|access)\b/i },
+
+  // Prompt leak probes (beyond the existing reveal-prompt)
+  { name: 'what-are-your-instructions', pattern: /\bwhat\s+(?:are|were)\s+your\s+(?:exact\s+)?(?:initial\s+|original\s+|system\s+)?(?:instructions?|directives?|guidelines?|rules?)\b/i },
+  { name: 'repeat-your-rules', pattern: /\brepeat\s+(?:back\s+)?(?:to\s+me\s+)?your\s+(?:rules?|guidelines?|instructions?|system\s+prompt|initial\s+message)\b/i },
+  { name: 'show-initial-message', pattern: /\bshow\s+(?:me\s+)?your\s+(?:initial|first|original|starting)\s+(?:message|prompt|instructions?)\b/i },
+  { name: 'print-above-text', pattern: /\bprint\s+(?:everything|all\s+text|the\s+text)\s+(?:above|before\s+this)\b/i },
+
+  // Language-switch attacks — Spanish and French variants of "ignore previous"
+  { name: 'ignore-instructions-es', pattern: /\bignora\s+(?:todas\s+)?(?:las\s+)?(?:instrucciones?|reglas?|indicaciones?)\s+(?:previas|anteriores)\b/i },
+  { name: 'forget-instructions-es', pattern: /\bolvida\s+(?:todas\s+)?(?:las\s+)?(?:instrucciones?|reglas?)\s+(?:previas|anteriores)\b/i },
+  { name: 'ignore-instructions-fr', pattern: /\bignore[rz]?\s+(?:toutes\s+)?(?:les\s+)?(?:instructions?|r[eè]gles?|consignes?)\s+(?:pr[eé]c[eé]dentes?|ant[eé]rieures?)\b/i },
+  { name: 'forget-instructions-fr', pattern: /\boublie[rz]?\s+(?:toutes\s+)?(?:les\s+)?(?:instructions?|r[eè]gles?)\s+(?:pr[eé]c[eé]dentes?|ant[eé]rieures?)\b/i },
 ];
 
 export interface InjectionCheckResult {
