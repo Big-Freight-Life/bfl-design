@@ -154,7 +154,7 @@ export default function AppliedAIArchitectPage() {
             theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50',
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth={false} sx={{ maxWidth: '1600px' }}>
           <Box sx={{ maxWidth: '44rem', mb: { xs: 6, md: 8 } }}>
             <Typography
               variant="h2"
