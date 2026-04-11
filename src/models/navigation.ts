@@ -19,7 +19,7 @@ export interface MegamenuPanel {
 export const primaryNav: NavItem[] = [
   { label: 'Our Work', href: '/works' },
   { label: 'What We Do', href: '/transformation' },
-  { label: 'Newsletter', href: '/newsletter' },
+  // { label: 'Newsletter', href: '/newsletter' },
   { label: 'Products', href: '#', megamenu: 'products' },
   { label: 'About', href: '/about', megamenu: 'about' },
 ];
@@ -44,7 +44,7 @@ export const aboutPanels: MegamenuPanel[] = [
 
 export const mobileTabItems: NavItem[] = [
   { label: 'Home', href: '/' },
-  { label: 'Blog', href: '/blog' },
+  // { label: 'Blog', href: '/blog' },
   { label: 'Works', href: '/works' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -69,7 +69,7 @@ export const footerNav = {
     { label: 'Case Studies', href: '/works/case-studies' },
     { label: 'Products', href: '/products' },
     { label: 'Methodology', href: '/works/methodology' },
-    { label: 'Articles', href: '/blog' },
+    // { label: 'Articles', href: '/blog' },
   ],
   about: [
     { label: 'About Us', href: '/about' },
