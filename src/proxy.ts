@@ -7,6 +7,7 @@ const publicCaseStudies = new Set([
   '/works/case-studies/hyland-onbase-salesforce',
   '/works/case-studies/hyland-for-workday',
   '/works/case-studies/salesforce-migration',
+  '/works/case-studies/portfolio-ai-world',
 ]);
 
 export async function proxy(request: NextRequest) {

@@ -48,7 +48,7 @@ export const caseStudies: CaseStudy[] = [
       'In a world where generative AI can produce websites in seconds, how do you make a portfolio that actually means something?',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
-    link: '#',
+    link: '/works/case-studies/portfolio-ai-world',
     gradient: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
   },
   {
