@@ -12,7 +12,7 @@ const keyPoints = [
       'We don\u2019t recommend platforms. We restructure how work moves so AI has something real to plug into.',
   },
   {
-    title: 'Strategy, design, engineering, and distribution \u2014 one practice',
+    title: 'Strategy, design, engineering, and distribution',
     description:
       'Most teams split these across roles that don\u2019t talk to each other. Here, one practice holds all four \u2014 so the system you get is coherent from strategy through distribution.',
   },
