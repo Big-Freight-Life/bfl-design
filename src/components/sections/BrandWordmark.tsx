@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { typography } from '@/theme/tokens';
 
-const tagline = 'DRIVE THE SYSTEM BEHIND THE WORK.';
+const tagline = 'BUILT FOR HOW WORK ACTUALLY MOVES.';
 
 export default function BrandWordmark() {
   const [displayText, setDisplayText] = useState('');
