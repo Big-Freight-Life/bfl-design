@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { typography } from '@/theme/tokens';
 
@@ -9,9 +9,32 @@ const tagline = 'BUILT FOR HOW WORK ACTUALLY MOVES.';
 export default function BrandWordmark() {
   const [displayText, setDisplayText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
+  const [hasPlayed, setHasPlayed] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Typing animation
+  // Observe when section enters viewport
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPlayed) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasPlayed]);
+
+  // Typing animation — plays once when in view
+  useEffect(() => {
+    if (!isInView || hasPlayed) return;
+
     let i = 0;
     let cancelled = false;
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -23,32 +46,35 @@ export default function BrandWordmark() {
         i++;
         timeoutId = setTimeout(type, 60);
       } else {
-        // Pause, then restart
-        timeoutId = setTimeout(() => {
-          if (cancelled) return;
-          i = 0;
-          setDisplayText('');
-          timeoutId = setTimeout(type, 500);
-        }, 3000);
+        setHasPlayed(true);
       }
     };
 
-    timeoutId = setTimeout(type, 1000);
-
-    // Blinking cursor
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 530);
+    timeoutId = setTimeout(type, 300);
 
     return () => {
       cancelled = true;
       clearTimeout(timeoutId);
-      clearInterval(cursorInterval);
     };
-  }, []);
+  }, [isInView, hasPlayed]);
+
+  // Blinking cursor — only while typing
+  useEffect(() => {
+    if (hasPlayed) {
+      setShowCursor(true);
+      return;
+    }
+
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 530);
+
+    return () => clearInterval(cursorInterval);
+  }, [hasPlayed]);
 
   return (
     <Box
+      ref={sectionRef}
       sx={{
         py: { xs: 8, md: 12 },
         textAlign: 'center',
