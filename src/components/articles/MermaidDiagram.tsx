@@ -43,9 +43,7 @@ export default function MermaidDiagram({ chart, caption }: MermaidDiagramProps) 
         const { svg } = await mermaid.render(id, chart);
 
         if (!cancelled && containerRef.current) {
-          // Mermaid's render() returns trusted SVG output from library internals,
-          // not user-supplied HTML. Safe to inject via DOM property.
-          containerRef.current.innerHTML = svg; // eslint-disable-line no-unsanitized/property
+          containerRef.current.innerHTML = svg;
           setLoading(false);
           setError(null);
         }
@@ -59,6 +57,9 @@ export default function MermaidDiagram({ chart, caption }: MermaidDiagramProps) 
 
     setLoading(true);
     setError(null);
+    if (containerRef.current) {
+      containerRef.current.innerHTML = '';
+    }
     renderDiagram();
 
     return () => {
@@ -77,25 +78,31 @@ export default function MermaidDiagram({ chart, caption }: MermaidDiagramProps) 
         my: 3,
       }}
     >
+      {/* SVG container — always mounted, no React children inside */}
       <Box
         ref={containerRef}
+        suppressHydrationWarning
         sx={{
           overflow: 'auto',
           p: 2,
+          display: loading && !error ? 'none' : 'block',
           '& svg': { maxWidth: '100%', height: 'auto' },
         }}
-      >
-        {loading && !error && (
-          <Typography variant="body2" color="text.secondary" sx={{ py: 4, textAlign: 'center' }}>
+      />
+      {loading && !error && (
+        <Box sx={{ py: 4, textAlign: 'center' }}>
+          <Typography variant="body2" color="text.secondary">
             Loading diagram...
           </Typography>
-        )}
-        {error && (
-          <Typography variant="body2" color="error" sx={{ py: 4, textAlign: 'center' }}>
+        </Box>
+      )}
+      {error && (
+        <Box sx={{ py: 4, textAlign: 'center' }}>
+          <Typography variant="body2" color="error">
             Diagram error: {error}
           </Typography>
-        )}
-      </Box>
+        </Box>
+      )}
       {caption && (
         <Typography
           variant="caption"
