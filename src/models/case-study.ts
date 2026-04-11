@@ -48,7 +48,7 @@ export const caseStudies: CaseStudy[] = [
       'In a world where generative AI can produce websites in seconds, how do you make a portfolio that actually means something?',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
-    link: '/case-study-style-1/',
+    link: '#',
     gradient: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
   },
   {
@@ -58,7 +58,7 @@ export const caseStudies: CaseStudy[] = [
       'Salesforce and Hyland weren\u2019t talking to each other. We made the content flow without middleware or custom code.',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
-    link: '/hyland-onbase-salesforce-integration/',
+    link: '/works/case-studies/hyland-onbase-salesforce',
     gradient: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
   },
   {
@@ -68,7 +68,7 @@ export const caseStudies: CaseStudy[] = [
       'Unified content management embedded directly into Workday screens. No middleware. No custom code.',
     year: '2025',
     imageUrl: '',
-    link: '/works/case-studies/hyland-for-workday-integration/',
+    link: '/works/case-studies/hyland-for-workday',
     gradient: 'linear-gradient(180deg, #0f172a, #1e293b)',
   },
   {
@@ -78,7 +78,7 @@ export const caseStudies: CaseStudy[] = [
       'A platform migration that needed to land with real users \u2014 not just IT. We designed for adoption from day one.',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80',
-    link: '#',
+    link: '/works/case-studies/salesforce-migration',
     gradient: 'linear-gradient(135deg, #10b981, #059669)',
   },
 ];
