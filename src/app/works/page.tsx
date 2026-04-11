@@ -39,10 +39,10 @@ export default function WorksPage() {
               Selected work
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-              Not a portfolio.
+              This isn&apos;t a portfolio.
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              A view into how systems break and how we make them work.
+              It&apos;s what happens when you fix the system first.
             </Typography>
           </Box>
         </Container>
@@ -55,7 +55,7 @@ export default function WorksPage() {
             <Typography variant="h2" sx={{ mb: 6 }}>Featured</Typography>
 
             <Typography variant="h3" sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, fontWeight: 600, mb: 1 }}>
-              Fixing an enterprise system that couldn&apos;t support its own decisions
+              An enterprise platform where nothing connected
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: 500, color: 'text.secondary', mb: 4 }}>
               Enterprise Content Platform — Hyland Software
@@ -185,16 +185,16 @@ export default function WorksPage() {
           <Box sx={{ maxWidth: '44rem' }}>
             <Typography variant="h2" sx={{ mb: 4 }}>What this work reflects</Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              Every system looks different on the surface.
+              Every system looks different.
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              But the problems are consistent:
+              But the pattern is always the same:
             </Typography>
             <Box component="ul" sx={{ pl: 2.5, m: 0, mb: 4 }}>
               {[
-                'Decisions don\'t connect',
-                'Ownership isn\'t clear',
-                'Work moves differently than it\'s described',
+                'Decisions don\'t land',
+                'Nobody\'s sure who owns what',
+                'The way work moves doesn\'t match anyone\'s plan',
               ].map((item) => (
                 <li key={item}>
                   <Typography variant="body1" color="text.secondary" sx={{ mb: 0.5 }}>{item}</Typography>
@@ -202,7 +202,7 @@ export default function WorksPage() {
               ))}
             </Box>
             <Typography variant="body1" sx={{ fontWeight: 500 }}>
-              We fix those problems at the system level.
+              We fix the pattern, not the symptoms.
             </Typography>
           </Box>
         </Container>
@@ -220,9 +220,9 @@ export default function WorksPage() {
       >
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
-            <Typography variant="h2" sx={{ mb: 2 }}>Start with the system</Typography>
+            <Typography variant="h2" sx={{ mb: 2 }}>Recognize the pattern?</Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-              Where is your system breaking?
+              Let&apos;s find out what&apos;s underneath yours.
             </Typography>
             <Button
               component={Link}

@@ -177,7 +177,7 @@ export default function Hero() {
                 mb: 1,
               }}
             >
-              The problem was always there.
+              Your AI strategy isn&apos;t broken.
             </Typography>
             <Typography
               variant="h1"
@@ -191,7 +191,7 @@ export default function Hero() {
                 mb: 3,
               }}
             >
-              AI just made it visible.
+              Your system is.
             </Typography>
           </Box>
 
@@ -200,7 +200,7 @@ export default function Hero() {
               variant="body1"
               sx={{ mb: 4, maxWidth: 500, mx: 'auto', fontSize: typography.sizes.lg, color: 'rgba(255,255,255,0.85)' }}
             >
-              We help teams build systems that work.
+              We step inside and fix what&apos;s underneath — so AI actually works.
             </Typography>
           </Box>
 
@@ -218,7 +218,7 @@ export default function Hero() {
               }}
             >
               <PlayArrowRoundedIcon sx={{ fontSize: 20, mr: 0.5 }} />
-              Watch 30sec Intro
+              See How It Works
             </Button>
             <Button
               component={Link}

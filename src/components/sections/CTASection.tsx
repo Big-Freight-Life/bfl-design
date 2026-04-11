@@ -23,7 +23,7 @@ export default function CTASection() {
             lineHeight: typography.lineHeights.tight,
           }}
         >
-          Alignment is what scales.
+          Your system won&apos;t fix itself.
         </Typography>
         <Typography
           variant="body1"
@@ -36,7 +36,7 @@ export default function CTASection() {
             lineHeight: typography.lineHeights.relaxed,
           }}
         >
-          Everything else breaks under pressure.
+          Let&apos;s figure out what&apos;s underneath.
         </Typography>
         <Button
           component={Link}
@@ -52,7 +52,7 @@ export default function CTASection() {
             '&:hover': { bgcolor: colors.button.primary.hover },
           }}
         >
-          Get in Touch
+          Start a Conversation
         </Button>
       </Container>
     </Box>

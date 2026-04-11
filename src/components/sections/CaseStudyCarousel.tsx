@@ -33,7 +33,7 @@ export default function CaseStudyCarousel() {
               fontWeight: typography.weights.semibold,
             }}
           >
-            Not theory. Actual systems.
+            Here&apos;s what it looks like.
           </Typography>
           <Button
             component={Link}

@@ -6,21 +6,21 @@ import { colors, typography, radius } from '@/theme/tokens';
 
 const pillars = [
   {
-    title: 'See the System',
-    description: 'Understand how work actually moves—beyond documentation, into reality.',
-    linkText: 'Step into the system',
+    title: 'Map the Real Flow',
+    description: 'We see how work actually moves — where decisions stall, where ownership disappears, where people route around the system.',
+    linkText: 'How we start',
     href: '/transformation',
   },
   {
-    title: 'Reshape the System',
-    description: 'Realign decisions, ownership, and structure so everything connects.',
+    title: 'Restructure What\u2019s Broken',
+    description: 'We realign decisions, ownership, and process so the system supports the work instead of fighting it.',
     linkText: 'How we realign',
     href: '/transformation',
   },
   {
-    title: 'Build What Holds',
-    description: 'Design systems, tools, and AI that support the work at scale.',
-    linkText: 'What we build',
+    title: 'Make AI Fit',
+    description: 'Once the system holds, AI stops being a bolt-on and becomes an accelerant.',
+    linkText: 'See the results',
     href: '/works',
   },
 ];
@@ -40,22 +40,21 @@ export default function WhatWeDoSection() {
               lineHeight: typography.lineHeights.snug,
             }}
           >
-            We step into the system as it exists.
+            Here&apos;s how we fix it.
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{ mb: 2, fontSize: typography.sizes.lg, fontWeight: typography.weights.medium }}
           >
-            Not how it&apos;s documented, how it actually works.
+            We step into your system as it actually runs — not the org chart, not the docs.
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{ fontSize: typography.sizes.base, lineHeight: typography.lineHeights.relaxed }}
           >
-            Then we help teams realign it—so decisions connect, ownership is clear, and systems
-            support the work they&apos;re meant to carry.
+            Then we restructure it so decisions flow, ownership is clear, and AI has something real to run on.
           </Typography>
         </Box>
 

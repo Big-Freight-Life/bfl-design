@@ -63,7 +63,7 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.snug,
             }}
           >
-            You don&apos;t need more tools.
+            The technology isn&apos;t the problem.
           </Typography>
           <Typography
             variant="body1"
@@ -74,22 +74,11 @@ export default function POVSection() {
               lineHeight: typography.lineHeights.relaxed,
             }}
           >
-            The issue isn&apos;t what&apos;s being added.
+            The system it runs inside is.
             <br />
-            It&apos;s what was never designed.
+            That&apos;s what we fix.
           </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              mb: 4,
-              fontSize: typography.sizes.base,
-              lineHeight: typography.lineHeights.relaxed,
-              fontWeight: typography.weights.medium,
-            }}
-          >
-            We fix that.
-          </Typography>
+          <Box sx={{ mb: 4 }} />
 
           <Box
             component={Link}

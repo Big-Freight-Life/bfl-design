@@ -378,17 +378,13 @@ export default function WorkshopPage() {
                     mb: 3,
                   }}
                 >
-                  Learn actionable systems-thinking skills to gain a competitive edge
+                  Build the systems-thinking skills that make your work hold up under pressure
                 </Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 2 }}>
-                  The people who consistently do great work aren&#39;t smarter, they think more clearly. They
-                  have systems for navigating ambiguity, making decisions under pressure, and communicating
-                  with precision.
+                  The people who do consistently great work aren&#39;t smarter &mdash; they have better systems for thinking. They know how to navigate ambiguity, make decisions under pressure, and communicate clearly.
                 </Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.625, mb: 6 }}>
-                  In this intensive course you will build your own systems. Each week will be packed with
-                  practical frameworks, hands-on exercises, and 1:1 feedback to give you the instincts that
-                  make great work repeatable.
+                  This course gives you those systems. Each week: practical frameworks, hands-on exercises, and direct feedback.
                 </Typography>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -654,13 +650,13 @@ export default function WorkshopPage() {
       >
         <Container maxWidth="lg">
           <Typography variant="h2" sx={{ fontWeight: 600, color: 'text.primary', mb: 2 }}>
-            Ready to transform how you work?
+            Ready to think more clearly?
           </Typography>
           <Typography
             variant="body1"
             sx={{ color: 'text.primary', maxWidth: '36rem', mx: 'auto', mb: 4, lineHeight: 1.625 }}
           >
-            Join the next cohort and build a system for doing your best work, every time.
+            Join the next cohort and build a system that makes great work repeatable.
           </Typography>
           <Button
             variant="contained"

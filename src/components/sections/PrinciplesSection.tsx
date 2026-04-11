@@ -38,14 +38,14 @@ export default function PrinciplesSection() {
               mb: 3,
             }}
           >
-            What&apos;s Actually Breaking
+            Sound familiar?
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{ mb: 2, fontSize: typography.sizes.lg }}
           >
-            Teams don&apos;t struggle because they lack tools, it&apos;s because:
+            You&apos;ve added the tools. You&apos;ve hired the people. But:
           </Typography>
           <Box
             component="ul"
@@ -60,9 +60,9 @@ export default function PrinciplesSection() {
             }}
           >
             {[
-              "Decisions aren't connected",
-              "Ownership isn't clear",
-              "Systems don't reflect how work actually happens",
+              "Decisions still take too long",
+              "Nobody's sure who owns what",
+              "The way work actually moves doesn't match anyone's plan",
             ].map((item) => (
               <Box
                 key={item}
@@ -76,7 +76,7 @@ export default function PrinciplesSection() {
             ))}
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-            Progress looks like movement, but doesn&apos;t hold.
+            It&apos;s not a people problem. It&apos;s a system problem.
           </Typography>
         </Box>
       </Container>
@@ -95,7 +95,7 @@ export default function PrinciplesSection() {
             textTransform: 'uppercase',
           }}
         >
-          Different domains. Same system problem.
+          Every industry. Same pattern.
         </Typography>
       </Container>
 

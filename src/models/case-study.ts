@@ -55,7 +55,7 @@ export const caseStudies: CaseStudy[] = [
     label: 'Enterprise Software',
     title: 'Hyland OnBase Integration',
     excerpt:
-      'Enterprise document management meets Salesforce. Drag-and-drop content management with automatic indexing.',
+      'Salesforce and Hyland weren\u2019t talking to each other. We made the content flow without middleware or custom code.',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
     link: '/hyland-onbase-salesforce-integration/',
@@ -75,7 +75,7 @@ export const caseStudies: CaseStudy[] = [
     label: 'Case Study',
     title: 'Salesforce Migration Editorial',
     excerpt:
-      'Designed for clarity. Built for adoption. A unified platform transformation.',
+      'A platform migration that needed to land with real users \u2014 not just IT. We designed for adoption from day one.',
     year: '2025',
     imageUrl: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80',
     link: '#',

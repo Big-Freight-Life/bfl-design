@@ -60,15 +60,14 @@ export default function TransformationPage() {
                 mb: 5,
               }}
             >
-              Most teams don&apos;t have a tooling problem.
+              You&apos;ve probably tried more tools already.
             </Typography>
 
             {/* Staccato lines */}
             <Box sx={{ mb: 5 }}>
               {[
-                'Work moves.',
-                'But decisions don\u2019t always connect.',
-                'Ownership isn\u2019t always clear.',
+                'New platform. New integration. New AI pilot.',
+                'But the same problems keep showing up.',
               ].map((line) => (
                 <Typography
                   key={line}
@@ -92,7 +91,7 @@ export default function TransformationPage() {
                 lineHeight: 1.4,
               }}
             >
-              That&apos;s where things break.
+              That&apos;s not a tooling problem. That&apos;s a system problem.
             </Typography>
           </Box>
         </Container>
@@ -136,13 +135,13 @@ export default function TransformationPage() {
                 mb: 5,
               }}
             >
-              We step into how the system actually works.
+              We go inside the system as it actually runs.
             </Typography>
 
             <Box sx={{ mb: 5, pl: { xs: 2, md: 4 }, borderLeft: (theme) => `3px solid ${theme.palette.primary.main}` }}>
               {[
-                'Not the roadmap.',
-                'Not the documentation.',
+                'Not the org chart.',
+                'Not the slide deck.',
               ].map((line) => (
                 <Typography
                   key={line}
@@ -160,9 +159,9 @@ export default function TransformationPage() {
 
             <Box sx={{ mb: 5 }}>
               {[
-                'The real flow of work.',
-                'Where decisions happen.',
-                'Where things slow down.',
+                'How work really moves.',
+                'Where decisions stall.',
+                'Where ownership disappears.',
               ].map((line) => (
                 <Typography
                   key={line}
@@ -193,9 +192,9 @@ export default function TransformationPage() {
             {/* Bullet list — styled as cards */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {[
-                'We make work visible',
-                'We align decisions and ownership',
-                'We structure the system \u2014 so AI supports it, not fights it',
+                'We make the real workflow visible',
+                'We reconnect decisions to the people who own them',
+                'We give AI a foundation that actually holds',
               ].map((item, idx) => (
                 <Box
                   key={idx}
@@ -262,10 +261,10 @@ export default function TransformationPage() {
 
           <Box sx={{ maxWidth: '44rem' }}>
             {[
-              'Work moves without getting stuck.',
-              'Decisions are made with clarity.',
-              'Ownership stays clear as things scale.',
-              'AI fits into the system \u2014 instead of exposing its gaps.',
+              'Decisions stop bouncing between teams.',
+              'People know what they own \u2014 and what they don\u2019t.',
+              'Work flows the way everyone assumed it already did.',
+              'And AI starts doing what you brought it in to do.',
             ].map((line, idx) => (
               <Typography
                 key={idx}
@@ -314,16 +313,16 @@ export default function TransformationPage() {
               mb: { xs: 5, md: 6 },
             }}
           >
-            Make the system
+            Start with what&apos;s
             <br />
             <Box component="span" sx={{ color: colors.primary.main }}>
-              visible.
+              real.
             </Box>
           </Typography>
 
           <Button
             component={Link}
-            href="/transformation/workshop"
+            href="/contact"
             variant="contained"
             size="large"
             sx={{
@@ -335,7 +334,7 @@ export default function TransformationPage() {
               '&:hover': { bgcolor: colors.button.primary.hover },
             }}
           >
-            View Workshop Details
+            Start a Conversation
           </Button>
         </Container>
       </DarkHeroSection>

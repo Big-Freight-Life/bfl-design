@@ -3,7 +3,7 @@
 import { Box, Container, Typography, Grid, Button } from '@mui/material';
 import Link from 'next/link';
 import Image from 'next/image';
-import { colors, darkColors, typography, gradients } from '@/theme/tokens';
+import { colors, darkColors, gradients } from '@/theme/tokens';
 import DarkHeroSection from '@/components/common/DarkHeroSection';
 
 export default function AboutPage() {
@@ -29,7 +29,7 @@ export default function AboutPage() {
                 mb: 4,
               }}
             >
-              We design how systems think.
+              We&apos;ve been inside systems like yours.
             </Typography>
             <Typography
               variant="body1"
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 mb: 1,
               }}
             >
-              Big Freight Life is an applied AI architecture and design practice focused on one thing:
+              Big Freight Life is an applied AI architecture practice.
             </Typography>
             <Typography
               variant="body1"
@@ -51,13 +51,13 @@ export default function AboutPage() {
                 lineHeight: 1.7,
               }}
             >
-              Making complex systems actually work.
+              We help organizations fix the systems that AI is supposed to run on.
             </Typography>
           </Box>
         </Container>
       </DarkHeroSection>
 
-      {/* Section 1 — Why We Exist */}
+      {/* Section 2 — The Problem */}
       <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
@@ -65,137 +65,28 @@ export default function AboutPage() {
               variant="h2"
               sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600, mb: 4 }}
             >
-              Most systems weren&apos;t designed.
+              Nobody planned for this.
             </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, mb: 4 }}>
-              {[
-                'They evolved.',
-                'Layer by layer. Tool by tool.',
-                'Team by team.',
-              ].map((line) => (
-                <Typography key={line} variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                  {line}
-                </Typography>
-              ))}
-            </Box>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
-              Until:
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 4 }}>
+              Systems evolved. Layer by layer. Tool by tool. Team by team.
             </Typography>
-            <Box component="ul" sx={{ pl: 3, mb: 4, color: 'text.secondary' }}>
-              {[
-                'decisions don\u2019t connect',
-                'ownership is unclear',
-                'work moves differently than it\u2019s described',
-              ].map((item) => (
-                <Box component="li" key={item} sx={{ mb: 0.5 }}>
-                  <Typography variant="body1" sx={{ lineHeight: 1.7 }}>{item}</Typography>
-                </Box>
-              ))}
-            </Box>
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 4 }}>
+              Until decisions stopped connecting, ownership got fuzzy, and work started moving differently than anyone described.
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 4 }}>
+              AI didn&apos;t cause this. It just made it impossible to ignore.
+            </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 4 }}>
               <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                AI didn&apos;t create this problem.
+                Better UX didn&apos;t fix it.
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                It exposed it.
-              </Typography>
-            </Box>
-            <Typography
-              variant="body1"
-              sx={{ color: (theme) => theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg, fontWeight: 500, fontSize: '1.0625rem' }}
-            >
-              We exist to fix it.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Section 2 — What We Do */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50' }}>
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '44rem' }}>
-            <Typography
-              variant="h2"
-              sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600, mb: 4 }}
-            >
-              We work inside real environments&mdash;
-              <Box component="span" sx={{ color: 'text.secondary', fontWeight: 400 }}>
-                {' '}not ideal ones.
-              </Box>
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, mb: 4 }}>
-              {[
-                'Enterprise systems.',
-                'Operational workflows.',
-                'AI-driven products.',
-              ].map((line) => (
-                <Typography key={line} variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                  {line}
-                </Typography>
-              ))}
-            </Box>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
-              Our role is to step into the system as it exists and redesign it so everything connects:
-            </Typography>
-            <Box component="ul" sx={{ pl: 3, mb: 4, color: 'text.secondary' }}>
-              {[
-                'how work moves',
-                'where decisions happen',
-                'how AI fits into the flow',
-              ].map((item) => (
-                <Box component="li" key={item} sx={{ mb: 0.5 }}>
-                  <Typography variant="body1" sx={{ lineHeight: 1.7 }}>{item}</Typography>
-                </Box>
-              ))}
-            </Box>
-            <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 500, fontSize: '1.0625rem' }}>
-              This is what we call Applied AI Architecture.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Section 3 — How This Started */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '44rem' }}>
-            <Typography
-              variant="h2"
-              sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600, mb: 4 }}
-            >
-              This work comes from years inside complex systems&mdash;
-              <Box component="span" sx={{ color: 'text.secondary', fontWeight: 400 }}>
-                {' '}where design wasn&apos;t the problem. The system was.
-              </Box>
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
-              Where:
-            </Typography>
-            <Box component="ul" sx={{ pl: 3, mb: 4, color: 'text.secondary' }}>
-              {[
-                'tools didn\u2019t reflect reality',
-                'workflows broke under pressure',
-                'teams worked around the system instead of through it',
-              ].map((item) => (
-                <Box component="li" key={item} sx={{ mb: 0.5 }}>
-                  <Typography variant="body1" sx={{ lineHeight: 1.7 }}>{item}</Typography>
-                </Box>
-              ))}
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 4 }}>
-              <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                Traditional UX didn&apos;t solve it.
+                More tools didn&apos;t fix it.
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                More tools didn&apos;t solve it.
-              </Typography>
-              <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
-                AI alone doesn&apos;t solve it.
+                AI on its own definitely didn&apos;t fix it.
               </Typography>
             </Box>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
-              So the focus shifted:
-            </Typography>
             <Box sx={{ pl: 3, borderLeft: (theme) => `3px solid ${theme.palette.primary.main}`, mb: 4 }}>
               <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.8, fontSize: '1.0625rem', fontStyle: 'italic' }}>
                 From designing interfaces &rarr;
@@ -208,7 +99,7 @@ export default function AboutPage() {
         </Container>
       </Box>
 
-      {/* Section 4 — How We Work */}
+      {/* Section 3 — What We Do */}
       <Box component="section" sx={{ py: { xs: 8, md: 12 }, bgcolor: (theme) => theme.palette.mode === 'dark' ? 'grey.900' : 'grey.50' }}>
         <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem' }}>
@@ -216,15 +107,21 @@ export default function AboutPage() {
               variant="h2"
               sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600, mb: 4 }}
             >
-              We don&apos;t start with roadmaps.
+              We work where it&apos;s messy&mdash;
+              <Box component="span" sx={{ color: 'text.secondary', fontWeight: 400 }}>
+                {' '}not where it&apos;s clean.
+              </Box>
             </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 3, fontSize: '1.0625rem' }}>
-              We start with what&apos;s already happening.
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 4, fontSize: '1.0625rem' }}>
+              We step into the system as it actually runs &mdash; enterprise systems, operational workflows, AI-driven products &mdash; and redesign it so everything connects.
+            </Typography>
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
+              We start with what&apos;s actually happening:
             </Typography>
             <Box component="ul" sx={{ pl: 3, mb: 4, color: 'text.secondary' }}>
               {[
-                'How work actually moves',
-                'Where decisions break',
+                'How work moves',
+                'Where decisions stall',
                 'Where ownership disappears',
                 'Where AI is being forced into the wrong places',
               ].map((item) => (
@@ -234,47 +131,13 @@ export default function AboutPage() {
               ))}
             </Box>
             <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
-              Then we restructure it&mdash;
+              Then we restructure it so the system supports the work it&apos;s meant to carry.
             </Typography>
-            <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 500, fontSize: '1.0625rem' }}>
-              So the system supports the work it&apos;s meant to carry.
+            <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 500, fontSize: '1.0625rem', mb: 4 }}>
+              We call this Applied AI Architecture.
             </Typography>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* Section 5 — What Makes This Different */}
-      <Box component="section" sx={{ py: { xs: 8, md: 12 } }}>
-        <Container maxWidth="lg">
-          <Box sx={{ maxWidth: '44rem' }}>
-            <Typography
-              variant="h2"
-              sx={{ fontSize: { xs: '1.5rem', md: '1.75rem' }, fontWeight: 600, mb: 4 }}
-            >
-              We&apos;re not here to add more.
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 3, fontSize: '1.0625rem' }}>
-              We&apos;re here to make what exists make sense.
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 2, fontSize: '1.0625rem' }}>
-              That means:
-            </Typography>
-            <Box component="ul" sx={{ pl: 3, mb: 4, color: 'text.secondary' }}>
-              {[
-                'fewer disconnected tools',
-                'clearer decision paths',
-                'systems that can actually support AI',
-              ].map((item) => (
-                <Box component="li" key={item} sx={{ mb: 0.5 }}>
-                  <Typography variant="body1" sx={{ lineHeight: 1.7 }}>{item}</Typography>
-                </Box>
-              ))}
-            </Box>
-            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
-              Because AI is only as effective
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'text.primary', fontWeight: 500, fontSize: '1.0625rem' }}>
-              as the system it operates inside.
+            <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7, fontSize: '1.0625rem' }}>
+              The result: fewer disconnected tools, clearer decision paths, and a system that can actually support AI. Because AI only works as well as the system underneath it.
             </Typography>
           </Box>
         </Container>
@@ -315,13 +178,13 @@ export default function AboutPage() {
                 Designer, Builder, Founder
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
-                Ray works at the intersection of experience design, engineering, and system architecture&mdash;focusing on how systems behave, not just how they appear.
+                Ray has spent his career inside complex systems &mdash; designing, building, and fixing how they actually work. Not the interface. The system underneath.
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 2 }}>
                 His work centers on Applied AI Architecture: structuring systems so AI operates clearly, predictably, and within real-world conditions.
               </Typography>
               <Typography variant="body1" sx={{ lineHeight: 1.625, color: 'text.secondary', mb: 4 }}>
-                He brings clarity to systems that were never designed to support the complexity they carry.
+                He helps organizations stop working around their systems and start working through them.
               </Typography>
               <Button
                 component="a"
@@ -360,20 +223,17 @@ export default function AboutPage() {
         <Container maxWidth="lg">
           <Grid container spacing={{ xs: 6, md: 10 }} alignItems="flex-start">
             <Grid size={{ xs: 12, md: 7 }}>
-              <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 1, fontSize: '1.0625rem' }}>
-                Most organizations are moving faster than their systems can support. That&apos;s where things break.
-              </Typography>
               <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 4, fontSize: '1.0625rem' }}>
-                Not because of effort, but because the foundation isn&apos;t designed to matter.
+                You&apos;re moving fast. Your system isn&apos;t keeping up.
               </Typography>
               <Typography
                 variant="h3"
                 sx={{ fontSize: { xs: '1.25rem', md: '1.5rem' }, color: '#fff', fontWeight: 600, mb: 1 }}
               >
-                We design that foundation.
+                We design the foundation that makes everything else possible.
               </Typography>
               <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, mb: 5, fontSize: '1.0625rem' }}>
-                Without it, nothing else matters.
+                Without it, nothing holds.
               </Typography>
               <Button
                 component={Link}
@@ -389,7 +249,7 @@ export default function AboutPage() {
                   '&:hover': { bgcolor: colors.button.primary.hover },
                 }}
               >
-                Work With Us
+                Start a Conversation
               </Button>
             </Grid>
             <Grid size={{ xs: 12, md: 5 }}>

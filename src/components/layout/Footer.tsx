@@ -37,7 +37,7 @@ export default function Footer() {
           <Grid size={{ xs: 12, md: 6 }}>
             <Typography variant="overline" sx={{ mb: 2, display: 'block' }}>Newsletter</Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Get it before it&apos;s obvious.
+              Ideas on systems, AI, and how work actually moves.
             </Typography>
             {submitted ? (
               <Typography variant="body2" color="success.main" sx={{ fontWeight: 600 }}>
