@@ -631,7 +631,6 @@ export default function PortfolioAIWorldPage() {
         sub="Let's discuss how thoughtful design can solve your challenges."
         buttonText="Talk to an Architect"
         buttonHref="/applied-ai-architect"
-        accentColor={CYAN}
         secondaryText="Or start with a message \u2192"
         secondaryHref="/contact"
       />
