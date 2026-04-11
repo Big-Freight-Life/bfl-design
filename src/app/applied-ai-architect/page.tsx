@@ -168,7 +168,7 @@ export default function AppliedAIArchitectPage() {
             <path d="M50 0C50 27.6 27.6 50 0 50C27.6 50 50 72.4 50 100C50 72.4 72.4 50 100 50C72.4 50 50 27.6 50 0Z" fill="#D97706" />
           </svg>
         </Box>
-        <Container maxWidth={false} sx={{ maxWidth: '1600px' }}>
+        <Container maxWidth="lg">
           <Box sx={{ maxWidth: '44rem', mb: { xs: 6, md: 8 } }}>
             <Typography
               variant="h2"
@@ -195,7 +195,9 @@ export default function AppliedAIArchitectPage() {
               actually delivers.
             </Typography>
           </Box>
+        </Container>
 
+        <Container maxWidth={false} sx={{ maxWidth: '1600px' }}>
           <Grid container spacing={{ xs: 3, md: 4 }}>
             {keyPoints.map((point) => (
               <Grid key={point.title} size={{ xs: 12, md: 4 }}>
