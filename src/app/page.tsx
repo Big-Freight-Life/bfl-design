@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
 import PrinciplesSection from '@/components/sections/PrinciplesSection';
-import CaseStudyCarousel from '@/components/sections/CaseStudyCarousel';
+// import CaseStudyCarousel from '@/components/sections/CaseStudyCarousel';
 import POVSection from '@/components/sections/POVSection';
 import WhatWeDoSection from '@/components/sections/WhatWeDoSection';
 import CTASection from '@/components/sections/CTASection';
@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <Hero />
       <PrinciplesSection />
-      <CaseStudyCarousel />
+      {/* <CaseStudyCarousel /> */}
       <POVSection />
       <WhatWeDoSection />
       <CTASection />
