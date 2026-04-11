@@ -170,7 +170,7 @@ export default function Hero() {
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: '2rem', md: 'clamp(2rem, 4vw, 2.75rem)' },
+                fontSize: { xs: '2.5rem', md: 'clamp(2.5rem, 5vw, 4rem)' },
                 fontWeight: typography.weights.normal,
                 lineHeight: typography.lineHeights.tight,
                 color: '#fff',
@@ -183,7 +183,7 @@ export default function Hero() {
               variant="h1"
               component="span"
               sx={{
-                fontSize: { xs: '2rem', md: 'clamp(2rem, 4vw, 2.75rem)' },
+                fontSize: { xs: '2.5rem', md: 'clamp(2.5rem, 5vw, 4rem)' },
                 fontWeight: typography.weights.bold,
                 lineHeight: typography.lineHeights.tight,
                 color: '#fff',
