@@ -34,7 +34,7 @@ export default function WorksPage() {
           <Box sx={{ maxWidth: '44rem' }}>
             <Typography
               variant="h1"
-              sx={{ mb: 2, fontSize: { xs: '2rem', md: '2.75rem' } }}
+              sx={{ mb: 2, fontSize: { xs: '2rem', md: 'clamp(2.25rem, 5vw, 3.5rem)' }, fontWeight: 600 }}
             >
               Selected work
             </Typography>
