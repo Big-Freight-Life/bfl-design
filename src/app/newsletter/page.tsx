@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Box, Container, Typography, Button, TextField, Tab, Tabs, useTheme } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { colors, darkColors } from '@/theme/tokens';
@@ -62,6 +63,7 @@ interface ResourceItem {
   description: string;
   linkText: string;
   thumbnail?: boolean;
+  href?: string;
 }
 
 const resourceTabs: { label: string; description: string; items: ResourceItem[] }[] = [
@@ -69,9 +71,9 @@ const resourceTabs: { label: string; description: string; items: ResourceItem[] 
     label: 'Articles',
     description: 'Short essays that clarify complex ideas and challenge assumptions about AI, design, and systems.',
     items: [
-      { title: 'AI Is Not a Feature', description: 'Why treating AI as a bolt-on leads to fragile systems\u2014and what to design instead. Most teams start with the tool, not the problem. This essay explores what happens when AI is treated as infrastructure rather than decoration.', linkText: 'Read article', thumbnail: true },
-      { title: 'Designing for Exceptions, Not the Happy Path', description: 'Why edge cases are often the clearest signal of how a system really works. The happy path tells you what was planned. The exceptions tell you what was overlooked\u2014and where trust breaks down.', linkText: 'Read article', thumbnail: true },
-      { title: 'Why Small Teams Can\u2019t Afford Bad AI Decisions', description: 'How limited margin for error changes how AI should be designed and deployed. When you don\u2019t have a dedicated ML team or a budget to recover from failed experiments, every decision about automation carries real weight.', linkText: 'Read article', thumbnail: true },
+      { title: 'AI Is Not a Feature', description: 'Why treating AI as a bolt-on leads to fragile systems\u2014and what to design instead. Most teams start with the tool, not the problem. This essay explores what happens when AI is treated as infrastructure rather than decoration.', linkText: 'Read article', thumbnail: true, href: '/newsletter/ai-is-not-a-feature' },
+      { title: 'Designing for Exceptions, Not the Happy Path', description: 'Why edge cases are often the clearest signal of how a system really works. The happy path tells you what was planned. The exceptions tell you what was overlooked\u2014and where trust breaks down.', linkText: 'Read article', thumbnail: true, href: '/newsletter/designing-for-exceptions' },
+      { title: 'Why Small Teams Can\u2019t Afford Bad AI Decisions', description: 'How limited margin for error changes how AI should be designed and deployed. When you don\u2019t have a dedicated ML team or a budget to recover from failed experiments, every decision about automation carries real weight.', linkText: 'Read article', thumbnail: true, href: '/newsletter/small-teams-ai-decisions' },
     ],
   },
   {
@@ -287,6 +289,7 @@ export default function NewsletterPage() {
                       variant="contained"
                       endIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}
                       sx={{ textTransform: 'none', fontWeight: 500 }}
+                      {...(item.href ? { component: Link, href: item.href } : {})}
                     >
                       Read
                     </Button>
