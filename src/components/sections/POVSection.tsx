@@ -82,7 +82,7 @@ export default function POVSection() {
 
           <Box
             component={Link}
-            href="/transformation"
+            href="/applied-ai-architect"
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
