@@ -12,22 +12,19 @@ export default function POVSection() {
       sx={{
         position: 'relative',
         overflow: 'hidden',
-        // Desktop: fixed height, side-by-side. Mobile: stacked.
-        height: { xs: 'auto', md: 430 },
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
+        minHeight: { md: 430 },
       }}
     >
-      {/* Left half: Text content with gray bg */}
+      {/* Diamond plate background — full width */}
       <Box
         sx={{
-          width: { xs: '100%', md: '50%' },
+          position: 'absolute',
+          inset: 0,
           bgcolor: (theme) => theme.palette.mode === 'dark' ? theme.palette.background.paper : '#d8d8d8',
           backgroundImage: (theme) => {
             const highlight = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.7)';
             const shadow = theme.palette.mode === 'dark' ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.08)';
             const midtone = theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.03)';
-            // Diamond plate pattern using layered SVG-encoded background images
             return `
               url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='10' cy='10' rx='4' ry='1.5' transform='rotate(45 10 10)' fill='${encodeURIComponent(highlight)}' /%3E%3Cellipse cx='10' cy='10' rx='3.5' ry='1' transform='rotate(45 10 10)' fill='${encodeURIComponent(shadow)}' style='transform-origin:10px 10px;transform:rotate(45deg) translate(0.5px,0.5px)' /%3E%3C/svg%3E"),
               url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cellipse cx='10' cy='10' rx='4' ry='1.5' transform='rotate(-45 10 10)' fill='${encodeURIComponent(highlight)}' /%3E%3Cellipse cx='10' cy='10' rx='3.5' ry='1' transform='rotate(-45 10 10)' fill='${encodeURIComponent(shadow)}' style='transform-origin:10px 10px;transform:rotate(-45deg) translate(0.5px,0.5px)' /%3E%3C/svg%3E"),
@@ -36,21 +33,39 @@ export default function POVSection() {
           },
           backgroundSize: '20px 20px, 20px 20px, 4px 4px',
           backgroundPosition: '0 0, 10px 10px, 0 0',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'relative',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Terminal — positioned on the right half, flush to screen edge */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: '50%',
+          display: { xs: 'none', md: 'flex' },
+          bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.diamondPlate.dark : colors.surface.diamondPlate.light,
           zIndex: 1,
-          py: { xs: 8, md: 0 },
-          px: { xs: 3, md: 0 },
         }}
       >
-        <Box
-          sx={{
-            width: '100%',
-            pl: { xs: 3, md: 'max(2rem, calc(50vw - 512px + 24px))' },
-            pr: { xs: 3, md: 6, lg: 8 },
-          }}
-        >
+        <ClaudeTerminal />
+      </Box>
+
+      {/* Content — uses Container for consistent padding */}
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
+          zIndex: 2,
+          py: { xs: 8, md: 0 },
+          minHeight: { md: 430 },
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Box sx={{ maxWidth: { md: '50%' }, pr: { md: 6 } }}>
           <Typography
             variant="h3"
             sx={{
@@ -124,20 +139,7 @@ export default function POVSection() {
             </Typography>
           </Box>
         </Box>
-      </Box>
-
-      {/* Right half: Animated terminal (full bleed) */}
-      <Box
-        sx={{
-          width: { xs: '100%', md: '50%' },
-          bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.diamondPlate.dark : colors.surface.diamondPlate.light,
-          display: { xs: 'none', md: 'flex' },
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <ClaudeTerminal />
-      </Box>
+      </Container>
     </Box>
   );
 }
