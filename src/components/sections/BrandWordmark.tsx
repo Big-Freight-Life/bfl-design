@@ -83,7 +83,7 @@ export default function BrandWordmark() {
           fontWeight: typography.weights.bold,
           letterSpacing: typography.letterSpacing.tight,
           lineHeight: 1,
-          color: 'text.primary',
+          color: 'text.secondary',
           mb: 3,
           px: 2,
         }}
