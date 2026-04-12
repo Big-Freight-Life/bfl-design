@@ -49,7 +49,7 @@ export default function POVSection() {
             width: '100%',
             maxWidth: { md: 600 },
             ml: { md: 'auto' },
-            px: { md: 8 },
+            pl: { xs: 3, md: 'max(2rem, calc((50vw - 512px) + 24px))' },
             pr: { md: 10, lg: 12 },
           }}
         >
