@@ -60,7 +60,7 @@ export default function POVSection() {
           position: 'relative',
           zIndex: 2,
           py: { xs: 8, md: 0 },
-          minHeight: { md: 430 },
+          minHeight: { md: 520 },
           display: 'flex',
           alignItems: 'center',
         }}
