@@ -44,7 +44,7 @@ export default function POVSection() {
           top: 0,
           right: 0,
           bottom: 0,
-          width: '50%',
+          width: '40%',
           display: { xs: 'none', md: 'flex' },
           bgcolor: (theme) => theme.palette.mode === 'dark' ? colors.surface.diamondPlate.dark : colors.surface.diamondPlate.light,
           zIndex: 1,
@@ -65,7 +65,7 @@ export default function POVSection() {
           alignItems: 'center',
         }}
       >
-        <Box sx={{ maxWidth: { md: '50%' }, pr: { md: 6 } }}>
+        <Box sx={{ maxWidth: { md: '60%' }, pr: { md: 6 } }}>
           <Typography
             variant="h3"
             sx={{
