@@ -200,7 +200,7 @@ export default function Hero() {
               variant="body1"
               sx={{ mb: 4, maxWidth: 500, mx: 'auto', fontSize: typography.sizes.lg, color: 'rgba(255,255,255,0.85)' }}
             >
-              We step inside and fix what&apos;s underneath — so AI actually works.
+              We step inside and fix what&apos;s underneath<br />so AI actually works.
             </Typography>
           </Box>
 
