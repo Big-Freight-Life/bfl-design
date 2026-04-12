@@ -47,10 +47,8 @@ export default function POVSection() {
         <Box
           sx={{
             width: '100%',
-            maxWidth: { md: 600 },
-            ml: { md: 'auto' },
-            pl: { xs: 3, md: 'max(2rem, calc((50vw - 512px) + 24px))' },
-            pr: { md: 10, lg: 12 },
+            pl: { xs: 3, md: 'max(2rem, calc(50vw - 512px + 24px))' },
+            pr: { xs: 3, md: 6, lg: 8 },
           }}
         >
           <Typography
