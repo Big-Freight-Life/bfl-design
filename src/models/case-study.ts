@@ -51,35 +51,5 @@ export const caseStudies: CaseStudy[] = [
     link: '/works/case-studies/portfolio-ai-world',
     gradient: 'linear-gradient(135deg, #0ea5e9, #0284c7)',
   },
-  {
-    label: 'Enterprise Software',
-    title: 'Hyland OnBase Integration',
-    excerpt:
-      'Salesforce and Hyland weren\u2019t talking to each other. We made the content flow without middleware or custom code.',
-    year: '2025',
-    imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
-    link: '/works/case-studies/hyland-onbase-salesforce',
-    gradient: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-  },
-  {
-    label: 'Enterprise Software',
-    title: 'Hyland for Workday Integration',
-    excerpt:
-      'Unified content management embedded directly into Workday screens. No middleware. No custom code.',
-    year: '2025',
-    imageUrl: '',
-    link: '/works/case-studies/hyland-for-workday',
-    gradient: 'linear-gradient(180deg, #0f172a, #1e293b)',
-  },
-  {
-    label: 'Case Study',
-    title: 'Salesforce Migration Editorial',
-    excerpt:
-      'A platform migration that needed to land with real users \u2014 not just IT. We designed for adoption from day one.',
-    year: '2025',
-    imageUrl: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80',
-    link: '/works/case-studies/salesforce-migration',
-    gradient: 'linear-gradient(135deg, #10b981, #059669)',
-  },
 ];
 
