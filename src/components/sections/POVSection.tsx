@@ -118,7 +118,7 @@ export default function POVSection() {
               size="small"
               sx={{
                 bgcolor: colors.badge.meet,
-                color: '#fff',
+                color: (theme) => theme.palette.mode === 'dark' ? '#000' : '#fff',
                 fontWeight: typography.weights.semibold,
                 fontSize: typography.sizes.xs,
                 height: 22,
