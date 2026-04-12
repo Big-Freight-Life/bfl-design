@@ -58,19 +58,14 @@ export default function BrandWordmark() {
     };
   }, [isInView, hasPlayed]);
 
-  // Blinking cursor — only while typing
+  // Blinking cursor — continuous loop
   useEffect(() => {
-    if (hasPlayed) {
-      setShowCursor(true);
-      return;
-    }
-
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev);
     }, 530);
 
     return () => clearInterval(cursorInterval);
-  }, [hasPlayed]);
+  }, []);
 
   return (
     <Box
@@ -108,13 +103,16 @@ export default function BrandWordmark() {
         <Box
           component="span"
           sx={{
+            display: 'inline-block',
+            width: '2px',
+            height: '1.1em',
+            bgcolor: 'text.secondary',
             opacity: showCursor ? 1 : 0,
-            ml: '1px',
-            color: 'text.secondary',
+            ml: '2px',
+            verticalAlign: 'text-bottom',
+            transition: 'opacity 0.1s',
           }}
-        >
-          |
-        </Box>
+        />
       </Typography>
     </Box>
   );
