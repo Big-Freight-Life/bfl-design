@@ -198,25 +198,6 @@ export default function Header() {
 
         {/* Right side buttons */}
         <Box sx={{ display: { xs: 'none', lg: 'flex' }, gap: 1.5, alignItems: 'center' }}>
-          <Button
-            component="a"
-            href="https://bfl-raybot.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            size="small"
-            endIcon={<OpenInNewIcon sx={{ fontSize: '14px !important' }} />}
-            sx={(theme) => ({
-              textTransform: 'none',
-              color: theme.palette.mode === 'dark' ? darkColors.button.secondary.text : colors.button.primary.bg,
-              fontSize: '0.8125rem',
-              fontWeight: 500,
-              '&:hover': {
-                bgcolor: theme.palette.mode === 'dark' ? 'rgba(26,154,166,0.08)' : 'rgba(17,118,128,0.06)',
-              },
-            })}
-          >
-            Try Raybot
-          </Button>
           {secondaryNav.map((item) => (
             <Button
               key={item.label}
